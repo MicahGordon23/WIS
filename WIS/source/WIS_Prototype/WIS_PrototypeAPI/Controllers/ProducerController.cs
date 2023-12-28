@@ -18,7 +18,7 @@ namespace WIS_PrototypeAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Producer>>> GetPrducers()
+        public async Task<ActionResult<List<Producer>>> GetAll()
         {
             return Ok(await _context.Producers.ToListAsync());
         }
@@ -28,7 +28,7 @@ namespace WIS_PrototypeAPI.Controllers
         // Feeling cute might deleted later.
         // Not likely useful for this application
         [HttpGet("{id}")]
-        public async Task<ActionResult<Producer>> GetProducer(int id)
+        public async Task<ActionResult<Producer>> GetById(int id)
         {
             var producer = await _context.Producers.FindAsync(id);
             if (producer == null)

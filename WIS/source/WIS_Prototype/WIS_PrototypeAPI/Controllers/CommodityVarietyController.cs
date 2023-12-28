@@ -8,26 +8,22 @@ namespace WIS_PrototypeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommodityTypeController : ControllerBase
+    public class CommodityVarietyController : ControllerBase
     {
-        // Reference for Data Base Context.
+        // references to context for Dependency injection
         private readonly MasterContext _context;
 
-        //****************************************
-        // Default Ctor DI of database context.
-        public CommodityTypeController(MasterContext context)
+        // Ctor with DI of database context.
+        public CommodityVarietyController(MasterContext context)
         {
             _context = context;
         }
 
         //****************************************
-        // Gets ALL commodity Types
-        [HttpGet]
-        public async Task<ActionResult<List<CommodityType>>> GetAll()
+        // Gets ALL commodity varieties.
+        public async Task<ActionResult<List<CommodityVariety>>> GetAll()
         {
-            return Ok(await _context.CommodityTypes.ToListAsync());
+            return Ok(await _context.CommodityVarieties.ToListAsync());
         }
-
-
     }
 }
