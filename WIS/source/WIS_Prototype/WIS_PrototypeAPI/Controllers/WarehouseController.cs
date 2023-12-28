@@ -8,6 +8,13 @@ namespace WIS_PrototypeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    /**********************************************************************
+    * It is NOT intended for the operator to be able to add and/or modify 
+    *   warehoues.
+    * It would be better have this behavior and disable it thourgh a config 
+    *   like appsettings.json. Because this is NOT a business rule it is a
+    *   policy. Makes the code more flexable. This is only a prototype.
+    *********************************************************************/
     public class WarehouseController : ControllerBase
     {
         // 
