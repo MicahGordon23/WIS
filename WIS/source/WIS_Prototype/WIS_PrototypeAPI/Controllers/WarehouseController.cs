@@ -10,6 +10,7 @@ namespace WIS_PrototypeAPI.Controllers
     [ApiController]
     public class WarehouseController : ControllerBase
     {
+        // 
         private readonly MasterContext _context;
 
         public WarehouseController(MasterContext context)
@@ -25,7 +26,6 @@ namespace WIS_PrototypeAPI.Controllers
 
         //****************************************
         // Get all bins for a desired warehouse
-        //****************************************
         [HttpGet("{id}")]
         public async Task<ActionResult<List<Bin>>> GetWarehouseBins(int id)
         {

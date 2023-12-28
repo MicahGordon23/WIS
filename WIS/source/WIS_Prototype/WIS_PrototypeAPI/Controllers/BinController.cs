@@ -12,12 +12,10 @@ namespace WIS_PrototypeAPI.Controllers
     {
         //****************************************
         // Reference to data base context.
-        //****************************************
         private readonly MasterContext _context;
 
         //****************************************
         // Controller ctor with Dependency Injection of the database context.
-        //****************************************
         public BinController(MasterContext context)
         {
             _context = context;

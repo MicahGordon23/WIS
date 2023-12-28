@@ -8,8 +8,14 @@ namespace WIS_PrototypeAPI.Controllers
     [ApiController]
     public class CommodityTypeController : ControllerBase
     {
-        // Reference for Data Base Context
+        // Reference for Data Base Context.
         private readonly MasterContext _context;
 
+        //****************************************
+        // Default Ctor DI of database context.
+        public CommodityTypeController(MasterContext context)
+        {
+            _context = context;
+        }
     }
 }
