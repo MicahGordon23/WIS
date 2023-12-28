@@ -10,7 +10,7 @@ namespace WIS_PrototypeAPI.Controllers
     [ApiController]
     public class WarehouseController : ControllerBase
     {
-        private MasterContext _context;
+        private readonly MasterContext _context;
 
         public WarehouseController(MasterContext context)
         {
