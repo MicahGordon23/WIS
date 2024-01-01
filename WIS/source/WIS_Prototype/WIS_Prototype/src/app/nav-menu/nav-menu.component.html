@@ -1,1 +1,28 @@
-<p>nav-menu works!</p>
+<!--<header>
+  <nav>
+    <a [routerLink] ="['/']">Overview</a>
+    <a [routerLink] ="['/']">Loads</a>
+    <a [routerLink] ="['/']">Weightsheet</a>
+    <a [routerLink] ="['/']">Lots</a>
+    <a [routerLink] ="['/']">Reports</a>
+  </nav>
+</header>-->
+
+<header>
+  <mat-toolbar color="primary">
+    <button mat-icon-button [routerLink]="['/']">
+      <mat-icon>
+        home
+      </mat-icon>
+    </button>
+    <a mat-flat-button color="primary" [routerLink]="['/load']">
+      Loads
+    </a>
+    <a mat-flat-button color="primary" [routerLink]="['/weightsheet']">
+      Weightsheet
+    </a>
+    <a mat-flat-button color="primary" [routerLink]="['/lot']">
+      Lots
+    </a>
+  </mat-toolbar>
+</header>

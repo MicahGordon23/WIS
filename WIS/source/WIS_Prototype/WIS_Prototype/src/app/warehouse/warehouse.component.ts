@@ -5,7 +5,7 @@ import { Warehouse } from './warehouse';
 @Component({
   selector: 'app-warehouse',
   templateUrl: './warehouse.component.html',
-  styleUrls: ['./warehouse.component.css']
+  styleUrls: ['./warehouse.component.scss']
 })
 export class WarehouseComponent implements OnInit{
   public warehouses!: Warehouse[];
