@@ -1,1 +1,25 @@
-<p>weightsheet works!</p>
+<h1>Weightsheets</h1>
+
+<p *ngIf="!weightsheets"><em>Loading...</em></p>
+<table class=" ='table table-striped' aria-labelledby='tableLabel'" [hidden]="!weightsheets">
+  <thead>
+    <tr>
+      <th>Weightsheet Id</th>
+      <th>Commodity Type</th>
+      <th>Commodity Variety</th>
+      <th>Producer Id</th>
+      <th>Source Id</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let weightsheet of weightsheets">
+      <td>{{weightsheet.weightsheetId}}</td>
+      <td>{{weightsheet.commodityTypeIdLink}}</td>
+      <td>{{weightsheet.commodityVerityIdLink}}</td>
+      <td>{{weightsheet.producerIdLink}}</td>
+      <td>{{weightsheet.sourceIdLink}}</td>
+      <td>{{weightsheet.notes}}</td>
+    </tr>
+  </tbody>
+</table>
