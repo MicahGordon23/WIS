@@ -18,7 +18,7 @@ export class WeightsheetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get<Weightsheet[]>('/api/weightsheet')
+    this.http.get<Weightsheet[]>('/api/Weightsheet')
       .subscribe(result => {
         this.weightsheets = result;
       }, error => console.error(error));
