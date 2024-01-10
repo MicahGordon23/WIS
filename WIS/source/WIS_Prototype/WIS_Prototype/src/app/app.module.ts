@@ -15,7 +15,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { LoadComponent } from './load/load.component';
 import { LotComponent } from './lot/lot.component';
-import { NewLoadComponent } from './new-load/new-load.component';
+import { NewLoadComponent } from './load/new-load.component';
 
 @NgModule({
   declarations: [

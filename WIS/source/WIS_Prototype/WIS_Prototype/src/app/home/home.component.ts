@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
-import { NewLoadComponent } from '../new-load/new-load.component';
+import { NewLoadComponent } from '../load/new-load.component';
 
 
 @Component({

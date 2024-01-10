@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
-import { NewWeightsheetComponent } from '../new-weightsheet/new-weightsheet.component';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Load } from '../load/load';
 import { HttpClient } from '@angular/common/http';
+
+import { NewWeightsheetComponent } from '../new-weightsheet/new-weightsheet.component';
+import { Load } from '../load/load';
+//import { LoadComponent } from 'load.component';
 
 @Component({
   selector: 'app-new-load',
@@ -51,7 +53,11 @@ export class NewLoadComponent {
   onSubmit() {
     var load = this.load;
     if (load) {
+      // generate load id? or do this before for when clicking new laod?
+      // Controller gets the id service does the math
+      // Http Get from scale. Scale Service/Controller Most likely a controller here
       load.truckId = this.form.controls['truckId'].value;
+      load.timeIn = new Date();
       load.moistureLevel = this.form.controls['moistureLevel'].value;
       load.testWeight = this.form.controls['testWeight'].value;
       load.proteinLevel = this.form.controls['proteinLevel'].value;
