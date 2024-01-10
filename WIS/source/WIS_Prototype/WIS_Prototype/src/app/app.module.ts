@@ -11,6 +11,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { LoadComponent } from './load/load.component';
 import { LotComponent } from './lot/lot.component';
+import { NewLoadComponent } from './new-load/new-load.component';
+import { DialogModule } from '@angular/cdk/dialog';
+
 
 @NgModule({
   declarations: [
@@ -20,15 +23,19 @@ import { LotComponent } from './lot/lot.component';
     NavMenuComponent,
     WeightsheetComponent,
     LoadComponent,
-    LotComponent
+    LotComponent,
+    NewLoadComponent,
+    //DialogModule
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    DialogModule
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

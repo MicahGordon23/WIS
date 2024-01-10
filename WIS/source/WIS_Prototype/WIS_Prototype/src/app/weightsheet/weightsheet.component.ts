@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Weightsheet } from './weightsheet';
 
 
@@ -11,6 +9,7 @@ import { Weightsheet } from './weightsheet';
   styleUrls: ['./weightsheet.component.scss']
 })
 export class WeightsheetComponent implements OnInit {
+  public displayedColumns: string[] = ['weightsheetId', 'commodityTypeIdLink', 'commodityVarietyIdLink', 'ProducerIdLink', 'SourceIdLink'];
   public weightsheets!: Weightsheet[];
 
   constructor(private http: HttpClient) {
