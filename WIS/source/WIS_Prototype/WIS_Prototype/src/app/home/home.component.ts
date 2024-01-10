@@ -19,7 +19,7 @@ export class HomeComponent {
     const dialogConfig = new DialogConfig();
 
     let dialogRef = this.loadDialog.open(NewLoadComponent, {
-      width: '350px'
+     
     });
   }
 
