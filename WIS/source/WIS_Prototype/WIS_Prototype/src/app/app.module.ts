@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Imports for all Materal modules here
 import { AngularMaterialModule } from './angular-material.module';
 
+// Components
 import { AppComponent } from './app.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import { HomeComponent } from './home/home.component';
@@ -16,6 +17,11 @@ import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { LoadComponent } from './load/load.component';
 import { LotComponent } from './lot/lot.component';
 import { NewLoadComponent } from './load/new-load.component';
+
+// Services
+import { LoadService } from './load/load.service';
+import { WeightsheetService } from './weightsheet/weightsheet.service';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +43,7 @@ import { NewLoadComponent } from './load/new-load.component';
     AngularMaterialModule
   ],
 
-  providers: [],
+  providers: [ LoadService, WeightsheetService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
