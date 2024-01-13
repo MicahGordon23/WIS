@@ -17,10 +17,13 @@ import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { LoadComponent } from './load/load.component';
 import { LotComponent } from './lot/lot.component';
 import { NewLoadComponent } from './load/new-load.component';
+import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
+import { NewLotComponent } from './lot/new-lot.component';
 
 // Services
 import { LoadService } from './load/load.service';
 import { WeightsheetService } from './weightsheet/weightsheet.service';
+
 
 
 @NgModule({
@@ -33,6 +36,8 @@ import { WeightsheetService } from './weightsheet/weightsheet.service';
     LoadComponent,
     LotComponent,
     NewLoadComponent,
+    NewWeightsheetComponent,
+    NewLotComponent,
   ],
   imports: [
     BrowserModule,

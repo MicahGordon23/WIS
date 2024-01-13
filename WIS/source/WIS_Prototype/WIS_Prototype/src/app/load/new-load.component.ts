@@ -28,10 +28,7 @@ export class NewLoadComponent {
 
   openNewWeightsheetDialog(): void {
     const dialogConfig = new DialogConfig();
-
-    let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {
-      width: '350px'
-    });
+    let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {} );
   }
 
   onCancel(): void { 
