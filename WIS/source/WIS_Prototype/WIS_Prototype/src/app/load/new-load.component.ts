@@ -22,18 +22,7 @@ export class NewLoadComponent {
     private dialogRef: MatDialogRef<NewLoadComponent>,
     private http: HttpClient
     //private loadService: LoadService
-  ) {
-
-  }
-
-  openNewWeightsheetDialog(): void {
-    const dialogConfig = new DialogConfig();
-    let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {} );
-  }
-
-  onCancel(): void { 
-    this.dialogRef.close();
-  }
+  ) { }
 
   // The form model
   form!: FormGroup;
@@ -91,6 +80,16 @@ export class NewLoadComponent {
     console.log(load);
     this.dialogRef.close();
   }
+
+  openNewWeightsheetDialog(): void {
+    const dialogConfig = new DialogConfig();
+    let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {});
+  }
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
 
   //addload(l: Load): Observable<Load> {
   //  return this.http.post<Load>('/api/Load', l))

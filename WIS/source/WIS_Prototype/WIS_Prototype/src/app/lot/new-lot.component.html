@@ -1,1 +1,46 @@
-<p>new-lot works!</p>
+<div class="new-lot">
+  <h1>New Lot</h1>
+
+  <div [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p *ngIf="!producers">
+      <em>Loading...</em>
+    </p>
+
+    <!--Select ProducerID--> <!--Select Field-->
+    <mat-label>Producer</mat-label>
+    <select required>
+      <option *ngFor="let prod of producers" value="{{prod.producerId}}">
+        {{ prod.producerName }}
+      </option>
+    </select>
+    <!--State Id-->
+    <mat-form-field class="form-row">
+      <mat-label>State:</mat-label>
+      <input matInput formControlName="stateId" required placeholder="State" />
+    </mat-form-field>
+
+    <!--Landlord field-->
+    <mat-form-field class="form-row">
+      <mat-label>Landlord</mat-label>
+      <input matInput formControlName="landlord" placeholder="Landlord" />
+    </mat-form-field>
+
+    <!--Farm / FSA Number-->
+    <mat-form-field class="form-row">
+      <mat-label>Farm Number (FSA)</mat-label>
+      <input matInput formControlName="farmNumber" placeholder="Farm Number (FSA)" />
+    </mat-form-field>
+
+    <!--Notes-->
+    <mat-form-field class="form-row">
+      <mat-label>Notes</mat-label>
+      <input matInput formControlname="notes" placeholder="Notes" />
+    </mat-form-field>
+
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="onSubmit()">Done</button>
+    </mat-dialog-actions>
+
+
+  </div>
+</div>

@@ -23,8 +23,8 @@ import { NewLotComponent } from './lot/new-lot.component';
 // Services
 import { LoadService } from './load/load.service';
 import { WeightsheetService } from './weightsheet/weightsheet.service';
-
-
+import { ProducerService } from './producer/producer.service';
+import { LotService } from './lot/lot.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,13 @@ import { WeightsheetService } from './weightsheet/weightsheet.service';
     AngularMaterialModule
   ],
 
-  providers: [ LoadService, WeightsheetService ],
+  providers: [
+    LoadService,
+    WeightsheetService,
+    ProducerService,
+    LotService
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
