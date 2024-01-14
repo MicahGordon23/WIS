@@ -53,6 +53,7 @@ namespace WIS_PrototypeAPI.Controllers
 
         // POST: /api/Producer
         // Create new Producer
+        [HttpPost]
         public async Task<ActionResult<Producer>> Post(Producer producer)
         {
             _context.Producers.Add(producer);

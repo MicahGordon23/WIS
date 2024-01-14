@@ -21,6 +21,13 @@ export class LotService {
   }
 
   //**************************
+  // Get top id number
+  getTop(): Observable<Lot> {
+    var url = '/api/Lot/top';
+    return this.http.get<Lot>(url, {});
+  }
+
+  //**************************
   // POST new lot
   post(item: Lot): Observable<Lot> {
     var url = '/api/Lot';

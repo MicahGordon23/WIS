@@ -34,9 +34,19 @@ namespace WIS_PrototypeAPI.Controllers
             return Ok(await _context.Lots.ToListAsync());
         }
 
+
         //****************************************
-        // Create new Lot
-        [HttpPost]
+        // Gets top Id number from the database.
+        // GET: /api/Lot/top
+        [HttpGet("top")]
+        public async Task<ActionResult<Lot>> GetTop()
+        {
+            //db.Users.OrderByDescending(u => u.UserId).FirstOrDefault();
+            return await _context.Lots.OrderByDescending(lot => lot.LotId).FirstOrDefaultAsync();
+		}
+		//****************************************
+		// Create new Lot
+		[HttpPost]
         public async Task<ActionResult<Lot>> Post(Lot lot)
         {
             _context.Lots.Add(lot);

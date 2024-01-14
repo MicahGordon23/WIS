@@ -28,6 +28,7 @@ namespace WIS_PrototypeAPI.Controllers
 
         //****************************************
         // Get ALL districts.
+        [HttpGet]
         public async Task<ActionResult<List<District>>> GetAll()
         {
             return Ok(await _context.Districts.ToListAsync());

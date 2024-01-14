@@ -34,12 +34,13 @@ export class NewLotComponent {
 
   ngOnInit() {
     this.form = new FormGroup({
+      producerId: new FormControl(''),
       stateId: new FormControl(''),
       landlord: new FormControl(''),
       farmNumber: new FormControl(''),
       notes: new FormControl('')
     })
-
+    
     // Generate the id nubmer for the lot.
     this.producerService.getData().subscribe(result => this.producers = result);
     // get for the select for producers.
@@ -47,6 +48,7 @@ export class NewLotComponent {
 
   onSubmit() {
     var lot = this.lot;
+    console.log(lot);
     if (lot) {
       lot.stateId = this.form.controls['sateId'].value;
       lot.landlord = this.form.controls['landlord'].value;

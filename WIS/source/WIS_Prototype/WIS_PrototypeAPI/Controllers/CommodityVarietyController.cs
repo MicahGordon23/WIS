@@ -29,6 +29,7 @@ namespace WIS_PrototypeAPI.Controllers
 
         //****************************************
         // Gets ALL commodity varieties.
+        [HttpGet]
         public async Task<ActionResult<List<CommodityVariety>>> GetAll()
         {
             return Ok(await _context.CommodityVarieties.ToListAsync());
