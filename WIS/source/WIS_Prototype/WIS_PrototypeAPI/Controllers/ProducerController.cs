@@ -24,7 +24,13 @@ namespace WIS_PrototypeAPI.Controllers
             _context = context;
         }
 
-        [HttpGet]
+		private bool ProducerExists(int id)
+		{
+			return _context.Producers.Any(e => e.ProducerId == id);
+		}
+
+		//GET: /api/Producer
+		[HttpGet]
         public async Task<ActionResult<List<Producer>>> GetAll()
         {
             return Ok(await _context.Producers.ToListAsync());
@@ -43,6 +49,43 @@ namespace WIS_PrototypeAPI.Controllers
                 return NotFound();
             }
             return producer;
+        }
+
+        // POST: /api/Producer
+        // Create new Producer
+        public async Task<ActionResult<Producer>> Post(Producer producer)
+        {
+            _context.Producers.Add(producer);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("Get", new { id = producer.ProducerId }, producer);
+        }
+
+        // PUT: /api/Producer
+        [HttpPut]
+        public async Task<IActionResult> Put(int id, Producer producer)
+        {
+            if (id != producer.ProducerId) 
+            {
+                return BadRequest();
+            }
+            _context.Entry(producer).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProducerExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
         }
     }
 }
