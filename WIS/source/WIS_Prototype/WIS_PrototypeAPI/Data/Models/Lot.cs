@@ -1,29 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WIS_PrototypeAPI.Data.Models;
-
-public partial class Lot
+namespace WIS_PrototypeAPI.Data.Models
 {
-    public long LotId { get; set; }
+	public class Lot
+	{
+		[Key]
+		[Required]
+		public long LotId { get; set; }
 
-    public int ProducerIdLink { get; set; }
+		[Column(TypeName = "nvarchar(5)")]
+		public string? StateId { get; set; } = null;
 
-    public string? StateId { get; set; }
+		public DateTime? StartDate { get; set; } = null;
 
-    public DateTime? StartDate { get; set; }
+		public DateTime? EndDate { get; set; } = null;
+		[Column(TypeName = "nvarchar(30)")]
+		public string? Landlord { get; set; } = null;
+		[Column(TypeName = "nvarchar(30)")]
+		public string? FarmNumber { get; set; } = null;
+		[Column(TypeName = "nvarchar(200)")]
+		public string? Notes { get; set; } = null;
 
-    public DateTime? EndDate { get; set; }
+		// Commodity Type
+		[ForeignKey(nameof(CommodityType))]
+		public int? CommodityTypeIdLink { get; set; }
+		public CommodityType? CommodityType { get; set; } = null;
 
-    public string? Landlord { get; set; }
-
-    public string? FarmNumber { get; set; }
-
-    public string? TruckId { get; set; }
-
-    public string? Notes { get; set; }
-
-    public virtual Producer ProducerIdLinkNavigation { get; set; } = null!;
-
-    public virtual ICollection<Weightsheet> Weightsheets { get; set; } = new List<Weightsheet>();
+		// Commodity Veriety
+		[ForeignKey(nameof(CommodityVeriety))]
+		public long? CommodityVerietyIdLink { get; set; }
+		public CommodityVeriety? CommodityVeriety { get; set; } = null;
+	}
 }

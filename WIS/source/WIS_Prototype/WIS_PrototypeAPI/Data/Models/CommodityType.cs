@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WIS_PrototypeAPI.Data.Models;
-
-public partial class CommodityType
+namespace WIS_PrototypeAPI.Data.Models
 {
-    public int CommodityTypeId { get; set; }
+	public class CommodityType
+	{
+		/**********************************************
+		* PROPERTIES
+		**********************************************/
 
-    public string? CommodityTypeName { get; set; }
+		// Primary Key numeric identifier for Commodity Type.
+		[Key]
+		[Required]
+		public int CommodityTypeId { get; set; }
 
-    public virtual ICollection<Bin> Bins { get; set; } = new List<Bin>();
+		// Human understandable identifier for Commodity Type
+		[Column(TypeName = "nvarchar(50)")]
+		public string? CommodityTypeName { get; set; } = null;
 
-    public virtual ICollection<CommodityVariety> CommodityVarieties { get; set; } = new List<CommodityVariety>();
-
-    public virtual ICollection<Weightsheet> Weightsheets { get; set; } = new List<Weightsheet>();
+		// one to many
+		public ICollection<CommodityVeriety>? CommodityVerieties { get; set; } = null;
+	}
 }
