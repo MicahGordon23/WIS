@@ -13,8 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
-    )
-);
+    ));
+builder.Services.AddTransient<DbIntializer>();
 
 var app = builder.Build();
 
@@ -25,6 +25,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 }
+
+using var scope = app.Services.CreateScope();
+
+var services = scope.ServiceProvider;
+
+var initializer = services.GetRequiredService<DbIntializer>();
+
+//initializer.Run();
 
 app.UseHttpsRedirection();
 

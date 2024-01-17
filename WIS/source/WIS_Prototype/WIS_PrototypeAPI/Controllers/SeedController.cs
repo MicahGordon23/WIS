@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using WIS_PrototypeAPI.Data;
 using WIS_PrototypeAPI.Data.Models;
 
@@ -26,6 +24,7 @@ namespace WIS_PrototypeAPI.Controllers
 		[HttpGet]
 		public async Task<ActionResult> Import()
 		{
+			Console.WriteLine("Starting Seeding of Database");
 			// District
 			var testDistrict = _context.Districts.FirstOrDefault(d => d.DistrictId == 1);
 			if (testDistrict == null) 
@@ -206,6 +205,8 @@ namespace WIS_PrototypeAPI.Controllers
 					WeightsheetIdLink = 3
 				});
 			}
+
+			Console.Write("Saving...");
 			return Ok(await _context.SaveChangesAsync());
 			//_context.SaveChanges();
 		}
