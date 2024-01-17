@@ -23,5 +23,10 @@ namespace WIS_PrototypeAPI.Data.Models
 		public double? ProtienLevel { get; set; }
 		[Column(TypeName = "nvarchar(200)")]
 		public string? Notes { get; set; } = null;
+
+		// many to one
+		[ForeignKey(nameof(Weightsheet))]
+		public long? WeightsheetIdLink { get; set; }
+		public Weightsheet? Weightsheet { get; set; } = null;
 	}
 }

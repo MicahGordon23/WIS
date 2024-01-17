@@ -130,7 +130,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 {
                     BinId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BinName = table.Column<string>(type: "nvarchar(50", nullable: true),
+                    BinName = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     NetIntake = table.Column<int>(type: "int", nullable: true),
                     WarehouseIdLink = table.Column<int>(type: "int", nullable: true),
                     CommodityTypeIdLink = table.Column<int>(type: "int", nullable: true),

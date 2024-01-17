@@ -41,9 +41,9 @@ namespace WIS_PrototypeAPI.Data.Models
 
 		public CommodityVeriety? CommodityVeriety { get; set; } = null;
 
-		// For Inbound Weightsheet
-		[ForeignKey(nameof(Producer))]
-		public int? ProducerIdLink { get; set; }
+		// For Inbound Weightsheet THIS SHOULD BE LOT YOU NERD.
+		[ForeignKey(nameof(Lot))]
+		public int? LotIdLink { get; set; }
 
 		public Producer? Producer { get; set; }
 

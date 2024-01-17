@@ -31,7 +31,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BinId"));
 
                     b.Property<string>("BinName")
-                        .HasColumnType("nvarchar(50");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("CommodityTypeIdLink")
                         .HasColumnType("int");

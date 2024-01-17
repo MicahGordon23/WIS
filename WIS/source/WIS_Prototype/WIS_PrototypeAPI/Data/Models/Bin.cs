@@ -13,9 +13,9 @@ namespace WIS_PrototypeAPI.Data.Models
 		[Key]
 		[Required]
 		public int BinId { get; set; }
-		
+
 		// Human understandable identfier for the Bin
-		[Column(TypeName = "nvarchar(50")]
+		[Column(TypeName = "nvarchar(50)")]
 		public string? BinName { get; set; } = null;
 
 		public int? NetIntake { get; set; }
