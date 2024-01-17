@@ -24,15 +24,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-}
+    // Database initializer
+	using var scope = app.Services.CreateScope();
 
-using var scope = app.Services.CreateScope();
+	var services = scope.ServiceProvider;
 
-var services = scope.ServiceProvider;
+	var initializer = services.GetRequiredService<DbIntializer>();
 
-var initializer = services.GetRequiredService<DbIntializer>();
+	initializer.Run();
+ }
 
-//initializer.Run();
+
 
 app.UseHttpsRedirection();
 

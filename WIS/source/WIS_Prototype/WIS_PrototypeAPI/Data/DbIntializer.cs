@@ -58,7 +58,7 @@ namespace WIS_PrototypeAPI.Data
 			}
 
 			// Commodity Veriety
-			var testCommodityVeriety = _context.CommodityVerieties.FirstOrDefault(c => c.CommodityVerietyeId == 1);
+			var testCommodityVeriety = _context.CommodityVerieties.FirstOrDefault(c => c.CommodityVerietyId == 1);
 			if (testCommodityVeriety == null)
 			{
 				_context.CommodityVerieties.Add(new CommodityVeriety { /*CommodityVerietyeId = 1,*/ CommodityVerietyName = "Ginney", /*CommodityTypeIdLink = 2*/ });

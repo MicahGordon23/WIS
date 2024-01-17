@@ -8,7 +8,7 @@ namespace WIS_PrototypeAPI.Data.Models
 		// Primary Key numeric identifier for Commodity Veriety.
 		[Key]
 		[Required]
-		public long CommodityVerietyeId { get; set; }
+		public long CommodityVerietyId { get; set; }
 
 		// Human understandable identifier for Commodity Type
 		[Column(TypeName = "nvarchar(50)")]
