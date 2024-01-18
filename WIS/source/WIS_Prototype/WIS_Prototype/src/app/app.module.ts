@@ -25,6 +25,8 @@ import { LoadService } from './load/load.service';
 import { WeightsheetService } from './weightsheet/weightsheet.service';
 import { ProducerService } from './producer/producer.service';
 import { LotService } from './lot/lot.service';
+import { CommodityTypeService } from './commodity-type/commodity-type.service';
+import { CommodityVarietyService } from './commodity-variety/commodity-variety.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { LotService } from './lot/lot.service';
     LoadService,
     WeightsheetService,
     ProducerService,
-    LotService
+    LotService,
+    CommodityTypeService,
+    CommodityVarietyService
   ],
 
   bootstrap: [AppComponent]

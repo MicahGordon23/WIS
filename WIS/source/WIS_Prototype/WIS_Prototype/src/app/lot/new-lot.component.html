@@ -8,11 +8,20 @@
 
     <!--Select ProducerID--> <!--Select Field-->
     <mat-label>Producer</mat-label>
-    <select required formControlName="stateId">
+    <select required formControlName="producer">
       <option *ngFor="let prod of producers" value="{{prod.producerId}}">
         {{ prod.producerName }}
       </option>
     </select>
+
+    <mat-label>Commodity Type</mat-label>
+    <select required formControlName="commodityType">
+      <option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
+        {{ comType.commodityTypeName }}
+      </option>
+    </select>
+
+
     <!--State Id-->
     <mat-form-field class="form-row">
       <mat-label>State:</mat-label>

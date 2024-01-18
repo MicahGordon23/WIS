@@ -15,21 +15,21 @@ export class ProducerService {
   //*******************************
   // GET all
   getData(): Observable<Producer[]> {
-    var url = '/api/Producer';
+    var url = '/api/Producers';
     return this.http.get<Producer[]>(url, {});
   }
 
   //*******************************
   // POST new Producer
   post(item: Producer): Observable<Producer> {
-    var url = '/api/Producer';
+    var url = '/api/Producers';
     return this.http.post<Producer>(url, item);
   }
 
   //*******************************
   // PUT update/new Producer
   put(item: Producer): Observable<Producer> {
-    var url = '/api/Producer';
+    var url = '/api/Producers';
     return this.http.put<Producer>(url, item);
   }
 }

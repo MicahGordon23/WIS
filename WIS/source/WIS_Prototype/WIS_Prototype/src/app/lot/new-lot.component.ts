@@ -10,6 +10,9 @@ import { LotService } from './lot.service';
 import { Producer } from '../producer/producer';
 import { ProducerService } from '../producer/producer.service';
 
+import { CommodityType } from '../commodity-type/commodity-type';
+import { CommodityTypeService } from '../commodity-type/commodity-type.service';
+
 @Component({
   selector: 'app-new-lot',
   templateUrl: './new-lot.component.html',
@@ -21,13 +24,16 @@ export class NewLotComponent {
     private dialogRef: MatDialogRef<NewLotComponent>,
     private http: HttpClient,
     private lotService: LotService,
-    private producerService: ProducerService
+    private producerService: ProducerService,
+    private commodityTypeService: CommodityTypeService
   ) { }
 
   // The form for model
   form!: FormGroup;
 
   producers!: Producer[];
+
+  commodities!: CommodityType[];
 
   // The new lot refernce
   lot!: Lot;
@@ -40,10 +46,13 @@ export class NewLotComponent {
       farmNumber: new FormControl(''),
       notes: new FormControl('')
     })
-    
-    // Generate the id nubmer for the lot.
+
+    // get for the form's select Producer field
     this.producerService.getData().subscribe(result => this.producers = result);
-    // get for the select for producers.
+
+    // get for the form's select Commodity Type field.
+    this.commodityTypeService.getData().subscribe(result => this.commodities = result);
+
   }
 
   onSubmit() {
