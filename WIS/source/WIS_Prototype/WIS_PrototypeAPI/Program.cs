@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 
 	var initializer = services.GetRequiredService<DbIntializer>();
 
-	initializer.Run();
+	//initializer.Run();
  }
 
 
