@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
+
 import { Weightsheet } from './weightsheet';
+import { WeightsheetService } from './weightsheet.service';
 
 
 @Component({
@@ -9,17 +12,19 @@ import { Weightsheet } from './weightsheet';
   styleUrls: ['./weightsheet.component.scss']
 })
 export class WeightsheetComponent implements OnInit {
-  public displayedColumns: string[] = ['weightsheetId', 'commodityTypeIdLink', 'commodityVarietyIdLink', 'ProducerIdLink', 'SourceIdLink'];
+  public displayedColumns: string[] = ['weightSheetId', 'commodityTypeIdLink', 'commodityVarietyIdLink', 'ProducerIdLink', 'SourceIdLink'];
   public weightsheets!: Weightsheet[];
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(
+    private weightsheetService: WeightsheetService
+  )
+    { }
 
   ngOnInit() {
-    this.http.get<Weightsheet[]>('/api/Weightsheet')
+    this.weightsheetService.getData()
       .subscribe(result => {
         this.weightsheets = result;
+        console.log(result);
       }, error => console.error(error));
   }
 }

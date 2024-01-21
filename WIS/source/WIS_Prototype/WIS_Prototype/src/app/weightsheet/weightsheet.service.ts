@@ -9,28 +9,27 @@ import { Weightsheet } from './weightsheet';
   providedIn: 'root',
 })
 
-export class WeightsheetService extends BaseService<Weightsheet> {
-  constructor(http: HttpClient) {
-    super(http);
+export class WeightsheetService{
+  constructor(private http: HttpClient) {
   }
 
-  getData(): Observable<ApiResult<Weightsheet>> {
-    var url = this.getUrl("api/Weightsheets");
-    return this.http.get<ApiResult<Weightsheet>>(url, {});
+  private url: string = "/api/Weightsheets";
+
+  getData(): Observable<Weightsheet[]> {
+   
+    return this.http.get<Weightsheet[]>(this.url, {});
   }
 
   get(id: bigint): Observable<Weightsheet> {
-    var url = this.getUrl("api/Weightsheets");
-    return this.http.get<Weightsheet>(url);
+    
+    return this.http.get<Weightsheet>(this.url);
   }
 
   put(item: Weightsheet): Observable<Weightsheet> {
-    var url = this.getUrl("api/Weightsheets/" + item.weightsheetId);
-    return this.http.put<Weightsheet>(url, item);
+    return this.http.put<Weightsheet>(this.url + item.weightSheetId, item);
   }
 
   post(item: Weightsheet): Observable<Weightsheet> {
-    var url = this.getUrl("api/Weightsheets");
-    return this.http.post<Weightsheet>(url, item);
+    return this.http.post<Weightsheet>(this.url, item);
   }
 }

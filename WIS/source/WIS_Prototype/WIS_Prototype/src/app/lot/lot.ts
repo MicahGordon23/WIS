@@ -6,6 +6,5 @@ export interface Lot {
   endDate: Date;
   landlord: string;
   farmNumber: string;
-  truckId: string; // ToDo remove row from db.
   notes: string;
 }
