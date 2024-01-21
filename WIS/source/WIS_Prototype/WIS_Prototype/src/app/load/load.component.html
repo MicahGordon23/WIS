@@ -1,1 +1,37 @@
-<p>load works!</p>
+<h1>Loads</h1>
+
+<p *ngIf="!loads"><em>Loading...</em></p>
+<table class=" ='table table-striped' aria-labelledby='tableLabel'" [hidden]="!loads">
+  <thead>
+    <tr>
+      <th>Load Id</th>
+      <th>Grose Weight</th>
+      <th>Tare Weight</th>
+      <th>Net Weight</th>
+      <th>Time In</th>
+      <th>Time Out</th>
+      <th>Bin</th>
+      <th>Moisture</th>
+      <th>Test Weight</th>
+      <th>Protein</th>
+      <th>Bill of Lading</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let load of loads">
+      <td>{{load.loadId}}</td>
+      <td>{{load.grossWeight}}</td>
+      <td>{{load.tareWeight}}</td>
+      <td>{{load.netWeight}}</td>
+      <td>{{load.timeIn}}</td>
+      <td>{{load.timeOut}}</td>
+      <td>{{load.destBin}}</td>
+      <td>{{load.moistureLevel}}</td>
+      <td>{{load.testWeight}}</td>
+      <td>{{load.protienLevel}}</td>
+      <td>{{load.bolNumber}}</td>
+      <td>{{load.notes}}</td>
+    </tr>
+  </tbody>
+</table>

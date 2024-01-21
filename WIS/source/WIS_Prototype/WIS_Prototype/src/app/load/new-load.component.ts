@@ -55,7 +55,7 @@ export class NewLoadComponent {
       truckId: new FormControl(''),
       moistureLevel: new FormControl(''),
       testWeight: new FormControl(''),
-      proteinLevel: new FormControl(''),
+      protinLevel: new FormControl(''),
       bolNumber: new FormControl(''),
       notes: new FormControl('')
     });
@@ -71,7 +71,7 @@ export class NewLoadComponent {
       load.timeIn = new Date();
       load.moistureLevel = this.form.controls['moistureLevel'].value;
       load.testWeight = this.form.controls['testWeight'].value;
-      load.proteinLevel = this.form.controls['proteinLevel'].value;
+      load.protienLevel = this.form.controls['proteinLevel'].value;
       load.bolNumber = this.form.controls['bolNumber'].value;
       load.notes = this.form.controls['notes'].value;
     }

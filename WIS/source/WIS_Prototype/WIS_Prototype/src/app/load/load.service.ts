@@ -9,28 +9,25 @@ import { Load } from './load';
   providedIn: 'root',
 })
 
-export class LoadService extends BaseService<Load> {
-  constructor(http: HttpClient) {
-    super(http);
+export class LoadService {
+  constructor(private http: HttpClient) {
   }
 
-  getData(): Observable<ApiResult<Load>> {
-    var url = this.getUrl("api/Loads");
-    return this.http.get<ApiResult<Load>>(url, {});
+  private url: string = "/api/Loads";
+
+  getData(): Observable<Load[]> {
+    return this.http.get<Load[]>(this.url, {});
   }
 
   get(id: bigint): Observable<Load> {
-    var url = this.getUrl("api/Loads");
-    return this.http.get<Load>(url);
+    return this.http.get<Load>(this.url);
   }
 
   put(item: Load): Observable<Load> {
-    var url = this.getUrl("api/Loads" + item.loadId);
-    return this.http.put<Load>(url, item);
+    return this.http.put<Load>(this.url + item.loadId, item);
   }
 
   post(item: Load): Observable<Load> {
-    var url = this.getUrl("api/Loads");
-    return this.http.post<Load>(url, item);
+    return this.http.post<Load>(this.url, item);
   }
 }

@@ -11,6 +11,6 @@ export interface Load {
   destBin?: string;
   moistureLevel?: number;
   testWeight?: number;
-  proteinLevel?: number;
+  protienLevel?: number;
   notes?: string;
 }
