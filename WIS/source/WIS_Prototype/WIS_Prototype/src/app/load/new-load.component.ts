@@ -22,21 +22,7 @@ export class NewLoadComponent {
     private dialogRef: MatDialogRef<NewLoadComponent>,
     private http: HttpClient
     //private loadService: LoadService
-  ) {
-
-  }
-
-  openNewWeightsheetDialog(): void {
-    const dialogConfig = new DialogConfig();
-
-    let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {
-      width: '350px'
-    });
-  }
-
-  onCancel(): void { 
-    this.dialogRef.close();
-  }
+  ) { }
 
   // The form model
   form!: FormGroup;
@@ -45,25 +31,25 @@ export class NewLoadComponent {
   load!: Load;
 
   ngOnInit() {
-    this.http.get<Load>('/api/Load/top').subscribe(result => {     
-      this.load = result;
-      console.log(result);
-      this.load.grossWeight = 0;
-      this.load.tareWeight = 0;
-      this.load.netWeight = 0;
-      this.load.truckId = '';
-      this.load.timeOut = new Date(0);
-      this.load.bolNumber = 0;
-      this.load.destBin = '';
-      this.load.moistureLevel = 0.0;
-      this.load.testWeight = 0.0;
-      this.load.proteinLevel = 0.0;
-      this.load.notes = '';
-      this.load.loadId = BigInt(this.load.loadId) + BigInt(10); // Generate new Load Id number.
-      console.log(typeof this.load.loadId);
-      //this.load.tareWeight += 1;
-      console.log(this.load);
-    }, error => console.error(error));
+    //this.http.get<Load>('/api/Loads/top').subscribe(result => {     
+    //  this.load = result;
+    //  console.log(result);
+    //  this.load.grossWeight = 0;
+    //  this.load.tareWeight = 0;
+    //  this.load.netWeight = 0;
+    //  this.load.truckId = '';
+    //  this.load.timeOut = new Date(0);
+    //  this.load.bolNumber = 0;
+    //  this.load.destBin = '';
+    //  this.load.moistureLevel = 0.0;
+    //  this.load.testWeight = 0.0;
+    //  this.load.proteinLevel = 0.0;
+    //  this.load.notes = '';
+    //  this.load.loadId = BigInt(this.load.loadId) + BigInt(10); // Generate new Load Id number.
+    //  console.log(typeof this.load.loadId);
+    //  //this.load.tareWeight += 1;
+    //  console.log(this.load);
+    //}, error => console.error(error));
 
     this.form = new FormGroup({
       truckId: new FormControl(''),
@@ -90,10 +76,20 @@ export class NewLoadComponent {
       load.notes = this.form.controls['notes'].value;
     }
     // put load
-    this.http.post<Load>('api/Load', load);
+    this.http.post<Load>('api/Loads', load);
     console.log(load);
     this.dialogRef.close();
   }
+
+  openNewWeightsheetDialog(): void {
+    const dialogConfig = new DialogConfig();
+    let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {});
+  }
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
 
   //addload(l: Load): Observable<Load> {
   //  return this.http.post<Load>('/api/Load', l))

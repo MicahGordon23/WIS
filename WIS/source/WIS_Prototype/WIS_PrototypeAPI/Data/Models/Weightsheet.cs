@@ -1,47 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WIS_PrototypeAPI.Data.Models;
-
-public partial class Weightsheet
+namespace WIS_PrototypeAPI.Data.Models
 {
-    public long WeightsheetId { get; set; }
+	public class Weightsheet
+	{
+		[Key]
+		[Required]
+		public long WeightSheetId { get; set; }
 
-    public int WarehouseIdLink { get; set; }
+		[Column(TypeName = "nvarchar(50)")]
+		public string? Weigher { get; set; } = null;
 
-    public int? ProducerIdLink { get; set; }
+		[Column(TypeName = "nvarchar(50)")]
+		public string? Hauler { get; set; } = null;
 
-    public int? SourceIdLink { get; set; }
+		public int? Miles { get; set; }
 
-    public int CommodityTypeIdLink { get; set; }
+		[Column(TypeName = "nvarchar(50)")]
+		public string? BillOfLading { get; set; } = null;
 
-    public long? CommodityVerityIdLink { get; set; }
+		[Column(TypeName = "nvarchar(200)")]
+		public string? Notes { get; set; } = null;
 
-    public DateTime? OpenDate { get; set; }
+		public DateTime? DateOpened { get; set; } = null;
 
-    public string? WeighterName { get; set; }
+		public DateTime? DateClosed { get; set; } = null; 
 
-    public string? HaulerName { get; set; }
+		public ICollection<Load>? Loads { get; set; } = null;
 
-    public short? Miles { get; set; }
+		// Commodity Type
+		[ForeignKey(nameof(CommodityType))]
+		public int? CommodityTypeIdLink { get; set; }
 
-    public short? Bill { get; set; }
+		public CommodityType? CommodityType { get; set; } = null;
 
-    public string? Notes { get; set; }
+		// Commodity Veriety
+		[ForeignKey(nameof(CommodityVeriety))]
+		public long? CommodityVerietyIdLink { get; set; }
 
-    public long? LotIdLink { get; set; }
+		public CommodityVeriety? CommodityVeriety { get; set; } = null;
 
-    public virtual CommodityType CommodityTypeIdLinkNavigation { get; set; } = null!;
+		// For Inbound Weightsheet THIS SHOULD BE LOT YOU NERD.
+		[ForeignKey(nameof(Lot))]
+		public long? LotIdLink { get; set; }
 
-    public virtual CommodityVariety? CommodityVerityIdLinkNavigation { get; set; }
+		public Lot? Lot { get; set; }
 
-    public virtual ICollection<Load> Loads { get; set; } = new List<Load>();
+		// For Transfer Weightsheet
+		[ForeignKey(nameof(Warehouse))]
+		public int? SourceIdLink { get; set; }
 
-    public virtual Lot? LotIdLinkNavigation { get; set; }
-
-    public virtual Producer? ProducerIdLinkNavigation { get; set; }
-
-    public virtual Warehouse? SourceIdLinkNavigation { get; set; }
-
-    public virtual Warehouse WarehouseIdLinkNavigation { get; set; } = null!;
+		public Warehouse? Warehouse { get; set; } = null;
+	}
 }

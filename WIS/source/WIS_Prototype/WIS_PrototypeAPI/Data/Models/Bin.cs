@@ -1,23 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WIS_PrototypeAPI.Data.Models;
-
-public partial class Bin
+namespace WIS_PrototypeAPI.Data.Models
 {
-    public long BinId { get; set; }
+	public class Bin
+	{
+		/**********************************************
+		* PROPERTIES
+		**********************************************/
 
-    public int WarehouseIdLink { get; set; }
+		// Primary Key numeric identifier for Bin.
+		[Key]
+		[Required]
+		public int BinId { get; set; }
 
-    public int CommodityTypeIdLink { get; set; }
+		// Human understandable identfier for the Bin
+		[Column(TypeName = "nvarchar(50)")]
+		public string? BinName { get; set; } = null;
 
-    public string? BinName { get; set; }
+		public int? NetIntake { get; set; }
 
-    public int? CommodityVerityIdLink { get; set; }
+		// many to one (child)
+		[ForeignKey(nameof(Warehouse))]
+		public int? WarehouseIdLink { get; set; }
 
-    public long? NetIntake { get; set; }
+		// many to one (child)
+		public Warehouse? Warehouse { get; set; } = null;
 
-    public virtual CommodityType CommodityTypeIdLinkNavigation { get; set; } = null!;
+		// one to one
+		[ForeignKey(nameof(CommodityType))]
 
-    public virtual Warehouse WarehouseIdLinkNavigation { get; set; } = null!;
+		public int? CommodityTypeIdLink { get; set; }
+
+		public CommodityType? CommodityType { get; set; } = null;
+
+		// one to one 
+		[ForeignKey(nameof(CommodityVeriety))]
+		public long? CommodityVerietyIdLink { get; set; }
+
+		public CommodityVeriety? CommodityVeriety { get; set; } = null;	
+	}
 }

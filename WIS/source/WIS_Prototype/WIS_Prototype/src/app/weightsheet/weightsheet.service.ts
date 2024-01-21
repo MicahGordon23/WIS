@@ -15,22 +15,22 @@ export class WeightsheetService extends BaseService<Weightsheet> {
   }
 
   getData(): Observable<ApiResult<Weightsheet>> {
-    var url = this.getUrl("api/Weightsheet");
+    var url = this.getUrl("api/Weightsheets");
     return this.http.get<ApiResult<Weightsheet>>(url, {});
   }
 
   get(id: bigint): Observable<Weightsheet> {
-    var url = this.getUrl("api/Weightsheet");
+    var url = this.getUrl("api/Weightsheets");
     return this.http.get<Weightsheet>(url);
   }
 
   put(item: Weightsheet): Observable<Weightsheet> {
-    var url = this.getUrl("api/Weightsheet" + item.weightsheetId);
+    var url = this.getUrl("api/Weightsheets/" + item.weightsheetId);
     return this.http.put<Weightsheet>(url, item);
   }
 
   post(item: Weightsheet): Observable<Weightsheet> {
-    var url = this.getUrl("api/Weightsheet");
+    var url = this.getUrl("api/Weightsheets");
     return this.http.post<Weightsheet>(url, item);
   }
 }

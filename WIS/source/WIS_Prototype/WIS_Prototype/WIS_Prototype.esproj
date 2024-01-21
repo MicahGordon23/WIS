@@ -9,4 +9,9 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\WIS_Prototype</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\commodity-type\" />
+    <Folder Include="src\app\commodity-variety\" />
+    <Folder Include="src\app\producer\" />
+  </ItemGroup>
 </Project>

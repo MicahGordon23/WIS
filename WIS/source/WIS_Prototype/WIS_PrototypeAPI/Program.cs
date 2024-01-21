@@ -1,4 +1,4 @@
-using WIS_PrototypeAPI.DbContexts;
+using WIS_PrototypeAPI.Data;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +10,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<MasterContext>(options => 
+builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
-    )
-);
+    ));
+builder.Services.AddTransient<DbIntializer>();
 
 var app = builder.Build();
 
@@ -23,7 +23,19 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
+    // Database initializer
+	using var scope = app.Services.CreateScope();
+
+	var services = scope.ServiceProvider;
+
+	var initializer = services.GetRequiredService<DbIntializer>();
+
+    // DELETES DATABASE and reinitializes it.
+	//initializer.Run();
+ }
+
+
 
 app.UseHttpsRedirection();
 

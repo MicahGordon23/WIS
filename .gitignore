@@ -13,3 +13,4 @@ test.csv
 .vs
 .vscode
 .suo
+*.backup

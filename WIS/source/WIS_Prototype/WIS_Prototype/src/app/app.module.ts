@@ -17,11 +17,16 @@ import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { LoadComponent } from './load/load.component';
 import { LotComponent } from './lot/lot.component';
 import { NewLoadComponent } from './load/new-load.component';
+import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
+import { NewLotComponent } from './lot/new-lot.component';
 
 // Services
 import { LoadService } from './load/load.service';
 import { WeightsheetService } from './weightsheet/weightsheet.service';
-
+import { ProducerService } from './producer/producer.service';
+import { LotService } from './lot/lot.service';
+import { CommodityTypeService } from './commodity-type/commodity-type.service';
+import { CommodityVarietyService } from './commodity-variety/commodity-variety.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,8 @@ import { WeightsheetService } from './weightsheet/weightsheet.service';
     LoadComponent,
     LotComponent,
     NewLoadComponent,
+    NewWeightsheetComponent,
+    NewLotComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,15 @@ import { WeightsheetService } from './weightsheet/weightsheet.service';
     AngularMaterialModule
   ],
 
-  providers: [ LoadService, WeightsheetService ],
+  providers: [
+    LoadService,
+    WeightsheetService,
+    ProducerService,
+    LotService,
+    CommodityTypeService,
+    CommodityVarietyService
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

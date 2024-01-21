@@ -20,7 +20,7 @@ export class LoadService extends BaseService<Load> {
   }
 
   get(id: bigint): Observable<Load> {
-    var url = this.getUrl("api/Load");
+    var url = this.getUrl("api/Loads");
     return this.http.get<Load>(url);
   }
 

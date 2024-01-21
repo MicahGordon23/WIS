@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WIS_PrototypeAPI.Data.Models;
-
-public partial class Producer
+namespace WIS_PrototypeAPI.Data.Models
 {
-    public int ProducerId { get; set; }
+	public class Producer
+	{
+		[Key]
+		[Required]
+		public int ProducerId { get; set; }
+		[Column(TypeName = "nvarchar(50)")]
+		public string? ProducerName { get; set; }
 
-    public string? ProducerName { get; set; }
-
-    public virtual ICollection<Lot> Lots { get; set; } = new List<Lot>();
-
-    public virtual ICollection<Weightsheet> Weightsheets { get; set; } = new List<Weightsheet>();
+		// One to Many
+		public ICollection<Lot>? Lots { get; set; } = null;
+	}
 }

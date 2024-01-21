@@ -1,21 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WIS_PrototypeAPI.Data.Models;
-
-public partial class Warehouse
+namespace WIS_PrototypeAPI.Data.Models
 {
-    public int WarehouseId { get; set; }
+	public class Warehouse
+	{
+		// Primary Key numeric identifier for Warehouse.
+		[Key]
+		[Required]
+		public int WarehouseId { get; set; }
+		
+		// Human understandable identifier for a Warehouse
+		[Column(TypeName = "nvarchar(50)")]
+		public string? WarehouseName { get; set; } = null;
 
-    public int DistrictIdLink { get; set; }
+		// many to one
+		[ForeignKey(nameof(District))]
+		public int? DistrictIdLink { get; set; }
 
-    public string WarehouseName { get; set; } = null!;
+		public District? District { get; set; } = null;
 
-    public virtual ICollection<Bin> Bins { get; set; } = new List<Bin>();
+		// one to many
+		public ICollection<Bin>? Bins { get; set; } = null;
 
-    public virtual District DistrictIdLinkNavigation { get; set; } = null!;
-
-    public virtual ICollection<Weightsheet> WeightsheetSourceIdLinkNavigations { get; set; } = new List<Weightsheet>();
-
-    public virtual ICollection<Weightsheet> WeightsheetWarehouseIdLinkNavigations { get; set; } = new List<Weightsheet>();
+		// one to many
+		public ICollection<Weightsheet>? Weightsheets { get; set; } = null;
+	}
 }

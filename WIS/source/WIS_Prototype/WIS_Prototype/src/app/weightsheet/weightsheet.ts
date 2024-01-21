@@ -4,5 +4,9 @@ export interface Weightsheet {
   commodityVerityIdLink: number;
   producerIdLink: number;
   sourceIdLink: number;
+  weigher: string;
+  hauler: string;
+  miles: number;
+  billOfLading: string;
   notes: string;
 }
