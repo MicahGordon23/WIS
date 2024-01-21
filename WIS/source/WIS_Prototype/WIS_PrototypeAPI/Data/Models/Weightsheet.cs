@@ -43,9 +43,9 @@ namespace WIS_PrototypeAPI.Data.Models
 
 		// For Inbound Weightsheet THIS SHOULD BE LOT YOU NERD.
 		[ForeignKey(nameof(Lot))]
-		public int? LotIdLink { get; set; }
+		public long? LotIdLink { get; set; }
 
-		public Producer? Producer { get; set; }
+		public Lot? Lot { get; set; }
 
 		// For Transfer Weightsheet
 		[ForeignKey(nameof(Warehouse))]
