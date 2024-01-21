@@ -36,7 +36,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.Property<int?>("CommodityTypeIdLink")
                         .HasColumnType("int");
 
-                    b.Property<long?>("CommodityVerietyIdLink")
+                    b.Property<long?>("CommodityVarietyIdLink")
                         .HasColumnType("bigint");
 
                     b.Property<int?>("NetIntake")
@@ -49,7 +49,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.HasIndex("CommodityTypeIdLink");
 
-                    b.HasIndex("CommodityVerietyIdLink");
+                    b.HasIndex("CommodityVarietyIdLink");
 
                     b.HasIndex("WarehouseIdLink");
 
@@ -72,25 +72,25 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.ToTable("CommodityTypes");
                 });
 
-            modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.CommodityVeriety", b =>
+            modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.CommodityVariety", b =>
                 {
-                    b.Property<long>("CommodityVerietyeId")
+                    b.Property<long>("CommodityVarietyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CommodityVerietyeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CommodityVarietyId"));
 
                     b.Property<int?>("CommodityTypeIdLink")
                         .HasColumnType("int");
 
-                    b.Property<string>("CommodityVerietyName")
+                    b.Property<string>("CommodityVarietyName")
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("CommodityVerietyeId");
+                    b.HasKey("CommodityVarietyId");
 
                     b.HasIndex("CommodityTypeIdLink");
 
-                    b.ToTable("CommodityVerieties");
+                    b.ToTable("CommodityVarieties");
                 });
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.District", b =>
@@ -171,7 +171,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.Property<int?>("CommodityTypeIdLink")
                         .HasColumnType("int");
 
-                    b.Property<long?>("CommodityVerietyIdLink")
+                    b.Property<long?>("CommodityVarietyIdLink")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("EndDate")
@@ -199,7 +199,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.HasIndex("CommodityTypeIdLink");
 
-                    b.HasIndex("CommodityVerietyIdLink");
+                    b.HasIndex("CommodityVarietyIdLink");
 
                     b.HasIndex("ProducerIdLink");
 
@@ -257,7 +257,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.Property<int?>("CommodityTypeIdLink")
                         .HasColumnType("int");
 
-                    b.Property<long?>("CommodityVerietyIdLink")
+                    b.Property<long?>("CommodityVarietyIdLink")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DateClosed")
@@ -269,17 +269,14 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.Property<string>("Hauler")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("LotIdLink")
-                        .HasColumnType("int");
+                    b.Property<long?>("LotIdLink")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("Miles")
                         .HasColumnType("int");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int?>("ProducerId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("SourceIdLink")
                         .HasColumnType("int");
@@ -291,13 +288,13 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.HasIndex("CommodityTypeIdLink");
 
-                    b.HasIndex("CommodityVerietyIdLink");
+                    b.HasIndex("CommodityVarietyIdLink");
 
-                    b.HasIndex("ProducerId");
+                    b.HasIndex("LotIdLink");
 
                     b.HasIndex("SourceIdLink");
 
-                    b.ToTable("Weightssheets");
+                    b.ToTable("Weightsheets");
                 });
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Bin", b =>
@@ -306,9 +303,9 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CommodityTypeIdLink");
 
-                    b.HasOne("WIS_PrototypeAPI.Data.Models.CommodityVeriety", "CommodityVeriety")
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.CommodityVariety", "CommodityVariety")
                         .WithMany()
-                        .HasForeignKey("CommodityVerietyIdLink");
+                        .HasForeignKey("CommodityVarietyIdLink");
 
                     b.HasOne("WIS_PrototypeAPI.Data.Models.Warehouse", "Warehouse")
                         .WithMany("Bins")
@@ -316,15 +313,15 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.Navigation("CommodityType");
 
-                    b.Navigation("CommodityVeriety");
+                    b.Navigation("CommodityVariety");
 
                     b.Navigation("Warehouse");
                 });
 
-            modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.CommodityVeriety", b =>
+            modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.CommodityVariety", b =>
                 {
                     b.HasOne("WIS_PrototypeAPI.Data.Models.CommodityType", "CommodityType")
-                        .WithMany("CommodityVerieties")
+                        .WithMany("CommodityVarieties")
                         .HasForeignKey("CommodityTypeIdLink");
 
                     b.Navigation("CommodityType");
@@ -345,9 +342,9 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CommodityTypeIdLink");
 
-                    b.HasOne("WIS_PrototypeAPI.Data.Models.CommodityVeriety", "CommodityVeriety")
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.CommodityVariety", "CommodityVariety")
                         .WithMany()
-                        .HasForeignKey("CommodityVerietyIdLink");
+                        .HasForeignKey("CommodityVarietyIdLink");
 
                     b.HasOne("WIS_PrototypeAPI.Data.Models.Producer", "Producer")
                         .WithMany("Lots")
@@ -355,7 +352,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.Navigation("CommodityType");
 
-                    b.Navigation("CommodityVeriety");
+                    b.Navigation("CommodityVariety");
 
                     b.Navigation("Producer");
                 });
@@ -375,13 +372,13 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CommodityTypeIdLink");
 
-                    b.HasOne("WIS_PrototypeAPI.Data.Models.CommodityVeriety", "CommodityVeriety")
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.CommodityVariety", "CommodityVariety")
                         .WithMany()
-                        .HasForeignKey("CommodityVerietyIdLink");
+                        .HasForeignKey("CommodityVarietyIdLink");
 
-                    b.HasOne("WIS_PrototypeAPI.Data.Models.Producer", "Producer")
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.Lot", "Lot")
                         .WithMany()
-                        .HasForeignKey("ProducerId");
+                        .HasForeignKey("LotIdLink");
 
                     b.HasOne("WIS_PrototypeAPI.Data.Models.Warehouse", "Warehouse")
                         .WithMany("Weightsheets")
@@ -389,16 +386,16 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.Navigation("CommodityType");
 
-                    b.Navigation("CommodityVeriety");
+                    b.Navigation("CommodityVariety");
 
-                    b.Navigation("Producer");
+                    b.Navigation("Lot");
 
                     b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.CommodityType", b =>
                 {
-                    b.Navigation("CommodityVerieties");
+                    b.Navigation("CommodityVarieties");
                 });
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.District", b =>

@@ -35,17 +35,17 @@ namespace WIS_PrototypeAPI.Data
 			greenPeas.CommodityTypeName = "Green Pea";
 
 			// Commodity Variety
-			CommodityVeriety argonPeas = new CommodityVeriety();
-			argonPeas.CommodityVerietyName = "Argon";
+			CommodityVariety argonPeas = new CommodityVariety();
+			argonPeas.CommodityVarietyName = "Argon";
 			argonPeas.CommodityType = greenPeas;
 
-			CommodityVeriety ginneyPeas = new CommodityVeriety();
-			ginneyPeas.CommodityVerietyName = "Ginney";
+			CommodityVariety ginneyPeas = new CommodityVariety();
+			ginneyPeas.CommodityVarietyName = "Ginney";
 			ginneyPeas.CommodityType = greenPeas;
 
-			greenPeas.CommodityVerieties = new List<CommodityVeriety>();
-			greenPeas.CommodityVerieties.Add(argonPeas);
-			greenPeas.CommodityVerieties.Add(ginneyPeas);
+			greenPeas.CommodityVarieties = new List<CommodityVariety>();
+			greenPeas.CommodityVarieties.Add(argonPeas);
+			greenPeas.CommodityVarieties.Add(ginneyPeas);
 
 			// Bins
 			Bin binOne = new Bin();
@@ -61,13 +61,13 @@ namespace WIS_PrototypeAPI.Data
 			Bin binThree = new Bin();
 			binThree.BinName = "3";
 			binThree.CommodityType = greenPeas;
-			binThree.CommodityVeriety = argonPeas;
+			binThree.CommodityVariety = argonPeas;
 			binThree.Warehouse = spofford;
 
 			Bin binFour = new Bin();
 			binFour.BinName = "4";
 			binFour.CommodityType = greenPeas;
-			binFour.CommodityVeriety = ginneyPeas;
+			binFour.CommodityVariety = ginneyPeas;
 			binFour.Warehouse = spofford;
 
 			Bin groundPile = new Bin();
@@ -115,14 +115,14 @@ namespace WIS_PrototypeAPI.Data
 			l3.StateId = "WA";
 			l3.StartDate = new DateTime(2023, 08, 13);
 			l3.CommodityType = greenPeas;
-			l3.CommodityVeriety = argonPeas;
+			l3.CommodityVariety = argonPeas;
 			l3.Producer = diamondX;
 
 			Lot l4 = new Lot();
 			l4.StateId = "WA";
 			l4.StartDate = new DateTime(2023, 08, 14);
 			l4.CommodityType = greenPeas;
-			l4.CommodityVeriety = ginneyPeas;
+			l4.CommodityVariety = ginneyPeas;
 			l4.Producer = dodge;
 
 			// Adding Lots to Producers.
@@ -155,7 +155,7 @@ namespace WIS_PrototypeAPI.Data
 			w3.Weigher = "Joshua Walling";
 			w3.DateOpened = new DateTime(2023, 08, 13);
 			w3.CommodityType = greenPeas;
-			w3.CommodityVeriety = argonPeas;
+			w3.CommodityVariety = argonPeas;
 			w3.Lot = l3;
 			w3.Warehouse = spofford;
 
@@ -163,9 +163,15 @@ namespace WIS_PrototypeAPI.Data
 			w4.Weigher = "Micah Gordon";
 			w4.DateOpened = new DateTime(2023, 08, 14);
 			w4.CommodityType = greenPeas;
-			w4.CommodityVeriety = ginneyPeas;
+			w4.CommodityVariety = ginneyPeas;
 			w4.Lot = l4;
 			w4.Warehouse = spofford;
+
+			spofford.DestWeightsheets = new List<Weightsheet>();
+			spofford.DestWeightsheets.Add(w1);
+			spofford.DestWeightsheets.Add(w2);
+			spofford.DestWeightsheets.Add(w3);
+			spofford.DestWeightsheets.Add(w4);
 
 			// Loads
 			Load load1 = new Load();
@@ -244,8 +250,8 @@ namespace WIS_PrototypeAPI.Data
 			_context.Warehouses.Add(spofford);
 			_context.CommodityTypes.Add(softWhiteWheat);
 			_context.CommodityTypes.Add(greenPeas);
-			_context.CommodityVerieties.Add(ginneyPeas);
-			_context.CommodityVerieties.Add(argonPeas);
+			_context.CommodityVarieties.Add(ginneyPeas);
+			_context.CommodityVarieties.Add(argonPeas);
 			_context.Bins.Add(binOne);
 			_context.Bins.Add(binTwo);
 			_context.Bins.Add(binThree);
@@ -258,10 +264,10 @@ namespace WIS_PrototypeAPI.Data
 			_context.Lots.Add(l2);
 			_context.Lots.Add(l3);
 			_context.Lots.Add(l4);
-			_context.Weightssheets.Add(w1);
-			_context.Weightssheets.Add(w2);
-			_context.Weightssheets.Add(w3);
-			_context.Weightssheets.Add(w4);
+			_context.Weightsheets.Add(w1);
+			_context.Weightsheets.Add(w2);
+			_context.Weightsheets.Add(w3);
+			_context.Weightsheets.Add(w4);
 			_context.Loads.Add(load1);
 			_context.Loads.Add(load2);
 			_context.Loads.Add(load3);

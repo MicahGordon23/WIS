@@ -36,10 +36,10 @@ namespace WIS_PrototypeAPI.Data.Models
 		public CommodityType? CommodityType { get; set; } = null;
 
 		// Commodity Veriety
-		[ForeignKey(nameof(CommodityVeriety))]
-		public long? CommodityVerietyIdLink { get; set; }
+		[ForeignKey(nameof(CommodityVariety))]
+		public long? CommodityVarietyIdLink { get; set; }
 
-		public CommodityVeriety? CommodityVeriety { get; set; } = null;
+		public CommodityVariety? CommodityVariety { get; set; } = null;
 
 		// For Inbound Weightsheet THIS SHOULD BE LOT YOU NERD.
 		[ForeignKey(nameof(Lot))]
@@ -47,9 +47,15 @@ namespace WIS_PrototypeAPI.Data.Models
 
 		public Lot? Lot { get; set; }
 
+		//// For Transfer Weightsheet
+		//[ForeignKey(nameof(Warehouse))]
+		//public int? SourceIdLink { get; set; }
+
+		//public Source? Source { get; set; } = null;
+
 		// For Transfer Weightsheet
 		[ForeignKey(nameof(Warehouse))]
-		public int? SourceIdLink { get; set; }
+		public int? WarehouseIdLInk { get; set; }
 
 		public Warehouse? Warehouse { get; set; } = null;
 	}

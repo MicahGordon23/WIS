@@ -23,24 +23,24 @@ namespace WIS_PrototypeAPI.Controllers
 
         // GET: api/Weightsheets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Weightsheet>>> GetWeightssheets()
+        public async Task<ActionResult<IEnumerable<Weightsheet>>> GetWeightsheets()
         {
-          if (_context.Weightssheets == null)
+          if (_context.Weightsheets == null)
           {
               return NotFound();
           }
-            return await _context.Weightssheets.ToListAsync();
+            return await _context.Weightsheets.ToListAsync();
         }
 
         // GET: api/Weightsheets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Weightsheet>> GetWeightsheet(long id)
         {
-          if (_context.Weightssheets == null)
+          if (_context.Weightsheets == null)
           {
               return NotFound();
           }
-            var weightsheet = await _context.Weightssheets.FindAsync(id);
+            var weightsheet = await _context.Weightsheets.FindAsync(id);
 
             if (weightsheet == null)
             {
@@ -86,11 +86,11 @@ namespace WIS_PrototypeAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Weightsheet>> PostWeightsheet(Weightsheet weightsheet)
         {
-          if (_context.Weightssheets == null)
+          if (_context.Weightsheets == null)
           {
-              return Problem("Entity set 'AppDbContext.Weightssheets'  is null.");
+              return Problem("Entity set 'AppDbContext.Weightsheets'  is null.");
           }
-            _context.Weightssheets.Add(weightsheet);
+            _context.Weightsheets.Add(weightsheet);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetWeightsheet", new { id = weightsheet.WeightSheetId }, weightsheet);
@@ -100,17 +100,17 @@ namespace WIS_PrototypeAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWeightsheet(long id)
         {
-            if (_context.Weightssheets == null)
+            if (_context.Weightsheets == null)
             {
                 return NotFound();
             }
-            var weightsheet = await _context.Weightssheets.FindAsync(id);
+            var weightsheet = await _context.Weightsheets.FindAsync(id);
             if (weightsheet == null)
             {
                 return NotFound();
             }
 
-            _context.Weightssheets.Remove(weightsheet);
+            _context.Weightsheets.Remove(weightsheet);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -118,7 +118,7 @@ namespace WIS_PrototypeAPI.Controllers
 
         private bool WeightsheetExists(long id)
         {
-            return (_context.Weightssheets?.Any(e => e.WeightSheetId == id)).GetValueOrDefault();
+            return (_context.Weightsheets?.Any(e => e.WeightSheetId == id)).GetValueOrDefault();
         }
     }
 }

@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WIS_PrototypeAPI.Data.Models
 {
-	public class CommodityVeriety
+	public class CommodityVariety
 	{
 		// Primary Key numeric identifier for Commodity Veriety.
 		[Key]
 		[Required]
-		public long CommodityVerietyId { get; set; }
+		public long CommodityVarietyId { get; set; }
 
 		// Human understandable identifier for Commodity Type
 		[Column(TypeName = "nvarchar(50)")]
-		public string? CommodityVerietyName { get; set; } = null;
+		public string? CommodityVarietyName { get; set; } = null;
 
 		// Many to one (child)
 		[ForeignKey(nameof(CommodityType))]

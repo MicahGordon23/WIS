@@ -28,9 +28,9 @@ namespace WIS_PrototypeAPI.Data.Models
 		public CommodityType? CommodityType { get; set; } = null;
 
 		// Commodity Veriety
-		[ForeignKey(nameof(CommodityVeriety))]
-		public long? CommodityVerietyIdLink { get; set; }
-		public CommodityVeriety? CommodityVeriety { get; set; } = null;
+		[ForeignKey(nameof(CommodityVariety))]
+		public long? CommodityVarietyIdLink { get; set; }
+		public CommodityVariety? CommodityVariety { get; set; } = null;
 
 		// Producer
 		[ForeignKey(nameof(Producer))]

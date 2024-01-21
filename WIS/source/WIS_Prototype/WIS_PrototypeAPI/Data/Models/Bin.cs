@@ -35,9 +35,9 @@ namespace WIS_PrototypeAPI.Data.Models
 		public CommodityType? CommodityType { get; set; } = null;
 
 		// one to one 
-		[ForeignKey(nameof(CommodityVeriety))]
-		public long? CommodityVerietyIdLink { get; set; }
+		[ForeignKey(nameof(CommodityVariety))]
+		public long? CommodityVarietyIdLink { get; set; }
 
-		public CommodityVeriety? CommodityVeriety { get; set; } = null;	
+		public CommodityVariety? CommodityVariety { get; set; } = null;	
 	}
 }
