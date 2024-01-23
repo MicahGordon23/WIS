@@ -1,4 +1,4 @@
 export interface CommodityVariety {
-  commodityVerietyId: bigint;
-  commodityVerietyName: string;
+  commodityVarietyId: bigint;
+  commodityVarietyName: string;
 }

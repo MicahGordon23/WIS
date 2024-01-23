@@ -25,10 +25,10 @@ namespace WIS_PrototypeAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CommodityVariety>>> GetCommodityVarieties()
         {
-          if (_context.CommodityVarieties == null)
-          {
-              return NotFound();
-          }
+            if (_context.CommodityVarieties == null)
+            {
+                return NotFound();
+            }
             return await _context.CommodityVarieties.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace WIS_PrototypeAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CommodityVariety>> GetCommodityVariety(long id)
         {
-          if (_context.CommodityVarieties == null)
-          {
-              return NotFound();
-          }
+            if (_context.CommodityVarieties == null)
+            {
+                return NotFound();
+            }
             var commodityVariety = await _context.CommodityVarieties.FindAsync(id);
 
             if (commodityVariety == null)
@@ -49,6 +49,25 @@ namespace WIS_PrototypeAPI.Controllers
 
             return commodityVariety;
         }
+
+        [HttpGet("Type/{id}")]
+        public async Task<ActionResult<IEnumerable<CommodityVariety>>> GetCommodityVarietyByType(int id)
+        {
+            if (_context.CommodityVarieties == null)
+            {
+                return NotFound();
+            }
+            var commodityVariety = await _context.CommodityVarieties
+            .Where(v => v.CommodityTypeIdLink == id)
+            .ToListAsync();
+
+            if (commodityVariety == null)
+            {
+                return NotFound();
+            }
+
+            return commodityVariety;
+		}
 
         // PUT: api/CommodityVarieties/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
