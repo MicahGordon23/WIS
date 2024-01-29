@@ -8,6 +8,27 @@
       <input matInput formControlName="weigher" required placeholder="Weigher" />
     </mat-form-field>
 
+    <mat-label>Lot</mat-label>
+    <select required formControlName="lot">
+      <option *ngFor="let l of lots" value="{{l.lotId}}">
+        {{ l.lotId }}
+      </option>
+    </select>
+
+    <mat-label>Commodity Type</mat-label>
+    <select required formControlName="commodityType" (change)="onSelect($event)  ">
+      <option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
+        {{ comType.commodityTypeName }}
+      </option>
+    </select>
+
+    <mat-label>Commodity Variety</mat-label>
+    <select formControlName="commodityVariety">
+      <option *ngFor="let comVariety of varieties" value="{{comVariety.commodityVarietyId}}">
+        {{ comVariety.commodityVarietyName }}
+      </option>
+    </select>
+
     <!--Hauler Field-->
     <mat-form-field>
       <mat-label>Hauler</mat-label>
