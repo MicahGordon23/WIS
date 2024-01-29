@@ -15,6 +15,7 @@ namespace WIS_PrototypeAPI.Data.Models
 		public DateTime? StartDate { get; set; } = null;
 
 		public DateTime? EndDate { get; set; } = null;
+
 		[Column(TypeName = "nvarchar(30)")]
 		public string? Landlord { get; set; } = null;
 		[Column(TypeName = "nvarchar(30)")]
