@@ -19,6 +19,6 @@ namespace WIS_PrototypeAPI.Data.Models
 		public string? CommodityTypeName { get; set; } = null;
 
 		// one to many
-		public ICollection<CommodityVeriety>? CommodityVerieties { get; set; } = null;
+		public ICollection<CommodityVariety>? CommodityVarieties { get; set; } = null;
 	}
 }

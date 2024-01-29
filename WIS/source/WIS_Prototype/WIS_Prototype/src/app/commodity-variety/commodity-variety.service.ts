@@ -16,11 +16,15 @@ export class CommodityVarietyService {
 
   }
 
-  private url: string = '/api/CommodityVerieties';
+  private url: string = '/api/CommodityVarieties';
 
   //*************************
   // Get ALL
   getData(): Observable<CommodityVariety[]> {
     return this.http.get<CommodityVariety[]>(this.url, {});
+  }
+
+  getByType(typeId: number): Observable<CommodityVariety[]> {
+    return this.http.get<CommodityVariety[]>(this.url + '/Type/' + typeId, {})
   }
 }

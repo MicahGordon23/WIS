@@ -15,16 +15,23 @@
     </select>
 
     <mat-label>Commodity Type</mat-label>
-    <select required formControlName="commodityType">
+    <select required formControlName="commodityType" (change)="onSelect($event)  ">
       <option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
         {{ comType.commodityTypeName }}
+      </option>
+    </select>
+
+    <mat-label>Commodity Variety</mat-label>
+    <select formControlName="commodityVariety" >
+      <option *ngFor="let comVariety of varieties" value="{{comVariety.commodityVarietyId}}">
+        {{ comVariety.commodityVarietyName }}
       </option>
     </select>
 
 
     <!--State Id-->
     <mat-form-field class="form-row">
-      <mat-label>State:</mat-label>
+      <mat-label>State</mat-label>
       <input matInput formControlName="stateId" required placeholder="State" />
     </mat-form-field>
 
@@ -43,7 +50,7 @@
     <!--Notes-->
     <mat-form-field class="form-row">
       <mat-label>Notes</mat-label>
-      <input matInput formControlname="notes" placeholder="Notes" />
+      <input matInput formControlName="notes" placeholder="Notes" />
     </mat-form-field>
 
     <mat-dialog-actions>

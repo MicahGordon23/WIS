@@ -14,11 +14,14 @@
   </thead>
   <tbody>
     <tr *ngFor="let weightsheet of weightsheets">
-      <td>{{weightsheet.weightsheetId}}</td>
+      <td>{{weightsheet.weightSheetId}}</td>
       <td>{{weightsheet.commodityTypeIdLink}}</td>
-      <td>{{weightsheet.commodityVerityIdLink}}</td>
+      <td>{{weightsheet.commodityVarietyIdLink}}</td>
       <td>{{weightsheet.producerIdLink}}</td>
-      <td>{{weightsheet.sourceIdLink}}</td>
+      <!--<td>{{weightsheet.sourceIdLink}}</td>-->
+      <td>{{weightsheet.weigher}}</td>
+      <td>{{weightsheet.miles}}</td>
+      <td>{{weightsheet.billOfLading}}</td>
       <td>{{weightsheet.notes}}</td>
     </tr>
   </tbody>

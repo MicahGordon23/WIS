@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
-import { Lot } from './lot';
+import { ILot, Lot, NewLot, NewLotNoVariety } from './lot';
 import { LotService } from './lot.service';
 
 import { Producer } from '../producer/producer';
@@ -12,6 +13,9 @@ import { ProducerService } from '../producer/producer.service';
 
 import { CommodityType } from '../commodity-type/commodity-type';
 import { CommodityTypeService } from '../commodity-type/commodity-type.service';
+
+import { CommodityVariety } from '../commodity-variety/commodity-variety';
+import { CommodityVarietyService } from '../commodity-variety/commodity-variety.service';
 
 @Component({
   selector: 'app-new-lot',
@@ -25,7 +29,8 @@ export class NewLotComponent {
     private http: HttpClient,
     private lotService: LotService,
     private producerService: ProducerService,
-    private commodityTypeService: CommodityTypeService
+    private commodityTypeService: CommodityTypeService,
+    private commodityVarietyService: CommodityVarietyService
   ) { }
 
   // The form for model
@@ -35,12 +40,16 @@ export class NewLotComponent {
 
   commodities!: CommodityType[];
 
+  varieties?: CommodityVariety[];
+
   // The new lot refernce
-  lot!: Lot;
+  lot!: ILot;
 
   ngOnInit() {
     this.form = new FormGroup({
-      producerId: new FormControl(''),
+      producer: new FormControl(''),
+      commodityType: new FormControl(''),
+      commodityVariety: new FormControl(''),
       stateId: new FormControl(''),
       landlord: new FormControl(''),
       farmNumber: new FormControl(''),
@@ -53,17 +62,50 @@ export class NewLotComponent {
     // get for the form's select Commodity Type field.
     this.commodityTypeService.getData().subscribe(result => this.commodities = result);
 
+    this.varieties;
   }
 
+  onSelect(event: Event) {
+    // const filterValue = (event.target as HTMLInputElement).value;
+    const typeId = Number((event.target as HTMLInputElement).value);
+    this.commodityVarietyService.getByType(typeId)
+      .subscribe(result => this.varieties = result);
+    
+  }
+
+  //onSelect(typeId: number) {
+  //  this.commodityVarietyService.getByType(typeId).subscribe(result => this.varieties = result);
+  //}
+
   onSubmit() {
-    var lot = this.lot;
-    console.log(lot);
-    if (lot) {
-      lot.stateId = this.form.controls['sateId'].value;
-      lot.landlord = this.form.controls['landlord'].value;
-      lot.farmNumber = this.form.controls['farmNumber'].value;
-      lot.notes = this.form.controls['notes'].value;
+    // Highest Level of lot. miniumn extentions 
+    let lot = new ILot();
+
+    lot.producerIdLink = this.form.controls['producer'].value;
+    lot.commodityTypeIdLink = this.form.controls['commodityType'].value;
+    lot.stateId = this.form.controls['stateId'].value;
+    lot.landlord = this.form.controls['landlord'].value;
+    lot.farmNumber = this.form.controls['farmNumber'].value;
+    lot.notes = this.form.controls['notes'].value;
+
+    if (this.form.controls['commodityVariety'].value != '') {
+      let _lot = new NewLot();
+      _lot = lot;
+      _lot.commodityVarietyIdLink = this.form.controls['commodityVariety'].value;
+      //lot.commodityVarietyIdLink = this.form.controls['commodityVariety'].value;
+      // ?Downcast to NewLot from ILot I think
+      lot = _lot;
     }
+    
+    lot.startDate = new Date();
+
+    this.lot = lot;
+    console.log(this.lot);
+
+    this.lotService.post(this.lot)
+      .subscribe(result => {
+        console.log("Lot Added")
+      }, error => console.error(error));
   }
 
 }

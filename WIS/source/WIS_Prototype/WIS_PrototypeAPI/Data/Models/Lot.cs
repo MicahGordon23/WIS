@@ -15,6 +15,7 @@ namespace WIS_PrototypeAPI.Data.Models
 		public DateTime? StartDate { get; set; } = null;
 
 		public DateTime? EndDate { get; set; } = null;
+
 		[Column(TypeName = "nvarchar(30)")]
 		public string? Landlord { get; set; } = null;
 		[Column(TypeName = "nvarchar(30)")]
@@ -28,9 +29,9 @@ namespace WIS_PrototypeAPI.Data.Models
 		public CommodityType? CommodityType { get; set; } = null;
 
 		// Commodity Veriety
-		[ForeignKey(nameof(CommodityVeriety))]
-		public long? CommodityVerietyIdLink { get; set; }
-		public CommodityVeriety? CommodityVeriety { get; set; } = null;
+		[ForeignKey(nameof(CommodityVariety))]
+		public long? CommodityVarietyIdLink { get; set; }
+		public CommodityVariety? CommodityVariety { get; set; } = null;
 
 		// Producer
 		[ForeignKey(nameof(Producer))]

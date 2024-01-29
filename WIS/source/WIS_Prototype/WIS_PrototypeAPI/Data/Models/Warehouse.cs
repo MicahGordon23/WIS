@@ -24,6 +24,11 @@ namespace WIS_PrototypeAPI.Data.Models
 		public ICollection<Bin>? Bins { get; set; } = null;
 
 		// one to many
-		public ICollection<Weightsheet>? Weightsheets { get; set; } = null;
+		// (Weightsheets where the warehouse is the destination)
+		public ICollection<Weightsheet>? DestWeightsheets { get; set; } = null;
+
+		// one to many
+		// (Weightsheets where the warehoues is the source)
+		//public Weightsheet? SourceWeightsheets { get; set; } = null;
 	}
 }

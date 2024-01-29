@@ -1,1 +1,29 @@
-<p>lot works!</p>
+<h1>Lots</h1>
+
+<p *ngIf="!lots"><em>Loading...</em></p>
+<table class=" ='table table-striped' aria-labelledby='tableLabel'" [hidden]="!lots">
+  <thead>
+    <tr>
+      <th>Lot Id</th>
+      <th>Producer Id</th>
+      <th>Commodity Type</th>
+      <th>Commodity Variety</th>
+      <th>Start Date</th>
+      <th>Landlord</th>
+      <th>Farm Number (FSA)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lot of lots">
+      <td>{{lot.lotId}}</td>
+      <td>{{lot.producerIdLink}}</td>
+      <td>{{lot.commodityTypeIdLink}}</td>
+      <td>{{lot.commodityVarietyIdLink}}</td>
+      <td>{{lot.startDate}}</td>
+      <td>{{lot.landlord}}</td>
+      <td>{{lot.farmNumber}}</td>
+      <td>{{lot.notes}}</td>
+    </tr>
+  </tbody>
+</table>

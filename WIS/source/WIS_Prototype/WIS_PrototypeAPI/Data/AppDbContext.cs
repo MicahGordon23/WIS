@@ -19,7 +19,7 @@ namespace WIS_PrototypeAPI.Data
 
 		public DbSet<CommodityType> CommodityTypes => Set<CommodityType>();
 
-		public DbSet<CommodityVeriety> CommodityVerieties => Set<CommodityVeriety>();
+		public DbSet<CommodityVariety> CommodityVarieties => Set<CommodityVariety>();
 
 		public DbSet<District> Districts => Set<District>();
 
@@ -31,6 +31,6 @@ namespace WIS_PrototypeAPI.Data
 
 		public DbSet<Warehouse> Warehouses => Set<Warehouse>();
 
-		public DbSet<Weightsheet> Weightssheets => Set<Weightsheet>();
+		public DbSet<Weightsheet> Weightsheets => Set<Weightsheet>();
 	}
 }

@@ -1,7 +1,7 @@
 export interface Weightsheet {
-  weightsheetId: number;
+  weightSheetId: number;
   commodityTypeIdLink: number;
-  commodityVerityIdLink: number;
+  commodityVarietyIdLink: number;
   producerIdLink: number;
   sourceIdLink: number;
   weigher: string;

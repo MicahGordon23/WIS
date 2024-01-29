@@ -16,9 +16,10 @@ export class LoadComponent implements OnInit {
   }
 
   ngOnInit() {
-  this.http.get<Load[]>('api/Loads')
-    .subscribe(result => {
-      this.loads = result;
-    })
+    this.http.get<Load[]>('api/Loads')
+      .subscribe(result => {
+        this.loads = result;
+        console.log(result);
+      }, error => console.error(error));
   }
 }
