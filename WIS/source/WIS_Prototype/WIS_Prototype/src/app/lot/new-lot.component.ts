@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
-import { Lot } from './lot';
+import { ILot, Lot, NewLot, NewLotNoVariety } from './lot';
 import { LotService } from './lot.service';
 
 import { Producer } from '../producer/producer';
@@ -42,7 +43,7 @@ export class NewLotComponent {
   varieties?: CommodityVariety[];
 
   // The new lot refernce
-  lot!: Lot;
+  lot!: ILot;
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -77,18 +78,34 @@ export class NewLotComponent {
   //}
 
   onSubmit() {
-    let lot = <Lot>{}
-;
+    // Highest Level of lot. miniumn extentions 
+    let lot = new ILot();
+
     lot.producerIdLink = this.form.controls['producer'].value;
     lot.commodityTypeIdLink = this.form.controls['commodityType'].value;
-    lot.commodityVarietyIdLink = this.form.controls['commodityVariety'].value;
     lot.stateId = this.form.controls['stateId'].value;
     lot.landlord = this.form.controls['landlord'].value;
     lot.farmNumber = this.form.controls['farmNumber'].value;
     lot.notes = this.form.controls['notes'].value;
 
+    if (this.form.controls['commodityVariety'].value != '') {
+      let _lot = new NewLot();
+      _lot = lot;
+      _lot.commodityVarietyIdLink = this.form.controls['commodityVariety'].value;
+      //lot.commodityVarietyIdLink = this.form.controls['commodityVariety'].value;
+      // ?Downcast to NewLot from ILot I think
+      lot = _lot;
+    }
+    
+    lot.startDate = new Date();
+
     this.lot = lot;
     console.log(this.lot);
+
+    this.lotService.post(this.lot)
+      .subscribe(result => {
+        console.log("Lot Added")
+      }, error => console.error(error));
   }
 
 }

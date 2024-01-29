@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Lot } from './lot';
+import { ILot, Lot } from './lot';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +29,10 @@ export class LotService {
 
   //**************************
   // POST new lot
-  post(item: Lot): Observable<Lot> {
+  post(item: ILot): Observable<ILot> {
     var url = '/api/Lots';
-    return this.http.post<Lot>(url, item);
+    console.log(item);
+    return this.http.post<ILot>(url, item);
   }
 
   //**************************
@@ -40,5 +41,4 @@ export class LotService {
     var url = '/api/Lots';
     return this.http.put<Lot>(url, item);
   }
-
 }

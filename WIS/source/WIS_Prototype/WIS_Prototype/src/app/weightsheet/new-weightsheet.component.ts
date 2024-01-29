@@ -4,7 +4,7 @@ import { DialogConfig } from '@angular/cdk/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-import {NewLotComponent } from '../lot/new-lot.component'
+import { NewLotComponent } from '../lot/new-lot.component'
 import { Weightsheet } from './weightsheet';
 
 @Component({
