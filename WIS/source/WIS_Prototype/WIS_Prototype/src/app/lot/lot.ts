@@ -17,13 +17,7 @@ export class ILot {
   public notes?: string;
   constructor() {
   }
-  //constructor(producer: number, commodity: number, state: string, start: Date) {
-  //  this.producerIdLink = producer;
-  //  this.commodityTypeIdLink = commodity;
-  //  this.stateId = state;
-  //  this.startDate = start;
-  //}
-  
+ 
 }
 
 // Lot Interface
@@ -50,7 +44,3 @@ export class NewLotNoVariety extends ILot {
   
   
 }
-
-//constructor(producer: number, commodity: number, state: string, start: Date) {
-//  super(producer, commodity, state, start);
-//}
