@@ -4,10 +4,14 @@ import { DialogConfig } from '@angular/cdk/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-//import { LoadService } from './load.service';
-
 import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.component';
+
 import { Load } from './load';
+import { LoadService } from './load.service';
+
+import { Bin } from '../bin/bin';
+import { BinService } from '../bin/bin.service';
+
 import { catchError } from 'rxjs';
 
 
@@ -30,26 +34,9 @@ export class NewLoadComponent {
   // the new load ref
   load!: Load;
 
+  bins!: Bin[];
+
   ngOnInit() {
-    //this.http.get<Load>('/api/Loads/top').subscribe(result => {     
-    //  this.load = result;
-    //  console.log(result);
-    //  this.load.grossWeight = 0;
-    //  this.load.tareWeight = 0;
-    //  this.load.netWeight = 0;
-    //  this.load.truckId = '';
-    //  this.load.timeOut = new Date(0);
-    //  this.load.bolNumber = 0;
-    //  this.load.destBin = '';
-    //  this.load.moistureLevel = 0.0;
-    //  this.load.testWeight = 0.0;
-    //  this.load.proteinLevel = 0.0;
-    //  this.load.notes = '';
-    //  this.load.loadId = BigInt(this.load.loadId) + BigInt(10); // Generate new Load Id number.
-    //  console.log(typeof this.load.loadId);
-    //  //this.load.tareWeight += 1;
-    //  console.log(this.load);
-    //}, error => console.error(error));
 
     this.form = new FormGroup({
       truckId: new FormControl(''),

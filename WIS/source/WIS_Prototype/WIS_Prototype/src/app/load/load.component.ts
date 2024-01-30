@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Load } from './load';
+import { LoadService } from './load.service';
 
 @Component({
   selector: 'app-load',
@@ -11,15 +12,14 @@ import { Load } from './load';
 export class LoadComponent implements OnInit {
   public loads!: Load[];
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(
+    private loadService: LoadService
+  ) {}
 
   ngOnInit() {
-    this.http.get<Load[]>('api/Loads')
+    this.loadService.getData()
       .subscribe(result => {
         this.loads = result;
-        console.log(result);
       }, error => console.error(error));
   }
 }
