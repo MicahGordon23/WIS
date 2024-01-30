@@ -44,7 +44,7 @@
     <!--Bill of Lading Number Field-->
     <mat-form-field>
       <mat-label>Bill of Lading Number</mat-label>
-      <input matInput formControlName="billofLading" placeholder="Bill of Lading" />
+      <input matInput formControlName="billOfLading" placeholder="Bill of Lading" />
     </mat-form-field>
 
     <!--Notes Field-->
@@ -53,10 +53,12 @@
       <input matInput formControlName="notes" placeholder="Notes" />
     </mat-form-field>
 
-
-
     <mat-dialog-actions>
       <button mat-raised-button (click)="onCancel()">Cancel</button>
+    </mat-dialog-actions>
+
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="onSubmit()">Done</button>
     </mat-dialog-actions>
 
     <mat-dialog-actions>

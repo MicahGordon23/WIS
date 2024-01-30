@@ -48,12 +48,22 @@ export class NewWeightsheetComponent {
 
   ngOnInit() {
     this.form = new FormGroup({
+      commodityType: new FormControl(''),
       weigher: new FormControl(''),
+
+      lot: new FormControl(''),
+      commodityVariety: new FormControl(''),
       hauler: new FormControl(''),
       miles: new FormControl(''),
-      billofLading: new FormControl(''),
+      billOfLading: new FormControl(''),
       notes: new FormControl('')
     })
+
+    // Gets lots for the Forms select lot field
+    this.lotService.getData().subscribe(result => this.lots = result);
+
+    // Gets the list for the form's select Commodity Type field.
+    this.commodityTypeService.getData().subscribe(result => this.commodities = result);
   }
 
   //**********************************************
@@ -77,7 +87,6 @@ export class NewWeightsheetComponent {
   onSubmit() {
     let w = new IWeightsheet();
 
-    w.weightSheetId = this.form.controls['weightsheetId'].value;
     w.commodityTypeIdLink = this.form.controls['commodityType'].value;
     //w.warehouseIdLink = GetWarehouseId();
     w.warehouseIdLink = 1;
@@ -97,10 +106,13 @@ export class NewWeightsheetComponent {
 
     w.dateOpened = new Date();
 
+    this.weightsheet = w;
+
     this.weightsheetService.post(this.weightsheet)
       .subscribe(result => {
         console.log("Weightsheet Added")
       }, error => console.log(error));
+    this.dialogRef.close();
   }
 
   //**********************************************

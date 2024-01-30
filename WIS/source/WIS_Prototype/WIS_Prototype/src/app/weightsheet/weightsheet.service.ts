@@ -29,7 +29,7 @@ export class WeightsheetService{
     return this.http.put<Weightsheet>(this.url + item.weightSheetId, item);
   }
 
-  post(item: Weightsheet): Observable<IWeightsheet> {
-    return this.http.post<Weightsheet>(this.url, item);
+  post(item: IWeightsheet): Observable<IWeightsheet> {
+    return this.http.post<IWeightsheet>(this.url, item);
   }
 }
