@@ -20,15 +20,16 @@ export class TruckScaleService {
   // Mocks the light weight (tare)
   private tareWeight: number = 34800;
 
-  private weighOut: boolean = true;
+  private weighIn: boolean = true;
 
   // Mocked to switch between gross and tare weight on every call for testing purposes.
   getWeight(): number {
     let weight = this.grossWeight;
-    if (this.weighOut) {
+    if (!this.weighIn) {
       weight = this.tareWeight;
-      this.weighOut = false;
+      
     }
+    this.weighIn = false;
     return weight;
   }
 }

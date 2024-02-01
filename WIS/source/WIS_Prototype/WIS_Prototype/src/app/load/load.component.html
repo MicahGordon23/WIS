@@ -20,7 +20,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let load of loads">
-      <td>{{load.loadId}}</td>
+      <td>
+        <a [routerLink]="['/load/', load.loadId]"> {{load.loadId}} </a>
+      </td>
       <td>{{load.grossWeight}}</td>
       <td>{{load.tareWeight}}</td>
       <td>{{load.netWeight}}</td>
