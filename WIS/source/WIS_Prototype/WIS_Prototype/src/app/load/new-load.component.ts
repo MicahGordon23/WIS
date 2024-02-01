@@ -6,13 +6,24 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.component';
 
 import {
-  ILoad, Load, NewLoad, NewLoadMoistureTestWeight,
-  NewLoadMoisture
+  ILoad,
+  Load,
+  NewLoad,
+  NewLoadMoisture,
+  NewLoadTestWeight,
+  NewLoadProtien,
+  NewLoadMoistureTestWeight,
+  NewLoadMoistureProtien,
+  NewLoadTestWeightProtein
 } from './load';
+
 import { LoadService } from './load.service';
 
 import { Bin } from '../bin/bin';
 import { BinService } from '../bin/bin.service';
+
+import { Weightsheet } from '../weightsheet/weightsheet';
+import { WeightsheetService } from '../weightsheet/weightsheet.service';
 
 import { catchError } from 'rxjs';
 
@@ -27,7 +38,8 @@ export class NewLoadComponent {
     private weightsheetDialog: MatDialog,
     private dialogRef: MatDialogRef<NewLoadComponent>,
     private loadService: LoadService,
-    private BinService: BinService
+    private binService: BinService,
+    private weightsheetService: WeightsheetService
   ) { }
 
   // The form model
@@ -38,10 +50,14 @@ export class NewLoadComponent {
 
   bins!: Bin[];
 
+  weightsheets!: Weightsheet[];
+
   ngOnInit() {
 
     this.form = new FormGroup({
       truckId: new FormControl(''),
+      bin: new FormControl(''),
+      weightsheet: new FormControl(''),
       moistureLevel: new FormControl(''),
       testWeight: new FormControl(''),
       protienLevel: new FormControl(''),
@@ -50,7 +66,11 @@ export class NewLoadComponent {
     });
 
     // Gets Bins for the associated warehouse in this case 1
-    this.BinService.getWarehouseBins(1);
+    this.binService.getWarehouseBins(1)
+      .subscribe(result => this.bins = result);
+
+    this.weightsheetService.getData()
+      .subscribe(result => this.weightsheets = result);
   }
 
   onSubmit() {
@@ -59,54 +79,65 @@ export class NewLoadComponent {
       // generate load id? or do this before for when clicking new laod?
       // Controller gets the id service does the math
       // Http Get from scale. Scale Service/Controller Most likely a controller here
-      load.truckId = this.form.controls['truckId'].value;
-      load.timeIn = new Date();
-      load.bolNumber = this.form.controls['bolNumber'].value;
-      load.notes = this.form.controls['notes'].value;
+      
 
       // Local variables hold value. Less overhead from the linq
       let moisture = this.form.controls['moistureLevel'].value;
       let testWeight = this.form.controls['testWeight'].value;
       let protienLevel = this.form.controls['protienLevel'].value;
 
-      // If Moistuer Level field has a value
-      if (moisture != '') {
+      // To Do optimize the conditionals. Very Ugly
+      if (moisture != '' && testWeight != '' && protienLevel != '') {
+        let loadA = new NewLoad();
+        loadA.moistureLevel = moisture;
+        loadA.protienLevel = protienLevel;
+        loadA.testWeight = testWeight;
+        load = loadA;
 
-        // If Test Weight field has a value
-        if (testWeight != '') {
+      } else if (moisture != '') {
+        let loadM = new NewLoadMoisture();
+        loadM.moistureLevel = moisture;
+        load = loadM;
 
-          // If the Protien Level field has a value
-          if (protienLevel != '') {
+      } else if (testWeight != '') {
+        let loadTw = new NewLoadTestWeight();
+        loadTw.testWeight = testWeight;
+        load = loadTw;
 
-            let incomingLoad = new NewLoad();
-            // Has all the properties
-            incomingLoad.moistureLevel = moisture;
-            incomingLoad.testWeight = testWeight;
-            incomingLoad.protienLevel = protienLevel;
+      } else if (protienLevel != '') {
+        let loadPl = new NewLoadProtien();
+        loadPl.protienLevel = protienLevel;
+        load = loadPl;
 
-            load = incomingLoad;
-          }
-          else {
-            // Has Moisture and test Weight
-            let incomingLoad = new NewLoadMoistureTestWeight();
-            incomingLoad.moistureLevel = moisture;
-            incomingLoad.testWeight = testWeight;
-            load = incomingLoad;
-          }
-        }
-        else {
-          // Only Moisture
-          let incomingLoad = new NewLoadMoisture();
-          incomingLoad.moistureLevel = moisture;
-          load = incomingLoad;
-        }
+      } else if (moisture != '' && testWeight != '') {
+        let loadMTw = new NewLoadMoistureTestWeight();
+        loadMTw.moistureLevel = moisture;
+        loadMTw.testWeight = testWeight;
+        load = loadMTw;
+
+      } else if (moisture != '' && protienLevel != '') {
+        let loadMPl = new NewLoadMoistureProtien();
+        loadMPl.moistureLevel = moisture;
+        loadMPl.protienLevel = protienLevel;
+        load = loadMPl;
+
+      } else if (testWeight != '' && protienLevel != '') {
+        let loadTwPl = new NewLoadTestWeightProtein();
+        loadTwPl.testWeight = testWeight;
+        loadTwPl.protienLevel = protienLevel;
+        load = loadTwPl;
+
       }
     }
-
+    load.truckId = this.form.controls['truckId'].value;
+    load.timeIn = new Date();
+    load.bolNumber = this.form.controls['bolNumber'].value;
+    load.notes = this.form.controls['notes'].value;
     this.load = load
     // Post load
-    this.loadService.post(this.load);
-    console.log(load);
+    this.loadService.post(this.load)
+      .subscribe(error => console.log(error));
+    console.log(this.load);
     this.dialogRef.close();
   }
 

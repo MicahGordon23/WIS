@@ -21,6 +21,14 @@
       </option>
     </select>
 
+    <!--Select from list of Weightsheets-->
+    <mat-label>Weightsheet</mat-label>
+    <select formControlName="weightsheet">
+      <option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
+        {{ sheet.weightSheetId }}
+      </option>
+    </select>
+
     <!--Moisture Level Field-->
     <mat-form-field class="form-row">
       <mat-label>Moisture</mat-label>
@@ -35,8 +43,8 @@
 
     <!--Protien Level Field-->
     <mat-form-field class="form-row">
-      <mat-label>Protein</mat-label>
-      <input matInput formControlName="proteinLevel" placeholder="Protein Level" />
+      <mat-label>Protien</mat-label>
+      <input matInput formControlName="protienLevel" placeholder="Protein Level" />
     </mat-form-field>
 
     <!--Bill of Lading Number Field-->
