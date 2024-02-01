@@ -135,6 +135,7 @@ export class NewLoadComponent {
     load.notes = this.form.controls['notes'].value;
     this.load = load
     // Post load
+
     this.loadService.post(this.load)
       .subscribe(error => console.log(error));
     console.log(this.load);
