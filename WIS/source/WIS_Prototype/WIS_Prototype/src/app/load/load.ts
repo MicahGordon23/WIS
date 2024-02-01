@@ -17,8 +17,8 @@ export class ILoad {
 
   constructor() {
     this.grossWeight = 0
-    this.tareWeight = 0;
-    this.netWeight = 0;
+    this.tareWeight = -1;
+    this.netWeight = -1;
     this.truckId = '';
   }
 }

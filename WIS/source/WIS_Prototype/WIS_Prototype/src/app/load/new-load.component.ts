@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.component';
 
-import { Load } from './load';
+import {
+  ILoad, Load, NewLoad, NewLoadMoistureTestWeight,
+  NewLoadMoisture
+} from './load';
 import { LoadService } from './load.service';
 
 import { Bin } from '../bin/bin';
@@ -24,15 +26,15 @@ export class NewLoadComponent {
   constructor(
     private weightsheetDialog: MatDialog,
     private dialogRef: MatDialogRef<NewLoadComponent>,
-    private http: HttpClient
-    //private loadService: LoadService
+    private loadService: LoadService,
+    private BinService: BinService
   ) { }
 
   // The form model
   form!: FormGroup;
 
   // the new load ref
-  load!: Load;
+  load!: ILoad;
 
   bins!: Bin[];
 
@@ -42,28 +44,68 @@ export class NewLoadComponent {
       truckId: new FormControl(''),
       moistureLevel: new FormControl(''),
       testWeight: new FormControl(''),
-      protinLevel: new FormControl(''),
+      protienLevel: new FormControl(''),
       bolNumber: new FormControl(''),
       notes: new FormControl('')
     });
+
+    // Gets Bins for the associated warehouse in this case 1
+    this.BinService.getWarehouseBins(1);
   }
 
   onSubmit() {
-    var load = this.load;
+    var load = new ILoad();
     if (load) {
       // generate load id? or do this before for when clicking new laod?
       // Controller gets the id service does the math
       // Http Get from scale. Scale Service/Controller Most likely a controller here
       load.truckId = this.form.controls['truckId'].value;
       load.timeIn = new Date();
-      load.moistureLevel = this.form.controls['moistureLevel'].value;
-      load.testWeight = this.form.controls['testWeight'].value;
-      load.protienLevel = this.form.controls['proteinLevel'].value;
       load.bolNumber = this.form.controls['bolNumber'].value;
       load.notes = this.form.controls['notes'].value;
+
+      // Local variables hold value. Less overhead from the linq
+      let moisture = this.form.controls['moistureLevel'].value;
+      let testWeight = this.form.controls['testWeight'].value;
+      let protienLevel = this.form.controls['protienLevel'].value;
+
+      // If Moistuer Level field has a value
+      if (moisture != '') {
+
+        // If Test Weight field has a value
+        if (testWeight != '') {
+
+          // If the Protien Level field has a value
+          if (protienLevel != '') {
+
+            let incomingLoad = new NewLoad();
+            // Has all the properties
+            incomingLoad.moistureLevel = moisture;
+            incomingLoad.testWeight = testWeight;
+            incomingLoad.protienLevel = protienLevel;
+
+            load = incomingLoad;
+          }
+          else {
+            // Has Moisture and test Weight
+            let incomingLoad = new NewLoadMoistureTestWeight();
+            incomingLoad.moistureLevel = moisture;
+            incomingLoad.testWeight = testWeight;
+            load = incomingLoad;
+          }
+        }
+        else {
+          // Only Moisture
+          let incomingLoad = new NewLoadMoisture();
+          incomingLoad.moistureLevel = moisture;
+          load = incomingLoad;
+        }
+      }
     }
-    // put load
-    this.http.post<Load>('api/Loads', load);
+
+    this.load = load
+    // Post load
+    this.loadService.post(this.load);
     console.log(load);
     this.dialogRef.close();
   }
@@ -77,9 +119,4 @@ export class NewLoadComponent {
     this.dialogRef.close();
   }
 
-
-  //addload(l: Load): Observable<Load> {
-  //  return this.http.post<Load>('/api/Load', l))
-  //  )
-  //}
 }
