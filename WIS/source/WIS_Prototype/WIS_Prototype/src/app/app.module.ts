@@ -28,6 +28,7 @@ import { LotService } from './lot/lot.service';
 import { CommodityTypeService } from './commodity-type/commodity-type.service';
 import { CommodityVarietyService } from './commodity-variety/commodity-variety.service';
 import { BinService } from './bin/bin.service';
+import { TruckScaleService } from './scale/truck-scale.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { BinService } from './bin/bin.service';
     LotService,
     CommodityTypeService,
     CommodityVarietyService,
-    BinService
+    BinService,
+    TruckScaleService
   ],
 
   bootstrap: [AppComponent]
