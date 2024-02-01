@@ -1,16 +1,67 @@
-export interface Load {
-  loadId: bigint;
-  weigthsheetIdLink: bigint;
-  grossWeight?: number;
-  tareWeight?: number;
-  netWeight?: number;
+// Filename: load.ts
+// Purpose: Allow for modularity and ability to send HTTP POST request.
+
+// ILoad parent class
+// Purpose: Define a common interface for other Load classes to inhert from. 
+export class ILoad {
+  loadId?: bigint;
+  weightsheetIdLink?: bigint;
+  grossWeight: number;
+  tareWeight: number;
+  netWeight: number;
   truckId: string;
   timeIn?: Date;
-  timeOut?: Date;
   bolNumber?: number;
-  destBin?: string;
+  destBin?: number;
+  notes?: string;
+
+  constructor() {
+    this.grossWeight = 0
+    this.tareWeight = -1;
+    this.netWeight = -1;
+    this.truckId = '';
+  }
+}
+
+// Load Class
+// Purpose: Defines state for GET requets for Loads. Hass all load properties
+export class Load extends ILoad{
+  timeOut?: Date;
   moistureLevel?: number;
   testWeight?: number;
   protienLevel?: number;
-  notes?: string;
+}
+
+
+export class NewLoad extends ILoad {
+  moistureLevel?: number;
+  testWeight?: number;
+  protienLevel?: number;
+}
+
+export class NewLoadMoisture extends ILoad {
+  moistureLevel?: number;
+}
+
+export class NewLoadTestWeight extends ILoad {
+  testWeight?: number;
+}
+
+export class NewLoadProtien extends ILoad {
+  protienLevel?: number;
+}
+
+export class NewLoadMoistureTestWeight extends ILoad {
+  moistureLevel?: number;
+  testWeight?: number;
+}
+
+export class NewLoadMoistureProtien extends ILoad {
+  moistureLevel?: number;
+  protienLevel?: number;
+}
+
+export class NewLoadTestWeightProtein extends ILoad {
+  testWeight?: number;
+  protienLevel?: number;
 }

@@ -29,7 +29,7 @@ namespace WIS_PrototypeAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Bins.ToListAsync();
+          return await _context.Bins.ToListAsync();
         }
 
         // GET: api/Bins/5
@@ -50,6 +50,26 @@ namespace WIS_PrototypeAPI.Controllers
             return bin;
         }
 
+        // GET: api/Bins/Warehouse/5
+        [HttpGet("Warehouse/{id}")]
+        public async Task<ActionResult<IEnumerable<Bin>>> GetWarehouesBins(int id)
+        {
+            if (_context.Bins == null)
+            {
+                return NotFound();
+            }
+
+            var bins = await _context.Bins
+                .Where(b => b.WarehouseIdLink == id)
+                .ToListAsync();
+
+            if (bins == null)
+            {
+                return NotFound();
+            }
+
+            return bins;
+        }
         // PUT: api/Bins/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

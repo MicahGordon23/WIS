@@ -27,6 +27,7 @@ import { ProducerService } from './producer/producer.service';
 import { LotService } from './lot/lot.service';
 import { CommodityTypeService } from './commodity-type/commodity-type.service';
 import { CommodityVarietyService } from './commodity-variety/commodity-variety.service';
+import { BinService } from './bin/bin.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { CommodityVarietyService } from './commodity-variety/commodity-variety.s
     ProducerService,
     LotService,
     CommodityTypeService,
-    CommodityVarietyService
+    CommodityVarietyService,
+    BinService
   ],
 
   bootstrap: [AppComponent]

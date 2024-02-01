@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseService, ApiResult } from '../base.service';
 import { Observable } from 'rxjs';
-import { Weightsheet } from './weightsheet';
+import { IWeightsheet, Weightsheet } from './weightsheet';
 
 // The decortate passing root makes this a singleton.
 @Injectable({
@@ -29,7 +29,7 @@ export class WeightsheetService{
     return this.http.put<Weightsheet>(this.url + item.weightSheetId, item);
   }
 
-  post(item: Weightsheet): Observable<Weightsheet> {
-    return this.http.post<Weightsheet>(this.url, item);
+  post(item: IWeightsheet): Observable<IWeightsheet> {
+    return this.http.post<IWeightsheet>(this.url, item);
   }
 }

@@ -46,6 +46,7 @@ export class NewLotComponent {
   lot!: ILot;
 
   ngOnInit() {
+    // Initialize form
     this.form = new FormGroup({
       producer: new FormControl(''),
       commodityType: new FormControl(''),
@@ -61,22 +62,18 @@ export class NewLotComponent {
 
     // get for the form's select Commodity Type field.
     this.commodityTypeService.getData().subscribe(result => this.commodities = result);
-
-    this.varieties;
   }
 
+  //**********************************************
+  // Purpose: When a Commodity Type is selected in 
   onSelect(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
     const typeId = Number((event.target as HTMLInputElement).value);
     this.commodityVarietyService.getByType(typeId)
       .subscribe(result => this.varieties = result);
-    
   }
 
-  //onSelect(typeId: number) {
-  //  this.commodityVarietyService.getByType(typeId).subscribe(result => this.varieties = result);
-  //}
-
+  //**********************************************
+  // Purpose: Submit form
   onSubmit() {
     // Highest Level of lot. miniumn extentions 
     let lot = new ILot();

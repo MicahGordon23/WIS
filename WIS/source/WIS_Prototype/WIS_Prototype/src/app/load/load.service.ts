@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseService, ApiResult } from '../base.service';
 import { Observable } from 'rxjs';
-import { Load } from './load';
+
+import { ILoad, Load } from './load';
 
 // The decortate passing root makes this a singleton.
 @Injectable({
@@ -27,7 +28,7 @@ export class LoadService {
     return this.http.put<Load>(this.url + item.loadId, item);
   }
 
-  post(item: Load): Observable<Load> {
-    return this.http.post<Load>(this.url, item);
+  post(item: ILoad): Observable<ILoad> {
+    return this.http.post<ILoad>(this.url, item);
   }
 }

@@ -5,17 +5,23 @@
 // Purpose: Define a common interface for all other Lot interfaces. Has the bare miniumn properties
 export class ILot {
   // these properties are nessary for a Lot
-  public lotId?: BigInt;
-  public producerIdLink?: number;
-  public commodityTypeIdLink?: number;
-  public stateId?: string;
+  public lotId: BigInt;
+  public producerIdLink: number;
+  public commodityTypeIdLink: number;
+  public stateId: string;
   public startDate?: Date;
 
   // the below properties are safely nullable. Dont cause a Error 400
   public landlord?: string;
   public farmNumber?: string;
   public notes?: string;
+
+  // Default Constructor
   constructor() {
+    this.lotId = BigInt(0);
+    this.producerIdLink = 0;
+    this.commodityTypeIdLink = 0;
+    this.stateId = '';
   }
  
 }

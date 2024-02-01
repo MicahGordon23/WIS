@@ -1,53 +1,62 @@
 <!--mat-label will not display I HAVE NO IDEA WHY WTF-->
 <div class="new-load">
   <h1>New Load</h1>
-  <div [formGroup] ="form" (ngSubmit)="onSubmit()">
+  <div [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <mat-dialog-actions>
       <button mat-raised-button (click)="onCancel()">Cancel</button>
     </mat-dialog-actions>
-    
+
     <!--Truck Id Field-->
     <mat-form-field class="form-row">
       <mat-label>Truck Id</mat-label>
-      <input matInput formControlName="truckId" required placeholder="Truck Id"/>
+      <input matInput formControlName="truckId" required placeholder="Truck Id" />
     </mat-form-field>
 
     <!--Select from list of Bins-->
-    <!--<mat-form-field class="form-row">
-      <mat-lable>Bin</mat-lable>
-      <mat-select>
-      </mat-select>
-    </mat-form-field>-->
+    <mat-label>Bin</mat-label>
+    <select formControlName="bin">
+      <option *ngFor="let bin of bins" value="{{bin.binId}}">
+        {{ bin.binName }}
+      </option>
+    </select>
+
+    <!--Select from list of Weightsheets-->
+    <mat-label>Weightsheet</mat-label>
+    <select formControlName="weightsheet">
+      <option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
+        {{ sheet.weightSheetId }}
+      </option>
+    </select>
 
     <!--Moisture Level Field-->
     <mat-form-field class="form-row">
       <mat-label>Moisture</mat-label>
-      <input matInput formControlName="moistureLevel" placeholder="Moisture"/>
+      <input matInput formControlName="moistureLevel" placeholder="Moisture" />
     </mat-form-field>
 
     <!--Test Weight Field-->
     <mat-form-field class="form-row">
       <mat-label>Test Weight</mat-label>
-      <input matInput formControlName="testWeight" placeholder="Test Weight"/>
+      <input matInput formControlName="testWeight" placeholder="Test Weight" />
     </mat-form-field>
 
     <!--Protien Level Field-->
     <mat-form-field class="form-row">
-      <mat-label>Protein</mat-label>
-      <input matInput formControlName="proteinLevel" placeholder="Protein Level"/>
+      <mat-label>Protien</mat-label>
+      <input matInput formControlName="protienLevel" placeholder="Protein Level" />
     </mat-form-field>
 
     <!--Bill of Lading Number Field-->
     <mat-form-field class="form-row">
       <mat-label>Bill of Lading</mat-label>
-      <input matInput formControlName="bolNumber" placeholder="Bill of Lading Number"/>
+      <input matInput formControlName="bolNumber" placeholder="Bill of Lading Number" />
     </mat-form-field>
 
     <!--Notes / Comments Field-->
     <mat-form-field class="form-row">
       <mat-label>Notes</mat-label>
-      <input matInput formControlName="notes" placeholder="Notes/Comments"/>
+      <input matInput formControlName="notes" placeholder="Notes/Comments" />
     </mat-form-field>
   </div>
 <mat-dialog-actions>
