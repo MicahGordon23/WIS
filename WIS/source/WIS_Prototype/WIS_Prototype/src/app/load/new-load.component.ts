@@ -25,6 +25,8 @@ import { BinService } from '../bin/bin.service';
 import { Weightsheet } from '../weightsheet/weightsheet';
 import { WeightsheetService } from '../weightsheet/weightsheet.service';
 
+import { TruckScaleService } from '../scale/truck-scale.service';
+
 import { catchError } from 'rxjs';
 
 
@@ -39,7 +41,8 @@ export class NewLoadComponent {
     private dialogRef: MatDialogRef<NewLoadComponent>,
     private loadService: LoadService,
     private binService: BinService,
-    private weightsheetService: WeightsheetService
+    private weightsheetService: WeightsheetService,
+    private truckScaleService: TruckScaleService
   ) { }
 
   // The form model
@@ -126,7 +129,6 @@ export class NewLoadComponent {
         loadTwPl.testWeight = testWeight;
         loadTwPl.protienLevel = protienLevel;
         load = loadTwPl;
-
       }
     }
     load.truckId = this.form.controls['truckId'].value;
@@ -134,8 +136,9 @@ export class NewLoadComponent {
     load.bolNumber = this.form.controls['bolNumber'].value;
     load.notes = this.form.controls['notes'].value;
     this.load = load
-    // Post load
 
+    this.load.grossWeight = this.truckScaleService.getWeight();
+    // Post load
     this.loadService.post(this.load)
       .subscribe(error => console.log(error));
     console.log(this.load);
@@ -146,6 +149,8 @@ export class NewLoadComponent {
     const dialogConfig = new DialogConfig();
     let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {});
   }
+
+
 
   onCancel(): void {
     this.dialogRef.close();

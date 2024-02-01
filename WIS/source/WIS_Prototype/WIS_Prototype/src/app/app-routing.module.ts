@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LotComponent } from './lot/lot.component';
 import { LoadComponent } from './load/load.component';
+import { EditLoadComponent } from './load/edit-load/edit-load.component';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 //import { WarehouseComponent } from './warehouse/warehouse.component';
 
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'lot', component: LotComponent },
   { path: 'load', component: LoadComponent },
-  { path: 'weightsheet', component: WeightsheetComponent}
+  { path: 'weightsheet', component: WeightsheetComponent },
+  { path: 'load/:id', component: EditLoadComponent }
 ];
 
 @NgModule({
