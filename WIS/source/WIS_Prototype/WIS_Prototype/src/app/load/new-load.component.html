@@ -8,20 +8,18 @@
     </mat-dialog-actions>
 
     <!--Truck Id Field-->
+    <mat-label>Truck Id</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Truck Id</mat-label>
       <input matInput formControlName="truckId" required placeholder="Truck Id" />
     </mat-form-field>
 
     <!--Select from list of Bins-->
-    <mat-form-field>
-      <mat-label>Bin</mat-label>
-      <select formControlName="bin">
-        <option *ngFor="let bin of bins" value="{{bin.binId}}">
-          {{ bin.binName }}
-        </option>
-      </select>
-    </mat-form-field>
+    <mat-label>Bin</mat-label>
+    <select formControlName="bin">
+      <option *ngFor="let bin of bins" value="{{bin.binId}}">
+        {{ bin.binName }}
+      </option>
+    </select>
 
     <!--Select from list of Weightsheets-->
     <mat-label>Weightsheet</mat-label>
@@ -32,34 +30,38 @@
     </select>
 
     <!--Moisture Level Field-->
+    <mat-label>Moisture</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Moisture</mat-label>
+
       <input matInput formControlName="moistureLevel" placeholder="Moisture" />
     </mat-form-field>
 
     <!--Test Weight Field-->
+    <mat-label>Test Weight</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Test Weight</mat-label>
+
       <input matInput formControlName="testWeight" placeholder="Test Weight" />
     </mat-form-field>
 
     <!--Protien Level Field-->
+    <mat-label>Protien</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Protien</mat-label>
+
       <input matInput formControlName="protienLevel" placeholder="Protein Level" />
     </mat-form-field>
 
     <!--Bill of Lading Number Field-->
+    <mat-label>Bill of Lading</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Bill of Lading</mat-label>
       <input matInput formControlName="bolNumber" placeholder="Bill of Lading Number" />
     </mat-form-field>
 
     <!--Notes / Comments Field-->
+    <mat-label>Notes</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Notes</mat-label>
       <input matInput formControlName="notes" placeholder="Notes/Comments" />
     </mat-form-field>
+
   </div>
 <mat-dialog-actions>
   <button mat-raised-button (click)="openNewWeightsheetDialog()"> New Weightsheet </button>
