@@ -7,19 +7,19 @@
     </mat-form-field>
 
     <!--Select from list of Bins-->
-    <mat-label>Bin</mat-label>
-    <mat-select formControlName="bin">
-      <option *ngFor="let bin of bins" value="{{bin.binId}}">
+    <mat-label>Select a Bin</mat-label>
+    <mat-select formControlName="bin" placeholder="Select a Bin">
+      <mat-option *ngFor="let bin of bins" value="{{bin.binId}}">
         {{ bin.binName }}
-      </option>
+      </mat-option>
     </mat-select>
 
     <!--Select from list of Weightsheets-->
-    <mat-label>Weightsheet</mat-label>
-    <mat-select formControlName="weightsheet">
-      <option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
+    <mat-label>Select a Weight Sheet</mat-label>
+    <mat-select formControlName="weightsheet" placeholder="Select a Weight Sheet">
+      <mat-option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
         {{ sheet.weightSheetId }}
-      </option>
+      </mat-option>
     </mat-select>
 
     <!--Gross Weight Field-->
