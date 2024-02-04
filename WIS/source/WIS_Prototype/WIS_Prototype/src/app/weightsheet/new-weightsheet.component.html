@@ -3,8 +3,8 @@
 
   <div [formGroup]="form" (ngSubmit)="onSubmit()">
     <!--Weigher Field-->
+    <mat-label>Weigher</mat-label>
     <mat-form-field>
-      <mat-label>weigher</mat-label>
       <input matInput formControlName="weigher" required placeholder="Weigher" />
     </mat-form-field>
 
@@ -30,26 +30,26 @@
     </select>
 
     <!--Hauler Field-->
+    <mat-label>Hauler</mat-label>
     <mat-form-field>
-      <mat-label>Hauler</mat-label>
       <input matInput formControlName="hauler" placeholder="Hauler" />
     </mat-form-field>
 
     <!--Miles One Way Field-->
+    <mat-label>Miles One Way</mat-label>
     <mat-form-field>
-      <mat-label>Miles One Way</mat-label>
       <input matInput formControlName="miles" placeholder="Miles One Way" />
     </mat-form-field>
 
     <!--Bill of Lading Number Field-->
+    <mat-label>Bill of Lading Number</mat-label>
     <mat-form-field>
-      <mat-label>Bill of Lading Number</mat-label>
       <input matInput formControlName="billOfLading" placeholder="Bill of Lading" />
     </mat-form-field>
 
     <!--Notes Field-->
+    <mat-label>Notes</mat-label>
     <mat-form-field>
-      <mat-label>Notes</mat-label>
       <input matInput formControlName="notes" placeholder="Notes" />
     </mat-form-field>
 
