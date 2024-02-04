@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'lot', component: LotComponent },
   { path: 'load', component: LoadComponent },
   { path: 'weightsheet', component: WeightsheetComponent },
-  { path: 'load/:id', component: EditLoadComponent }
+  { path: 'load/:id', component: EditLoadComponent },
 ];
 
 @NgModule({

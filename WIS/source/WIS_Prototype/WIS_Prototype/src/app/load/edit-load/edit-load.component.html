@@ -1,1 +1,7 @@
-<p>edit-load works!</p>
+<div class="edit-load">
+  <div [formGroup]="form" (ngSubmit)="onSubmit()">
+    <button mat-raised-button type="submit" (click)="weighOut()">Weigh Out</button>
+    <button mat-rasied-button type="submit" (click)="onSubmit()">Done</button>
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
+  </div>
+</div>

@@ -51,8 +51,10 @@ export class NewLoadComponent {
   // the new load ref
   load!: ILoad;
 
+  // Bin options for select
   bins!: Bin[];
 
+  // Weightsheet options for select
   weightsheets!: Weightsheet[];
 
   ngOnInit() {
@@ -72,18 +74,16 @@ export class NewLoadComponent {
     this.binService.getWarehouseBins(1)
       .subscribe(result => this.bins = result);
 
-    this.weightsheetService.getData()
+    // Gets open Weightsheets
+    // Harded code for warehouse 1
+    this.weightsheetService.getWarehouseOpenWeigthsheets(1)
       .subscribe(result => this.weightsheets = result);
   }
 
   onSubmit() {
     var load = new ILoad();
     if (load) {
-      // generate load id? or do this before for when clicking new laod?
-      // Controller gets the id service does the math
-      // Http Get from scale. Scale Service/Controller Most likely a controller here
       
-
       // Local variables hold value. Less overhead from the linq
       let moisture = this.form.controls['moistureLevel'].value;
       let testWeight = this.form.controls['testWeight'].value;
