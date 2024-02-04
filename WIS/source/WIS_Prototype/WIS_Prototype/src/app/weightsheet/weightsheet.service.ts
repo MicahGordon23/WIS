@@ -30,12 +30,12 @@ export class WeightsheetService{
   // Gets a single Weightsheet by weightsheetId from the database.
   get(id: bigint): Observable<Weightsheet> {
     
-    return this.http.get<Weightsheet>(this.url);
+    return this.http.get<Weightsheet>(this.url + '/' + id);
   }
 
   // Edit a single weightsheet. Updated it in the databse
   put(item: Weightsheet): Observable<Weightsheet> {
-    return this.http.put<Weightsheet>(this.url + item.weightSheetId, item);
+    return this.http.put<Weightsheet>(this.url + '/' + item.weightSheetId, item);
   }
 
   // Add a new weightsheet to the database.
