@@ -1,5 +1,5 @@
 obj
-
+WIS/source/WIS_Prototype/WIS_PrototypeAPI/bin/*
 *.fake
 .vs
 .vscode
@@ -7,8 +7,6 @@ test.csv
 *node_modules*
 *FileContentIndex*
 *cache*
-
-
 */obj/*
 .vs
 .vscode
