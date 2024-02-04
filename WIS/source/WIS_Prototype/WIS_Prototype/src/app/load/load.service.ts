@@ -21,7 +21,7 @@ export class LoadService {
   }
 
   get(id: bigint): Observable<Load> {
-    return this.http.get<Load>(this.url);
+    return this.http.get<Load>(this.url + '/' + id);
   }
 
   put(item: Load): Observable<Load> {
