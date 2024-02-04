@@ -14,12 +14,14 @@
     </mat-form-field>
 
     <!--Select from list of Bins-->
-    <mat-label>Bin</mat-label>
-    <select formControlName="bin">
-      <option *ngFor="let bin of bins" value="{{bin.binId}}">
-        {{ bin.binName }}
-      </option>
-    </select>
+    <mat-form-field>
+      <mat-label>Bin</mat-label>
+      <select formControlName="bin">
+        <option *ngFor="let bin of bins" value="{{bin.binId}}">
+          {{ bin.binName }}
+        </option>
+      </select>
+    </mat-form-field>
 
     <!--Select from list of Weightsheets-->
     <mat-label>Weightsheet</mat-label>

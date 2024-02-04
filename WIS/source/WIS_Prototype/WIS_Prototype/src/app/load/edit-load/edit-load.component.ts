@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Bin } from '../../bin/bin';
 import { BinService } from '../../bin/bin.service';
@@ -32,7 +33,14 @@ import { from } from 'rxjs';
 })
 export class EditLoadComponent {
 
-  constructor(private loadService: LoadService) { }
+  constructor(
+    private loadService: LoadService,
+    private binService: BinService,
+    private weightsheetService: WeightsheetService,
+    private scaleService: TruckScaleService,
+    private activatedRoute: ActivatedRoute,
+    private route: Router
+  ) { }
 
   form!: FormGroup;
 
@@ -51,19 +59,52 @@ export class EditLoadComponent {
       truckId: new FormControl(''),
       bin: new FormControl(''),
       weightsheet: new FormControl(''),
+      grossWeight: new FormControl(''),
+      tareWeight: new FormControl(''),
+      netWeight: new FormControl(''),
       moistureLevel: new FormControl(''),
       testWeight: new FormControl(''),
       protienLevel: new FormControl(''),
       bolNumber: new FormControl(''),
       notes: new FormControl('')
     });
+
+    // retrieve the ID from the 'id' parameter
+    var idParam = this.activatedRoute.snapshot.paramMap.get('id');
+    var id = idParam ? +idParam : 0;
+
+    // Gets Bins for the associated warehouse in this case 1
+    this.binService.getWarehouseBins(1)
+      .subscribe(result => this.bins = result);
+
+    // Gets open Weightsheets
+    // Harded code for warehouse 1
+    this.weightsheetService.getWarehouseOpenWeigthsheets(1)
+      .subscribe(result => this.weightsheets = result);
+
+    // Retreived load from server
+    this.loadService.get(BigInt(id))
+      .subscribe(result => {
+        this.load = result;
+        console.log(this.load);
+        // update form.
+        this.form.patchValue(this.load);
+      }, error => console.log(error))
   }
+
+
   // Weigh Out
-  weighOut() { }
+  weighOut() {
+
+  }
 
   // Done
-  onSubmit() { }
+  onSubmit() {
+
+  }
 
   // Cancel edit
-  onCancel() { }
+  onCancel() {
+    this.route.navigate(['/load'])
+  }
 }
