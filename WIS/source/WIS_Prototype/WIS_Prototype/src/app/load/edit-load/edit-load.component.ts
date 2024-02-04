@@ -14,13 +14,13 @@ import { TruckScaleService } from '../../scale/truck-scale.service';
 import {
   ILoad,
   Load,
-  NewLoad,
-  NewLoadMoisture,
-  NewLoadTestWeight,
-  NewLoadProtien,
-  NewLoadMoistureTestWeight,
-  NewLoadMoistureProtien,
-  NewLoadTestWeightProtein
+  LoadMoistureTestWeightProtien,
+  LoadMoisture,
+  LoadTestWeight,
+  LoadProtien,
+  LoadMoistureTestWeight,
+  LoadMoistureProtien,
+  LoadTestWeightProtein
 } from '../load';
 import { LoadService } from '../load.service';
 
@@ -95,7 +95,24 @@ export class EditLoadComponent {
 
   // Weigh Out
   weighOut() {
+    // Get current scale weight from scale.
+    this.load.tareWeight = this.scaleService.getWeight();
 
+    // Net = Gross (Heavy) - Tare (Light)
+    this.load.netWeight = this.load.grossWeight - this.load.tareWeight;
+
+    // add addtional property though polymorphism.
+    let l = new Load();
+    l = this.load
+    l.timeOut = new Date();
+    this.load = l;
+    console.log(this.load);
+    // Update load in the server/database
+    this.loadService.put(this.load).subscribe(result => {
+      console.log(result);
+    }, error => console.log(error));
+
+    this.route.navigate(['/load'])
   }
 
   // Done

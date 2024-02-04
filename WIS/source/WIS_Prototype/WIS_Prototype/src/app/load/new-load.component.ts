@@ -8,13 +8,13 @@ import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.componen
 import {
   ILoad,
   Load,
-  NewLoad,
-  NewLoadMoisture,
-  NewLoadTestWeight,
-  NewLoadProtien,
-  NewLoadMoistureTestWeight,
-  NewLoadMoistureProtien,
-  NewLoadTestWeightProtein
+  LoadMoistureTestWeightProtien,
+  LoadMoisture,
+  LoadTestWeight,
+  LoadProtien,
+  LoadMoistureTestWeight,
+  LoadMoistureProtien,
+  LoadTestWeightProtein
 } from './load';
 
 import { LoadService } from './load.service';
@@ -91,41 +91,41 @@ export class NewLoadComponent {
 
       // To Do optimize the conditionals. Very Ugly
       if (moisture != '' && testWeight != '' && protienLevel != '') {
-        let loadA = new NewLoad();
+        let loadA = new LoadMoistureTestWeightProtien();
         loadA.moistureLevel = moisture;
         loadA.protienLevel = protienLevel;
         loadA.testWeight = testWeight;
         load = loadA;
 
       } else if (moisture != '') {
-        let loadM = new NewLoadMoisture();
+        let loadM = new LoadMoisture();
         loadM.moistureLevel = moisture;
         load = loadM;
 
       } else if (testWeight != '') {
-        let loadTw = new NewLoadTestWeight();
+        let loadTw = new LoadTestWeight();
         loadTw.testWeight = testWeight;
         load = loadTw;
 
       } else if (protienLevel != '') {
-        let loadPl = new NewLoadProtien();
+        let loadPl = new LoadProtien();
         loadPl.protienLevel = protienLevel;
         load = loadPl;
 
       } else if (moisture != '' && testWeight != '') {
-        let loadMTw = new NewLoadMoistureTestWeight();
+        let loadMTw = new LoadMoistureTestWeight();
         loadMTw.moistureLevel = moisture;
         loadMTw.testWeight = testWeight;
         load = loadMTw;
 
       } else if (moisture != '' && protienLevel != '') {
-        let loadMPl = new NewLoadMoistureProtien();
+        let loadMPl = new LoadMoistureProtien();
         loadMPl.moistureLevel = moisture;
         loadMPl.protienLevel = protienLevel;
         load = loadMPl;
 
       } else if (testWeight != '' && protienLevel != '') {
-        let loadTwPl = new NewLoadTestWeightProtein();
+        let loadTwPl = new LoadTestWeightProtein();
         loadTwPl.testWeight = testWeight;
         loadTwPl.protienLevel = protienLevel;
         load = loadTwPl;

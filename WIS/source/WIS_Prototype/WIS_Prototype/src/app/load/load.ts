@@ -33,35 +33,35 @@ export class Load extends ILoad{
 }
 
 
-export class NewLoad extends ILoad {
+export class LoadMoistureTestWeightProtien extends ILoad {
   moistureLevel?: number;
   testWeight?: number;
   protienLevel?: number;
 }
 
-export class NewLoadMoisture extends ILoad {
+export class LoadMoisture extends ILoad {
   moistureLevel?: number;
 }
 
-export class NewLoadTestWeight extends ILoad {
+export class LoadTestWeight extends ILoad {
   testWeight?: number;
 }
 
-export class NewLoadProtien extends ILoad {
+export class LoadProtien extends ILoad {
   protienLevel?: number;
 }
 
-export class NewLoadMoistureTestWeight extends ILoad {
+export class LoadMoistureTestWeight extends ILoad {
   moistureLevel?: number;
   testWeight?: number;
 }
 
-export class NewLoadMoistureProtien extends ILoad {
+export class LoadMoistureProtien extends ILoad {
   moistureLevel?: number;
   protienLevel?: number;
 }
 
-export class NewLoadTestWeightProtein extends ILoad {
+export class LoadTestWeightProtein extends ILoad {
   testWeight?: number;
   protienLevel?: number;
 }

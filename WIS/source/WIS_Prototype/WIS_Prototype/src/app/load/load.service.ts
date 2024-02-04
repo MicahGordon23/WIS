@@ -24,8 +24,8 @@ export class LoadService {
     return this.http.get<Load>(this.url + '/' + id);
   }
 
-  put(item: Load): Observable<Load> {
-    return this.http.put<Load>(this.url + item.loadId, item);
+  put(item: ILoad): Observable<Load> {
+    return this.http.put<Load>(this.url + '/' + item.loadId, item);
   }
 
   post(item: ILoad): Observable<ILoad> {
