@@ -1,5 +1,5 @@
 obj
-bin
+
 *.fake
 .vs
 .vscode
@@ -7,8 +7,8 @@ test.csv
 *node_modules*
 *FileContentIndex*
 *cache*
-*.bin
-*/bin/*
+
+
 */obj/*
 .vs
 .vscode
