@@ -22,7 +22,7 @@
     </select>
 
     <mat-label>Commodity Variety</mat-label>
-    <select formControlName="commodityVariety" >
+    <select formControlName="commodityVariety">
       <option *ngFor="let comVariety of varieties" value="{{comVariety.commodityVarietyId}}">
         {{ comVariety.commodityVarietyName }}
       </option>
@@ -30,8 +30,8 @@
 
 
     <!--State Id-->
+    <mat-label>State</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>State</mat-label>
       <input matInput formControlName="stateId" required placeholder="State" />
     </mat-form-field>
 
@@ -42,14 +42,14 @@
     </mat-form-field>
 
     <!--Farm / FSA Number-->
+    <mat-label>Farm Number (FSA)</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Farm Number (FSA)</mat-label>
       <input matInput formControlName="farmNumber" placeholder="Farm Number (FSA)" />
     </mat-form-field>
 
     <!--Notes-->
+    <mat-label>Notes</mat-label>
     <mat-form-field class="form-row">
-      <mat-label>Notes</mat-label>
       <input matInput formControlName="notes" placeholder="Notes" />
     </mat-form-field>
 
