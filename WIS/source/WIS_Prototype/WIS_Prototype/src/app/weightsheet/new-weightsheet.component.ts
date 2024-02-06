@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { NewLotComponent } from '../lot/new-lot.component'
 
@@ -48,8 +48,8 @@ export class NewWeightsheetComponent {
 
   ngOnInit() {
     this.form = new FormGroup({
-      commodityType: new FormControl(''),
-      weigher: new FormControl(''),
+      commodityType: new FormControl('', Validators.required),  // Synchronous Validator
+      weigher: new FormControl('', Validators.required),        // Synchronous Validator
 
       lot: new FormControl(''),
       commodityVariety: new FormControl(''),
