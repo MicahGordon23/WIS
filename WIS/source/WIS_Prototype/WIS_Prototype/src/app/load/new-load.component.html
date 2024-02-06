@@ -14,7 +14,7 @@
       <mat-form-field>
         <input matInput formControlName="truckId" required placeholder="Truck Id" />
         <mat-error *ngIf="this.form.controls['truckId'].errors?.['required']">
-          Name is required.
+          Truck Id is required.
         </mat-error>
       </mat-form-field>
     </div>
@@ -29,7 +29,7 @@
           </mat-option>
         </mat-select>
         <mat-error *ngIf="this.form.controls['bin'].errors?.['required']">
-          Truck Identifier is Required.
+          Bin is Required.
         </mat-error>
       </mat-form-field>
     </div>
@@ -43,7 +43,7 @@
             {{ sheet.weightSheetId }}
           </mat-option>
           <mat-error *ngIf="this.form.controls['weightsheet'].errors?.['required']">
-            Truck Identifier is Required.
+            Weight Sheet is Required.
           </mat-error>
         </mat-select>
       </mat-form-field>
@@ -81,104 +81,10 @@
   </div>
 
   <mat-dialog-actions>
-    <button mat-raised-button
-            (click)="openNewWeightsheetDialog()"
-            [disabled]="!form.valid">
+    <button mat-raised-button (click)="openNewWeightsheetDialog()">
       New Weightsheet
     </button>
   </mat-dialog-actions>
 
-  <button mat-raised-button type="submit" (click)="onSubmit()">Weigh In</button>
-</div>
-<!--mat-label will not display I HAVE NO IDEA WHY WTF-->
-<div>
-  <h1>New Load</h1>
-  <div [formGroup]="form" (ngSubmit)="onSubmit()">
-
-    <mat-dialog-actions>
-      <button mat-raised-button (click)="onCancel()">Cancel</button>
-    </mat-dialog-actions>
-
-
-    <!--Truck Id Field-->
-    <div class="form-row">
-      <mat-label>Truck Id</mat-label>
-      <mat-form-field>
-        <input matInput formControlName="truckId" required placeholder="Truck Id" />
-        <mat-error *ngIf="this.form.controls['truckId'].errors?.['required']">
-          Name is required.
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <!--Select from list of Bins-->
-    <div class="form-row">
-      <mat-label>Bin</mat-label>
-      <mat-form-field>
-        <mat-select formControlName="bin">
-          <mat-option *ngFor="let bin of bins" value="{{bin.binId}}">
-            {{ bin.binName }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="this.form.controls['bin'].errors?.['required']">
-          Truck Identifier is Required.
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <!--Select from list of Weightsheets-->
-    <div class="form-row">
-      <mat-label>Weightsheet</mat-label>
-      <mat-form-field>
-        <mat-select formControlName="weightsheet">
-          <mat-option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
-            {{ sheet.weightSheetId }}
-          </mat-option>
-          <mat-error *ngIf="this.form.controls['weightsheet'].errors?.['required']">
-            Truck Identifier is Required.
-          </mat-error>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <!--Moisture Level Field-->
-    <mat-label>Moisture</mat-label>
-    <mat-form-field>
-      <input matInput formControlName="moistureLevel" placeholder="Moisture" />
-    </mat-form-field>
-
-    <!--Test Weight Field-->
-    <mat-label>Test Weight</mat-label>
-    <mat-form-field>
-      <input matInput formControlName="testWeight" placeholder="Test Weight" />
-    </mat-form-field>
-
-    <!--Protien Level Field-->
-    <mat-label>Protien</mat-label>
-    <mat-form-field>
-      <input matInput formControlName="protienLevel" placeholder="Protein Level" />
-    </mat-form-field>
-
-    <!--Bill of Lading Number Field-->
-    <mat-label>Bill of Lading</mat-label>
-    <mat-form-field>
-      <input matInput formControlName="bolNumber" placeholder="Bill of Lading Number" />
-    </mat-form-field>
-
-    <!--Notes / Comments Field-->
-    <mat-label>Notes</mat-label>
-    <mat-form-field>
-      <input matInput formControlName="notes" placeholder="Notes/Comments" />
-    </mat-form-field>
-  </div>
-
-  <mat-dialog-actions>
-    <button mat-raised-button
-            (click)="openNewWeightsheetDialog()"
-            [disabled]="!form.valid">
-      New Weightsheet
-    </button>
-  </mat-dialog-actions>
-
-  <button mat-raised-button type="submit" (click)="onSubmit()">Weigh In</button>
+  <button mat-raised-button type="submit" [disabled]="!form.valid"  (click)="onSubmit()">Weigh In</button>
 </div>
