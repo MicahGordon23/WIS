@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.component';
 
@@ -60,9 +60,9 @@ export class NewLoadComponent {
   ngOnInit() {
 
     this.form = new FormGroup({
-      truckId: new FormControl(''),
-      bin: new FormControl(''),
-      weightsheet: new FormControl(''),
+      truckId: new FormControl('', Validators.required),      // Syncronous Validator
+      bin: new FormControl('', Validators.required),          // Syncronous Validator
+      weightsheet: new FormControl('', Validators.required),  // Syncronous Validator
       moistureLevel: new FormControl(''),
       testWeight: new FormControl(''),
       protienLevel: new FormControl(''),
