@@ -32,7 +32,11 @@
     <!--State Id-->
     <mat-label>State</mat-label>
     <mat-form-field class="form-row">
-      <input matInput formControlName="stateId" required placeholder="State" />
+      <mat-select required formControlName="stateId">
+        <mat-option *ngFor="let s of states" [value]="s.value">
+          {{s.viewValue}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <!--Landlord field-->
