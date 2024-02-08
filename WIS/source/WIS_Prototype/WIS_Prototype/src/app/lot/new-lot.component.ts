@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -42,16 +42,22 @@ export class NewLotComponent {
 
   varieties?: CommodityVariety[];
 
+  states = [
+    { value: 'ID', viewValue: 'ID' },
+    { value: "WA", viewValue: 'WA' },
+    { value: 'OR', viewValue: 'OR' }
+  ];
+
   // The new lot refernce
   lot!: ILot;
 
   ngOnInit() {
     // Initialize form
     this.form = new FormGroup({
-      producer: new FormControl(''),
-      commodityType: new FormControl(''),
+      producer: new FormControl('', Validators.required),
+      commodityType: new FormControl('', Validators.required),
       commodityVariety: new FormControl(''),
-      stateId: new FormControl(''),
+      stateId: new FormControl('', Validators.required),
       landlord: new FormControl(''),
       farmNumber: new FormControl(''),
       notes: new FormControl('')

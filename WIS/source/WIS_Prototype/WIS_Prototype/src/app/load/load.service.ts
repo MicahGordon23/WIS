@@ -21,11 +21,11 @@ export class LoadService {
   }
 
   get(id: bigint): Observable<Load> {
-    return this.http.get<Load>(this.url);
+    return this.http.get<Load>(this.url + '/' + id);
   }
 
-  put(item: Load): Observable<Load> {
-    return this.http.put<Load>(this.url + item.loadId, item);
+  put(item: ILoad): Observable<Load> {
+    return this.http.put<Load>(this.url + '/' + item.loadId, item);
   }
 
   post(item: ILoad): Observable<ILoad> {

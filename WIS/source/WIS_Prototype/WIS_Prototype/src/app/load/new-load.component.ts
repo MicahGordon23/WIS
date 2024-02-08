@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.component';
 
 import {
   ILoad,
   Load,
-  NewLoad,
-  NewLoadMoisture,
-  NewLoadTestWeight,
-  NewLoadProtien,
-  NewLoadMoistureTestWeight,
-  NewLoadMoistureProtien,
-  NewLoadTestWeightProtein
+  LoadMoistureTestWeightProtien,
+  LoadMoisture,
+  LoadTestWeight,
+  LoadProtien,
+  LoadMoistureTestWeight,
+  LoadMoistureProtien,
+  LoadTestWeightProtein
 } from './load';
 
 import { LoadService } from './load.service';
@@ -51,16 +51,18 @@ export class NewLoadComponent {
   // the new load ref
   load!: ILoad;
 
+  // Bin options for select
   bins!: Bin[];
 
+  // Weightsheet options for select
   weightsheets!: Weightsheet[];
 
   ngOnInit() {
 
     this.form = new FormGroup({
-      truckId: new FormControl(''),
-      bin: new FormControl(''),
-      weightsheet: new FormControl(''),
+      truckId: new FormControl('', Validators.required),      // Syncronous Validator
+      bin: new FormControl('', Validators.required),          // Syncronous Validator
+      weightsheet: new FormControl('', Validators.required),  // Syncronous Validator
       moistureLevel: new FormControl(''),
       testWeight: new FormControl(''),
       protienLevel: new FormControl(''),
@@ -72,18 +74,16 @@ export class NewLoadComponent {
     this.binService.getWarehouseBins(1)
       .subscribe(result => this.bins = result);
 
-    this.weightsheetService.getData()
+    // Gets open Weightsheets
+    // Harded code for warehouse 1
+    this.weightsheetService.getWarehouseOpenWeigthsheets(1)
       .subscribe(result => this.weightsheets = result);
   }
 
   onSubmit() {
     var load = new ILoad();
     if (load) {
-      // generate load id? or do this before for when clicking new laod?
-      // Controller gets the id service does the math
-      // Http Get from scale. Scale Service/Controller Most likely a controller here
       
-
       // Local variables hold value. Less overhead from the linq
       let moisture = this.form.controls['moistureLevel'].value;
       let testWeight = this.form.controls['testWeight'].value;
@@ -91,41 +91,41 @@ export class NewLoadComponent {
 
       // To Do optimize the conditionals. Very Ugly
       if (moisture != '' && testWeight != '' && protienLevel != '') {
-        let loadA = new NewLoad();
+        let loadA = new LoadMoistureTestWeightProtien();
         loadA.moistureLevel = moisture;
         loadA.protienLevel = protienLevel;
         loadA.testWeight = testWeight;
         load = loadA;
 
       } else if (moisture != '') {
-        let loadM = new NewLoadMoisture();
+        let loadM = new LoadMoisture();
         loadM.moistureLevel = moisture;
         load = loadM;
 
       } else if (testWeight != '') {
-        let loadTw = new NewLoadTestWeight();
+        let loadTw = new LoadTestWeight();
         loadTw.testWeight = testWeight;
         load = loadTw;
 
       } else if (protienLevel != '') {
-        let loadPl = new NewLoadProtien();
+        let loadPl = new LoadProtien();
         loadPl.protienLevel = protienLevel;
         load = loadPl;
 
       } else if (moisture != '' && testWeight != '') {
-        let loadMTw = new NewLoadMoistureTestWeight();
+        let loadMTw = new LoadMoistureTestWeight();
         loadMTw.moistureLevel = moisture;
         loadMTw.testWeight = testWeight;
         load = loadMTw;
 
       } else if (moisture != '' && protienLevel != '') {
-        let loadMPl = new NewLoadMoistureProtien();
+        let loadMPl = new LoadMoistureProtien();
         loadMPl.moistureLevel = moisture;
         loadMPl.protienLevel = protienLevel;
         load = loadMPl;
 
       } else if (testWeight != '' && protienLevel != '') {
-        let loadTwPl = new NewLoadTestWeightProtein();
+        let loadTwPl = new LoadTestWeightProtein();
         loadTwPl.testWeight = testWeight;
         loadTwPl.protienLevel = protienLevel;
         load = loadTwPl;

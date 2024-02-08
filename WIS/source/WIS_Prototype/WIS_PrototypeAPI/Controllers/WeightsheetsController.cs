@@ -25,10 +25,10 @@ namespace WIS_PrototypeAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Weightsheet>>> GetWeightsheets()
         {
-          if (_context.Weightsheets == null)
-          {
-              return NotFound();
-          }
+            if (_context.Weightsheets == null)
+            {
+                return NotFound();
+            }
             return await _context.Weightsheets.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace WIS_PrototypeAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Weightsheet>> GetWeightsheet(long id)
         {
-          if (_context.Weightsheets == null)
-          {
-              return NotFound();
-          }
+            if (_context.Weightsheets == null)
+            {
+                return NotFound();
+            }
             var weightsheet = await _context.Weightsheets.FindAsync(id);
 
             if (weightsheet == null)
@@ -48,6 +48,26 @@ namespace WIS_PrototypeAPI.Controllers
             }
 
             return weightsheet;
+        }
+
+        // GET: api/Weightsheets/Open/4
+        [HttpGet("Open/{id}")]
+        public async Task<ActionResult<IEnumerable<Weightsheet>>> GetWarehouseOpenWeightsheets(int id)
+        {
+            if (_context.Weightsheets == null)
+            {
+                return NotFound();
+            }
+
+            var weightsheets = await _context.Weightsheets
+                .Where(w => w.WarehouseIdLInk == id && w.DateClosed == null)
+                .ToListAsync();
+            if (weightsheets == null)
+            {
+                return NotFound();
+            }
+
+            return weightsheets;
         }
 
         // PUT: api/Weightsheets/5

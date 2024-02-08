@@ -20,6 +20,7 @@ import { NewLoadComponent } from './load/new-load.component';
 import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
 import { NewLotComponent } from './lot/new-lot.component';
 import { EditLoadComponent } from './load/edit-load/edit-load.component';
+import { ReportComponent } from './report/report.component';
 
 // Services
 import { LoadService } from './load/load.service';
@@ -43,7 +44,8 @@ import { TruckScaleService } from './scale/truck-scale.service';
     NewLoadComponent,
     NewWeightsheetComponent,
     NewLotComponent,
-    EditLoadComponent
+    EditLoadComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

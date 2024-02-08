@@ -1,1 +1,77 @@
-<p>edit-load works!</p>
+<div class="edit-load">
+  <div [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!--Truck Id Field-->
+    <mat-label>Truck Id</mat-label>
+    <mat-form-field class="form-row">
+      <input matInput formControlName="truckId" required placeholder="Truck Id" />
+    </mat-form-field>
+
+    <!--Select from list of Bins-->
+    <mat-label>Select a Bin</mat-label>
+    <mat-select formControlName="bin" placeholder="Select a Bin">
+      <mat-option *ngFor="let bin of bins" value="{{bin.binId}}">
+        {{ bin.binName }}
+      </mat-option>
+    </mat-select>
+
+    <!--Select from list of Weightsheets-->
+    <mat-label>Select a Weight Sheet</mat-label>
+    <mat-select formControlName="weightsheet" placeholder="Select a Weight Sheet">
+      <mat-option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
+        {{ sheet.weightSheetId }}
+      </mat-option>
+    </mat-select>
+
+    <!--Gross Weight Field-->
+    <mat-label>Gross Weight</mat-label>
+    <mat-form-field class="form-row">
+      <input matInput formControlName="grossWeight" placeholder="Gross Weight" />
+    </mat-form-field>
+
+    <!--Tare Weight Field-->
+    <mat-label>Tare Weight</mat-label>
+    <mat-form-field>
+      <input matInput formControlName="tareWeight" placeholder="Tare Weight" />
+    </mat-form-field>
+
+    <!--Net Weight Field-->
+    <mat-label>Net Weight</mat-label>
+    <mat-form-field>
+      <input matInput formControlName="netWeight" placeholder="Net Weight" />
+    </mat-form-field>
+
+    <!--Moisture Level Field-->
+    <mat-label>Moisture</mat-label>
+    <mat-form-field class="form-row">
+      <input matInput formControlName="moistureLevel" placeholder="Moisture" />
+    </mat-form-field>
+
+    <!--Test Weight Field-->
+    <mat-label>Test Weight</mat-label>
+    <mat-form-field class="form-row">
+      <input matInput formControlName="testWeight" placeholder="Test Weight" />
+    </mat-form-field>
+
+    <!--Protien Level Field-->
+    <mat-label>Protien</mat-label>
+    <mat-form-field class="form-row">
+      <input matInput formControlName="protienLevel" placeholder="Protein Level" />
+    </mat-form-field>
+
+    <!--Bill of Lading Number Field-->
+    <mat-label>Bill of Lading</mat-label>
+    <mat-form-field class="form-row">
+      <input matInput formControlName="bolNumber" placeholder="Bill of Lading Number" />
+    </mat-form-field>
+
+    <!--Notes / Comments Field-->
+    <mat-label>Notes</mat-label>
+    <mat-form-field class="form-row">
+      <input matInput formControlName="notes" placeholder="Notes/Comments" />
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" (click)="weighOut()">Weigh Out</button>
+    <button mat-raised-button type="submit" (click)="onSubmit()">Done</button>
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
+  </div>
+</div>

@@ -15,20 +15,33 @@ export class WeightsheetService{
 
   private url: string = "/api/Weightsheets";
 
+  // Gets all Weightsheets from the database.
   getData(): Observable<Weightsheet[]> {
-   
+
     return this.http.get<Weightsheet[]>(this.url, {});
   }
 
+  // Gets all Open Weightsheets for warehouseId From the database. An open weightsheet has no close
+  //  date.
+  getWarehouseOpenWeigthsheets(warehouseId: number): Observable<Weightsheet[]> {
+    return this.http.get<Weightsheet[]>(this.url + '/Open/' + warehouseId);
+  }
+
+  // Gets a single Weightsheet by weightsheetId from the database.
   get(id: bigint): Observable<Weightsheet> {
     
-    return this.http.get<Weightsheet>(this.url);
+    return this.http.get<Weightsheet>(this.url + '/' + id);
   }
 
+  // Edit a single weightsheet. Updated it in the databse
   put(item: Weightsheet): Observable<Weightsheet> {
-    return this.http.put<Weightsheet>(this.url + item.weightSheetId, item);
+    return this.http.put<Weightsheet>(this.url + '/' + item.weightSheetId, item);
   }
 
+  // Add a new weightsheet to the database.
+  // Takes an IWeightsheet to account for nullables in the non-nullable by C# fields. Example:
+  //    Closed date will not be set on creation, but C# is rejecting a null there. Therfore use
+  //    a different weightsheet object with no dateClosed field.
   post(item: IWeightsheet): Observable<IWeightsheet> {
     return this.http.post<IWeightsheet>(this.url, item);
   }
