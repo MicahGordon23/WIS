@@ -32,5 +32,7 @@ namespace WIS_PrototypeAPI.Data
 		public DbSet<Warehouse> Warehouses => Set<Warehouse>();
 
 		public DbSet<Weightsheet> Weightsheets => Set<Weightsheet>();
+
+		public DbSet<Source> Sources => Set<Source>();
 	}
 }
