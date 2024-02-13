@@ -41,22 +41,21 @@ namespace WIS_PrototypeAPI.Data.Models
 
 		public CommodityVariety? CommodityVariety { get; set; } = null;
 
-		// For Inbound Weightsheet THIS SHOULD BE LOT YOU NERD.
+		// Links to the Warehouse where the loads on the weight sheets are deposited.
+		// used for all weight sheets
+		[ForeignKey(nameof(Warehouse))]
+		public int? WarehouseIdLink { get; set; }
+		public Warehouse? Warehouse { get; set; } = null;
+
+		// Links to a lot.
+		// For Inbound Weight Sheets
 		[ForeignKey(nameof(Lot))]
 		public long? LotIdLink { get; set; }
-
 		public Lot? Lot { get; set; }
 
-		//// For Transfer Weightsheet
-		//[ForeignKey(nameof(Warehouse))]
-		//public int? SourceIdLink { get; set; }
-
-		//public Source? Source { get; set; } = null;
-
-		// For Transfer Weightsheet
-		[ForeignKey(nameof(Warehouse))]
-		public int? WarehouseIdLInk { get; set; }
-
-		public Warehouse? Warehouse { get; set; } = null;
+		// Links to Source
+		// For Transfer Weight Sheets
+		public int? SourceIdLink { get; set; }
+		public Source? Source { get; set; }
 	}
 }
