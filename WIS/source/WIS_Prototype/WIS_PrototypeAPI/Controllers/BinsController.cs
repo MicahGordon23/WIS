@@ -40,14 +40,15 @@ namespace WIS_PrototypeAPI.Controllers
           {
               return NotFound();
           }
-            var bin = await _context.Bins.FindAsync(id);
+          
+          var bin = await _context.Bins.FindAsync(id);
 
-            if (bin == null)
-            {
-                return NotFound();
-            }
+          if (bin == null)
+          {
+              return NotFound();
+		  }
 
-            return bin;
+			return bin;
         }
 
         // GET: api/Bins/Warehouse/5
