@@ -1,6 +1,6 @@
 ﻿// Filename: Source.cs
 // Purpose: To define the Source Entity for Transfer Weight Sheets
-// Author:
+// Author: Micah Gordon
 // Date: 02/13/2024
 
 // Updates: <date>:<change>
