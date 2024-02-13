@@ -1,4 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Filename: Weightsheet.cs
+// Purpose: To define the Weightsheet Entity. Links Warehouses To Loads and loads to Commodity Types
+//		and Varieties. Can link lot, and therefore producers, to loads and the warehouse to which
+//		the loads were delivered.
+// Author: Micah Gordon
+// Date: 
+
+// Updates: <date>:<change>
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WIS_PrototypeAPI.Data.Models

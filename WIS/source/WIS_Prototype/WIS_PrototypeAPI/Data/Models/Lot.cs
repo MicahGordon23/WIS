@@ -1,4 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Filename: Lot.cs
+// Purpose: To define the Lot Entity. The Lot entity links Producers to their weightsheets and there for lots.
+// Author: Micah Gordon
+// Date: 
+
+// Updates: <date>:<change>
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WIS_PrototypeAPI.Data.Models
@@ -37,5 +43,10 @@ namespace WIS_PrototypeAPI.Data.Models
 		[ForeignKey(nameof(Producer))]
 		public int? ProducerIdLink { get; set; } = null;
 		public Producer? Producer { get; set;} = null;
+
+		// Warehouse
+		[ForeignKey(nameof(Warehouse))]
+		public int? WarehouseIdLink { get; set; } = null;
+		public Warehouse? Warehouse { get; set; } = null;
 	}
 }
