@@ -31,7 +31,7 @@ namespace WIS_PrototypeAPI.Data.Models
 
 		// one to one
 		[ForeignKey(nameof(Bin))]
-		public long? BinIdLink { get; set; }
+		public int? BinIdLink { get; set; }
 		public Bin? Bin { get; set; }
 	}
 }

@@ -114,6 +114,7 @@ namespace WIS_PrototypeAPI.Data
 			Lot l3 = new Lot();
 			l3.StateId = "WA";
 			l3.StartDate = new DateTime(2023, 08, 13);
+			l3.EndDate = new DateTime(2023, 08, 20);
 			l3.CommodityType = greenPeas;
 			l3.CommodityVariety = argonPeas;
 			l3.Producer = diamondX;
@@ -121,6 +122,7 @@ namespace WIS_PrototypeAPI.Data
 			Lot l4 = new Lot();
 			l4.StateId = "WA";
 			l4.StartDate = new DateTime(2023, 08, 14);
+			l4.EndDate = new DateTime(2023, 08, 16);
 			l4.CommodityType = greenPeas;
 			l4.CommodityVariety = ginneyPeas;
 			l4.Producer = dodge;

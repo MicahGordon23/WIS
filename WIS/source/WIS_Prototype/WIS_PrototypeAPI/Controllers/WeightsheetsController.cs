@@ -60,7 +60,7 @@ namespace WIS_PrototypeAPI.Controllers
             }
 
             var weightsheets = await _context.Weightsheets
-                .Where(w => w.WarehouseIdLInk == id && w.DateClosed == null)
+                .Where(w => w.WarehouseIdLink == id && w.DateClosed == null)
                 .ToListAsync();
             if (weightsheets == null)
             {
