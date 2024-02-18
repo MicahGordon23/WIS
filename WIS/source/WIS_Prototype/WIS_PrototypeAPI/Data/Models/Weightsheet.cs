@@ -31,8 +31,10 @@ namespace WIS_PrototypeAPI.Data.Models
 		[Column(TypeName = "nvarchar(200)")]
 		public string? Notes { get; set; } = null;
 
+		[Column(TypeName = "date")]
 		public DateTime? DateOpened { get; set; } = null;
 
+		[Column(TypeName ="date")]
 		public DateTime? DateClosed { get; set; } = null; 
 
 		public ICollection<Load>? Loads { get; set; } = null;
