@@ -18,8 +18,10 @@ namespace WIS_PrototypeAPI.Data.Models
 		[Column(TypeName = "nvarchar(5)")]
 		public string? StateId { get; set; } = null;
 
+		[Column(TypeName = "date")]
 		public DateTime? StartDate { get; set; } = null;
 
+		[Column(TypeName = "date")]
 		public DateTime? EndDate { get; set; } = null;
 
 		[Column(TypeName = "nvarchar(30)")]
