@@ -62,6 +62,7 @@ namespace WIS_PrototypeAPI.Data.Models
 		public Lot? Lot { get; set; }
 
 		// Links to Source
+		[ForeignKey(nameof(Source))]
 		// For Transfer Weight Sheets
 		public int? SourceIdLink { get; set; }
 		public Source? Source { get; set; }
