@@ -12,7 +12,7 @@ using WIS_PrototypeAPI.Data;
 namespace WIS_PrototypeAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240214012106_Initial")]
+    [Migration("20240218184904_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -183,7 +183,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("FarmNumber")
                         .HasColumnType("nvarchar(30)");
@@ -198,7 +198,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("StateId")
                         .HasColumnType("nvarchar(5)");
@@ -290,10 +290,10 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DateClosed")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("DateOpened")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Hauler")
                         .HasColumnType("nvarchar(50)");
@@ -306,9 +306,6 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int?>("SourceId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("SourceIdLink")
                         .HasColumnType("int");
@@ -327,7 +324,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.HasIndex("LotIdLink");
 
-                    b.HasIndex("SourceId");
+                    b.HasIndex("SourceIdLink");
 
                     b.HasIndex("WarehouseIdLink");
 
@@ -431,7 +428,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.HasOne("WIS_PrototypeAPI.Data.Models.Source", "Source")
                         .WithMany("SourceWeightsheets")
-                        .HasForeignKey("SourceId");
+                        .HasForeignKey("SourceIdLink");
 
                     b.HasOne("WIS_PrototypeAPI.Data.Models.Warehouse", "Warehouse")
                         .WithMany("DestWeightsheets")

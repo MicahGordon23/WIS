@@ -140,8 +140,8 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     LotId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StateId = table.Column<string>(type: "nvarchar(5)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: true),
                     Landlord = table.Column<string>(type: "nvarchar(30)", nullable: true),
                     FarmNumber = table.Column<string>(type: "nvarchar(30)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(200)", nullable: true),
@@ -186,14 +186,13 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     Miles = table.Column<int>(type: "int", nullable: true),
                     BillOfLading = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(200)", nullable: true),
-                    DateOpened = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateClosed = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateOpened = table.Column<DateTime>(type: "date", nullable: true),
+                    DateClosed = table.Column<DateTime>(type: "date", nullable: true),
                     CommodityTypeIdLink = table.Column<int>(type: "int", nullable: true),
                     CommodityVarietyIdLink = table.Column<long>(type: "bigint", nullable: true),
                     WarehouseIdLink = table.Column<int>(type: "int", nullable: true),
                     LotIdLink = table.Column<long>(type: "bigint", nullable: true),
-                    SourceIdLink = table.Column<int>(type: "int", nullable: true),
-                    SourceId = table.Column<int>(type: "int", nullable: true)
+                    SourceIdLink = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,8 +213,8 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         principalTable: "Lots",
                         principalColumn: "LotId");
                     table.ForeignKey(
-                        name: "FK_Weightsheets_Sources_SourceId",
-                        column: x => x.SourceId,
+                        name: "FK_Weightsheets_Sources_SourceIdLink",
+                        column: x => x.SourceIdLink,
                         principalTable: "Sources",
                         principalColumn: "SourceId");
                     table.ForeignKey(
@@ -331,9 +330,9 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 column: "LotIdLink");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Weightsheets_SourceId",
+                name: "IX_Weightsheets_SourceIdLink",
                 table: "Weightsheets",
-                column: "SourceId");
+                column: "SourceIdLink");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Weightsheets_WarehouseIdLink",
