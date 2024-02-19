@@ -7,6 +7,9 @@ using WIS_PrototypeAPI.Data.DTOs;
 using Humanizer;
 using NuGet.Packaging.Signing;
 using System.Data.Common;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
+using System.Text.RegularExpressions;
 
 namespace WIS_PrototypeAPI.Controllers
 {
@@ -42,55 +45,43 @@ namespace WIS_PrototypeAPI.Controllers
 			{
 				return NotFound();
 			}
-			// Triple join from Lots (where WarehouseIdLink == wearhouseID) on Weightsheets (Where Date == todays Date) on Loads
-			/*	Key Information:
-			 *	Purpose of Intake report is to track intake from producers into the warehouse.
-			 *	For each Weightsheet:
-			 *		Commodity Type, Commodity Variety,
-			 *		From Lot: Producer Name, Producer Number, Lot Number, Landlord, FSA Number
-			 *		For each Load on weightsheet
-			 *			From Load: Net weight per load
-			 *	
-			 * SELECT Weightsheets.WeightSheetId, SUM(Loads.NetWeight) AS TotalWeight, Weightsheets.DateOpened
-			 *	FROM Weightsheets
-			 *	INNER JOIN Lots
-			 *	ON Lots.LotId = Weightsheets.WeightSheetId
-			 *	INNER JOIN Loads
-			 *	ON Loads.WeightsheetIdLink = Weightsheets.WeightSheetId
-			 *	GROUP BY WeightSheetId, Weightsheets.DateOpened;
-			 */
 
-			// I have chosen to ignore the UoM for the moment and abstracted it to just bu for the moment.
-			//var intakeReport = from Lots in _context.Set<Lot>()
-			//				   join Weightsheets in _context.Set<Weightsheet>()
-			//					   on new { Lots.LotId, Weightsheets.LotIdLink } equals new { Lots.WarehouseIdLink,  warehouseIdLink = 1 }
+			// ***************** RAW SQL QUERY *******************************
+			// SELECT Weightsheets.WeightSheetId, SUM(Loads.NetWeight) AS TotalWeight, Weightsheets.DateOpened, 
+			// Weightsheets.CommodityTypeIdLink, Weightsheets.CommodityVarietyIdLink, Lots.ProducerIdLink, Weightsheets.LotIdLink
+			// FROM Weightsheets
+			// INNER JOIN Lots
+			// ON Lots.LotId = Weightsheets.LotIdLink AND Lots.WarehouseIdLink = 1
+			// INNER JOIN Loads
+			// ON Loads.WeightsheetIdLink = Weightsheets.WeightSheetId AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
+			// GROUP BY WeightSheetId, Weightsheets.DateOpened, Weightsheets.CommodityTypeIdLink, Weightsheets.CommodityVarietyIdLink, Weightsheets.LotIdLink, Lots.ProducerIdLink;
 
 			var today = DateTime.Now.Date;
 
 			var query = from weightsheet in _context.Weightsheets
-						join lot in _context.Lots on weightsheet.WeightSheetId equals lot.LotId
+						join lot in _context.Lots on weightsheet.LotIdLink equals lot.LotId
 						join load in _context.Loads on weightsheet.WeightSheetId equals load.WeightsheetIdLink
 						where lot.WarehouseIdLink == warehouseId && weightsheet.DateClosed == today
 						group new { weightsheet, load } 
 						by new 
 						{
-							//lot.Producer,
+							lot.ProducerIdLink,
 							weightsheet.LotIdLink,
-							weightsheet.DateOpened,
+							lot.StartDate,
 							weightsheet.WeightSheetId,
-							//weightsheet.CommodityType,
-							//weightsheet.CommodityVariety,
+							weightsheet.CommodityTypeIdLink,
+							weightsheet.CommodityVarietyIdLink,
 							lot.Landlord,
 							lot.FarmNumber
 						} into grouped
 						select new IntakeReport
 						{
-							//producer = grouped.Key.Producer,
+							ProducerId = (int)grouped.Key.ProducerIdLink,
 							LotNumber = (long)grouped.Key.LotIdLink,
 							WeightsheetId = grouped.Key.WeightSheetId,
-							DateLotOpened = (DateTime)grouped.Key.DateOpened,
-							//CommodityType = grouped.Key.CommodityType,
-							//CommodityVariety = grouped.Key.CommodityVariety,
+							DateLotOpened = (DateTime)grouped.Key.StartDate,
+							CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink,
+							CommodityVarietyId = (int)grouped.Key.CommodityVarietyIdLink,
 							Landlord = grouped.Key.Landlord,
 							FarmNumber = grouped.Key.FarmNumber,
 							NetWeightLbs = (long)grouped.Sum(x => x.load.NetWeight)
