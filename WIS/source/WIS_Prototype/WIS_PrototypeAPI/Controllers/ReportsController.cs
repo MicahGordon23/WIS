@@ -51,9 +51,10 @@ namespace WIS_PrototypeAPI.Controllers
 			// Weightsheets.CommodityTypeIdLink, Weightsheets.CommodityVarietyIdLink, Lots.ProducerIdLink, Weightsheets.LotIdLink
 			// FROM Weightsheets
 			// INNER JOIN Lots
-			// ON Lots.LotId = Weightsheets.LotIdLink AND Lots.WarehouseIdLink = 1
+			// ON Lots.LotId = Weightsheets.LotIdLink AND Lots.WarehouseIdLink = warehouseId
 			// INNER JOIN Loads
-			// ON Loads.WeightsheetIdLink = Weightsheets.WeightSheetId AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
+			// ON Loads.WeightsheetIdLink = Weightsheets.WeightSheetId
+			// AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
 			// GROUP BY WeightSheetId, Weightsheets.DateOpened, Weightsheets.CommodityTypeIdLink, Weightsheets.CommodityVarietyIdLink, Weightsheets.LotIdLink, Lots.ProducerIdLink;
 
 			var today = DateTime.Now.Date;
