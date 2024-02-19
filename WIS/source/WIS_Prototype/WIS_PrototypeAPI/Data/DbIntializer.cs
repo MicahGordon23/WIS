@@ -14,8 +14,8 @@ namespace WIS_PrototypeAPI.Data
 
 		public void Run()
 		{
-			_context.Database.EnsureDeleted();
-			_context.Database.EnsureCreated();
+			//_context.Database.EnsureDeleted();
+			//_context.Database.EnsureCreated();
 			Console.WriteLine("Starting Seeding of Database");
 			// District
 			District south = new District();
