@@ -31,6 +31,7 @@ import { CommodityTypeService } from './commodity-type/commodity-type.service';
 import { CommodityVarietyService } from './commodity-variety/commodity-variety.service';
 import { BinService } from './bin/bin.service';
 import { TruckScaleService } from './scale/truck-scale.service';
+import { IntakeReportService } from './report/intake-report-service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { TruckScaleService } from './scale/truck-scale.service';
     CommodityTypeService,
     CommodityVarietyService,
     BinService,
-    TruckScaleService
+    TruckScaleService,
+    IntakeReportService
   ],
 
   bootstrap: [AppComponent]
