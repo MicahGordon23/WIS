@@ -102,6 +102,9 @@ export class NewLotComponent {
     
     lot.startDate = new Date();
 
+    // CODE THAT DETERMIANES WAREHOUSE
+    lot.warehouseIdLink = 1;
+
     this.lot = lot;
     console.log(this.lot);
 
