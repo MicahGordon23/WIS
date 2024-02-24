@@ -20,7 +20,7 @@ namespace WIS_PrototypeAPI.Data.DTOs
 		//public string? CommodityVarietyName { get; set; } = null;
 
 		// Producer number
-		public int ProducerId { get; set; }
+		public int? ProducerIdLink { get; set; }
 		// Producer name
 		//public string? ProducerName { get; set; } = null;
 
@@ -31,7 +31,7 @@ namespace WIS_PrototypeAPI.Data.DTOs
 		public long WeightsheetId { get; set; }
 
 		// lot is open or closed
-		public DateTime? LotStartDate { get; set; } = null;
+		public DateTime? EndDate { get; set; } = null;
 
 		// Landlord
 		public string? Landlord { get; set; } = null;

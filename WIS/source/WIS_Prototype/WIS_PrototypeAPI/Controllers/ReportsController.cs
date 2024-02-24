@@ -58,33 +58,38 @@ namespace WIS_PrototypeAPI.Controllers
 			// GROUP BY WeightSheetId, Weightsheets.DateOpened, Weightsheets.CommodityTypeIdLink, Weightsheets.CommodityVarietyIdLink, Weightsheets.LotIdLink, Lots.ProducerIdLink;
 
 			var today = DateTime.Now.Date;
-
+			Console.WriteLine(today);
 			var query = from weightsheet in _context.Weightsheets
-						join lot in _context.Lots on weightsheet.LotIdLink equals lot.LotId
-						join load in _context.Loads on weightsheet.WeightSheetId equals load.WeightsheetIdLink
-						where lot.WarehouseIdLink == warehouseId && weightsheet.DateClosed == today
+						//join lot in _context.Lots on weightsheet.LotIdLink equals lot.LotId //&& weightsheet.DateOpened == today
+						join load in _context.Loads on weightsheet.WeightSheetId equals load.WeightsheetIdLink 
+						// Left Join semantics
+						into report
+						from load in report.DefaultIfEmpty()
+						where weightsheet.WarehouseIdLink == warehouseId && weightsheet.DateOpened == today
+						//where lot.WarehouseIdLink == warehouseId 
 						group new { weightsheet, load } 
 						by new 
 						{
-							lot.ProducerIdLink,
+							//lot.ProducerIdLink,
 							weightsheet.LotIdLink,
-							lot.StartDate,
+							//weightsheet.DateOpened, Assuming weighsheet is closed 
 							weightsheet.WeightSheetId,
 							weightsheet.CommodityTypeIdLink,
 							weightsheet.CommodityVarietyIdLink,
-							lot.Landlord,
-							lot.FarmNumber
+							//lot.Landlord,
+							//lot.FarmNumber,
+							//lot.EndDate // TO check if lot is closed
 						} into grouped
 						select new IntakeReport
 						{
-							ProducerId = (int)grouped.Key.ProducerIdLink,
-							LotNumber = (long)grouped.Key.LotIdLink,
+							//ProducerIdLink = (int)grouped.Key.ProducerIdLink,
+							LotIdLink = (long)grouped.Key.LotIdLink,
 							WeightsheetId = grouped.Key.WeightSheetId,
-							DateLotOpened = (DateTime)grouped.Key.StartDate,
-							CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink,
-							CommodityVarietyId = (int)grouped.Key.CommodityVarietyIdLink,
-							Landlord = grouped.Key.Landlord,
-							FarmNumber = grouped.Key.FarmNumber,
+							//EndDate = (DateTime)grouped.Key.EndDate,
+							CommodityTypeIdLink = (int)grouped.Key.CommodityTypeIdLink,
+							CommodityVarietyIdLink = (int)grouped.Key.CommodityVarietyIdLink,
+							//Landlord = grouped.Key.Landlord,
+							//FarmNumber = grouped.Key.FarmNumber,
 							NetWeightLbs = (long)grouped.Sum(x => x.load.NetWeight)
 						};
 			var result = await query.ToListAsync();
