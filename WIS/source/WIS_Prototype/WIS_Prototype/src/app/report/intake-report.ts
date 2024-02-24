@@ -1,29 +1,52 @@
 export class IntakeReport {
-  public commodityTypeId: number;
+  public commodityTypeIdLink: number;
   public commodityTypeName: string;
-  public commodityVarietyId?: number;
+  public commodityVarietyIdLink?: number;
   public commodityVarietyName?: string;
-  public producerId: number;
+  public producerIdLink: number;
   public proudcerName: string;
-  public lotNumber: number;
+  public lotIdLink: number;
   public weightsheetId: bigint;
-  public dateLotOpened: Date | null;
+ // public dateLotOpened: Date | null;
+  public lotEndDate: Date | null;
   public landlord: string | null;
   public farmNumber: number | null;
   public netWeightLbs: number | null;
+  public isClosedString: string | null;
 
   constructor() {
-    this.commodityTypeId = 0;
+    this.commodityTypeIdLink = 0;
     this.commodityTypeName = "";
-    this.commodityVarietyId = 0;
+    this.commodityVarietyIdLink = 0;
     this.commodityVarietyName = "";
-    this.producerId = 0;
+    this.producerIdLink = 0;
     this.proudcerName = "";
-    this.lotNumber = 0;
+    this.lotIdLink = 0;
     this.weightsheetId = BigInt(0);
-    this.dateLotOpened = null;
+    //this.dateLotOpened = null;
+    this.lotEndDate = null;
     this.landlord = null;
     this.farmNumber = null;
     this.netWeightLbs = null;
+    this.isClosedString = null;
+  }
+
+  // Populates a field that allows for easier display on the table.
+  SetClosedToString(): void {
+    if (this.lotEndDate == null) {
+      this.isClosedString = "Open";
+    }
+    else {
+      this.isClosedString = "Closed";
+    }
+  }
+
+  AsBushel(): number {
+    if (this.netWeightLbs != null) {
+      return (this.netWeightLbs / 60);
+    }
+    else {
+      return -1;
+    }
   }
 }
