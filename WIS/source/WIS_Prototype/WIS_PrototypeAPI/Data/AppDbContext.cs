@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WIS_PrototypeAPI.Data.DTOs;
 using WIS_PrototypeAPI.Data.Models;
 
 namespace WIS_PrototypeAPI.Data
@@ -34,5 +35,7 @@ namespace WIS_PrototypeAPI.Data
 		public DbSet<Weightsheet> Weightsheets => Set<Weightsheet>();
 
 		public DbSet<Source> Sources => Set<Source>();
+
+		public DbSet<IntakeReport> IntakeReports { get; set; }
 	}
 }

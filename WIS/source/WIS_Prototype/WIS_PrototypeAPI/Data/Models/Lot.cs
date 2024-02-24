@@ -50,5 +50,8 @@ namespace WIS_PrototypeAPI.Data.Models
 		[ForeignKey(nameof(Warehouse))]
 		public int? WarehouseIdLink { get; set; } = null;
 		public Warehouse? Warehouse { get; set; } = null;
+
+		// Weightsheets
+		public ICollection<Weightsheet>? Weightsheets { get; set; } = null;
 	}
 }
