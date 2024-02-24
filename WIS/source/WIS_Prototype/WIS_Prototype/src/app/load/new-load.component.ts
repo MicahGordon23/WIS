@@ -133,8 +133,12 @@ export class NewLoadComponent {
     }
     load.truckId = this.form.controls['truckId'].value;
     load.timeIn = new Date();
+    // Account for Local Time
+    load.timeIn.setHours(load.timeIn.getUTCHours() - 8);
     load.bolNumber = this.form.controls['bolNumber'].value;
     load.notes = this.form.controls['notes'].value;
+    load.destBin = this.form.controls['bin'].value;
+    load.weightsheetIdLink = this.form.controls['weightsheet'].value;
     this.load = load
 
     this.load.grossWeight = this.truckScaleService.getWeight();
