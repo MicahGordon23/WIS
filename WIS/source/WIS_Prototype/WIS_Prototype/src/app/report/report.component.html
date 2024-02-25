@@ -1,42 +1,51 @@
-<h1>Reports</h1>
+<div class="print-hide">
+  <h1>Reports</h1>
 
-<div class="report-buttons">
-  <mat-dialog-actions>
-    <button mat-raised-button (click)="getIntakeReport()">Intake Report</button>
-  </mat-dialog-actions>
+  <div class="report-buttons">
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="getIntakeReport()">Intake Report</button>
+    </mat-dialog-actions>
+  </div>
 </div>
-
-<div>
-  <p *ngIf="!report"><em></em></p>
+<div class="print-only" *ngIf="report">
+  <h2 *ngIf="report">Intake Report</h2>
   <table class=" ='table table-striped' aria-labelledby='tableLabel'"  [hidden]="!report">
     <thead>
       <tr>
         <th>Weightsheet Id</th>
+
+        <th>Producer Name</th>
         <th>Producer Id</th>
         <th>Lot Number</th>
-        <th>Commodity Type Id</th>
-        <th>Commodity Variety Id</th>
+        <th>Lot Open</th>
+        <th>Commodity</th>
+        <th>Number</th>
+        <th>Variety</th>
+        <th>Number</th>
         <th>Landlord</th>
         <th>Farm Number</th>
         <th>Net Weight (lbs)</th>
         <th>Net Bushels (bu)</th>
-        <th>Lot Open</th>
+
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let r of report">
         <td>{{r.weightsheetId}}</td>
+        <td>{{r.producerName}}</td>
         <td>{{r.producerIdLink}}</td>
         <td>{{r.lotIdLink}}</td>
+        <td>{{r.isClosedString}}</td>
+        <td>{{r.commodityTypeName}}</td>
         <td>{{r.commodityTypeIdLink}}</td>
+        <td>{{r.commodityVarietyName}}</td>
         <td>{{r.commodityVarietyIdLink}}</td>
         <td>{{r.landlord}}</td>
         <td>{{r.farmNumber}}</td>
         <td>{{r.netWeightLbs}}</td>
-        <td>{{r.AsBushel}}</td>
-        <td>{{r.isClosedString}}</td>
-       
+        <td>{{r.netUom}}</td>
       </tr>
     </tbody>
   </table>
+  <h4>Net Intake Weight: {{netWarehouseIntakeLbs}}</h4>
 </div>
