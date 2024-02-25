@@ -22,7 +22,7 @@ namespace WIS_PrototypeAPI.Data.DTOs
 		// Producer number
 		public int? ProducerIdLink { get; set; }
 		// Producer name
-		//public string? ProducerName { get; set; } = null;
+		public string? ProducerName { get; set; } = null;
 
 		// Lot number
 		public long LotIdLink { get; set; }
