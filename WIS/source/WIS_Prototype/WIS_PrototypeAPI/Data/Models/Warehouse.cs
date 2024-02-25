@@ -1,4 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Filename: Warehouse.cs
+// Purpose: To define the Warehouse Entity. Warehouse is second highest in data hierarchy.
+// Author: Micah Gordon
+// Date: 
+
+// Updates: <date>:<change>
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WIS_PrototypeAPI.Data.Models
@@ -27,8 +33,5 @@ namespace WIS_PrototypeAPI.Data.Models
 		// (Weightsheets where the warehouse is the destination)
 		public ICollection<Weightsheet>? DestWeightsheets { get; set; } = null;
 
-		// one to many
-		// (Weightsheets where the warehoues is the source)
-		//public Weightsheet? SourceWeightsheets { get; set; } = null;
 	}
 }

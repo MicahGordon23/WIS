@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 
 	var initializer = services.GetRequiredService<DbIntializer>();
 
-    // DELETES DATABASE and reinitializes it.
+    // and reinitializes it.
 	//initializer.Run();
  }
 

@@ -11,7 +11,7 @@ export class IWeightsheet {
   weigher: string;              // Operator who weighed in the load
   dateOpened?: Date;            // Not safely nullable when sending POST
                                 // Date when the weightsheet was opened.
-
+  lotIdLink?: number;
   //producerIdLink?: number;
   //sourceIdLink?: number; // need to create a solution to EF DB issue of warehouese
   hauler?: string;
@@ -34,7 +34,7 @@ export class IWeightsheet {
 export class Weightsheet extends IWeightsheet {
   dateClosed?: Date;
   commodityVarietyIdLink?: number;
-  lotIdLink?: number;
+  
 }
 
 // NewWeightsheet

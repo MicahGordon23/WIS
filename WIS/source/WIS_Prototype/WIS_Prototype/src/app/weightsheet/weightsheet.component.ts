@@ -12,6 +12,7 @@ import { WeightsheetService } from './weightsheet.service';
   styleUrls: ['./weightsheet.component.scss']
 })
 export class WeightsheetComponent implements OnInit {
+  // I don't know why displayColumns exist. I should find out why I added this.
   public displayedColumns: string[] = ['weightSheetId', 'commodityTypeIdLink', 'commodityVarietyIdLink', 'ProducerIdLink', 'SourceIdLink'];
   public weightsheets!: Weightsheet[];
 

@@ -12,7 +12,7 @@ using WIS_PrototypeAPI.Data;
 namespace WIS_PrototypeAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240121061123_Initial")]
+    [Migration("20240218184904_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -123,6 +123,9 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.Property<string>("BillOfLading")
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int?>("BinIdLink")
+                        .HasColumnType("int");
+
                     b.Property<int?>("GrossWeight")
                         .HasColumnType("int");
 
@@ -158,6 +161,8 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
                     b.HasKey("LoadId");
 
+                    b.HasIndex("BinIdLink");
+
                     b.HasIndex("WeightsheetIdLink");
 
                     b.ToTable("Loads");
@@ -178,7 +183,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("FarmNumber")
                         .HasColumnType("nvarchar(30)");
@@ -193,10 +198,13 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("StateId")
                         .HasColumnType("nvarchar(5)");
+
+                    b.Property<int?>("WarehouseIdLink")
+                        .HasColumnType("int");
 
                     b.HasKey("LotId");
 
@@ -205,6 +213,8 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.HasIndex("CommodityVarietyIdLink");
 
                     b.HasIndex("ProducerIdLink");
+
+                    b.HasIndex("WarehouseIdLink");
 
                     b.ToTable("Lots");
                 });
@@ -223,6 +233,22 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.HasKey("ProducerId");
 
                     b.ToTable("Producers");
+                });
+
+            modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Source", b =>
+                {
+                    b.Property<int>("SourceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SourceId"));
+
+                    b.Property<string>("SourceName")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("SourceId");
+
+                    b.ToTable("Sources");
                 });
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Warehouse", b =>
@@ -264,10 +290,10 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DateClosed")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("DateOpened")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Hauler")
                         .HasColumnType("nvarchar(50)");
@@ -284,6 +310,9 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.Property<int?>("SourceIdLink")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WarehouseIdLink")
+                        .HasColumnType("int");
+
                     b.Property<string>("Weigher")
                         .HasColumnType("nvarchar(50)");
 
@@ -296,6 +325,8 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.HasIndex("LotIdLink");
 
                     b.HasIndex("SourceIdLink");
+
+                    b.HasIndex("WarehouseIdLink");
 
                     b.ToTable("Weightsheets");
                 });
@@ -332,9 +363,15 @@ namespace WIS_PrototypeAPI.Data.Migrations
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Load", b =>
                 {
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.Bin", "Bin")
+                        .WithMany()
+                        .HasForeignKey("BinIdLink");
+
                     b.HasOne("WIS_PrototypeAPI.Data.Models.Weightsheet", "Weightsheet")
                         .WithMany("Loads")
                         .HasForeignKey("WeightsheetIdLink");
+
+                    b.Navigation("Bin");
 
                     b.Navigation("Weightsheet");
                 });
@@ -353,11 +390,17 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .WithMany("Lots")
                         .HasForeignKey("ProducerIdLink");
 
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseIdLink");
+
                     b.Navigation("CommodityType");
 
                     b.Navigation("CommodityVariety");
 
                     b.Navigation("Producer");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Warehouse", b =>
@@ -383,15 +426,21 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         .WithMany()
                         .HasForeignKey("LotIdLink");
 
-                    b.HasOne("WIS_PrototypeAPI.Data.Models.Warehouse", "Warehouse")
-                        .WithMany("Weightsheets")
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.Source", "Source")
+                        .WithMany("SourceWeightsheets")
                         .HasForeignKey("SourceIdLink");
+
+                    b.HasOne("WIS_PrototypeAPI.Data.Models.Warehouse", "Warehouse")
+                        .WithMany("DestWeightsheets")
+                        .HasForeignKey("WarehouseIdLink");
 
                     b.Navigation("CommodityType");
 
                     b.Navigation("CommodityVariety");
 
                     b.Navigation("Lot");
+
+                    b.Navigation("Source");
 
                     b.Navigation("Warehouse");
                 });
@@ -411,11 +460,16 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     b.Navigation("Lots");
                 });
 
+            modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Source", b =>
+                {
+                    b.Navigation("SourceWeightsheets");
+                });
+
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Warehouse", b =>
                 {
                     b.Navigation("Bins");
 
-                    b.Navigation("Weightsheets");
+                    b.Navigation("DestWeightsheets");
                 });
 
             modelBuilder.Entity("WIS_PrototypeAPI.Data.Models.Weightsheet", b =>

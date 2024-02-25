@@ -28,5 +28,10 @@ namespace WIS_PrototypeAPI.Data.Models
 		[ForeignKey(nameof(Weightsheet))]
 		public long? WeightsheetIdLink { get; set; }
 		public Weightsheet? Weightsheet { get; set; } = null;
+
+		// one to one
+		[ForeignKey(nameof(Bin))]
+		public int? BinIdLink { get; set; }
+		public Bin? Bin { get; set; }
 	}
 }

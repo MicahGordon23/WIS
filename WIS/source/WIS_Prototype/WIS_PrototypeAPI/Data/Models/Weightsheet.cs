@@ -1,4 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Filename: Weightsheet.cs
+// Purpose: To define the Weightsheet Entity. Links Warehouses To Loads and loads to Commodity Types
+//		and Varieties. Can link lot, and therefore producers, to loads and the warehouse to which
+//		the loads were delivered.
+// Author: Micah Gordon
+// Date: 
+
+// Updates: <date>:<change>
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WIS_PrototypeAPI.Data.Models
@@ -23,8 +31,10 @@ namespace WIS_PrototypeAPI.Data.Models
 		[Column(TypeName = "nvarchar(200)")]
 		public string? Notes { get; set; } = null;
 
+		[Column(TypeName = "date")]
 		public DateTime? DateOpened { get; set; } = null;
 
+		[Column(TypeName ="date")]
 		public DateTime? DateClosed { get; set; } = null; 
 
 		public ICollection<Load>? Loads { get; set; } = null;
@@ -41,22 +51,22 @@ namespace WIS_PrototypeAPI.Data.Models
 
 		public CommodityVariety? CommodityVariety { get; set; } = null;
 
-		// For Inbound Weightsheet THIS SHOULD BE LOT YOU NERD.
+		// Links to the Warehouse where the loads on the weight sheets are deposited.
+		// used for all weight sheets
+		[ForeignKey(nameof(Warehouse))]
+		public int? WarehouseIdLink { get; set; }
+		public Warehouse? Warehouse { get; set; } = null;
+
+		// Links to a lot.
+		// For Inbound Weight Sheets
 		[ForeignKey(nameof(Lot))]
 		public long? LotIdLink { get; set; }
-
 		public Lot? Lot { get; set; }
 
-		//// For Transfer Weightsheet
-		//[ForeignKey(nameof(Warehouse))]
-		//public int? SourceIdLink { get; set; }
-
-		//public Source? Source { get; set; } = null;
-
-		// For Transfer Weightsheet
-		[ForeignKey(nameof(Warehouse))]
-		public int? WarehouseIdLInk { get; set; }
-
-		public Warehouse? Warehouse { get; set; } = null;
+		// Links to Source
+		[ForeignKey(nameof(Source))]
+		// For Transfer Weight Sheets
+		public int? SourceIdLink { get; set; }
+		public Source? Source { get; set; }
 	}
 }

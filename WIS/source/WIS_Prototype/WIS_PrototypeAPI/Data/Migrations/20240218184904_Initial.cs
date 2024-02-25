@@ -51,6 +51,19 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sources",
+                columns: table => new
+                {
+                    SourceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SourceName = table.Column<string>(type: "nvarchar(50)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sources", x => x.SourceId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CommodityVarieties",
                 columns: table => new
                 {
@@ -89,42 +102,6 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lots",
-                columns: table => new
-                {
-                    LotId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StateId = table.Column<string>(type: "nvarchar(5)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Landlord = table.Column<string>(type: "nvarchar(30)", nullable: true),
-                    FarmNumber = table.Column<string>(type: "nvarchar(30)", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(200)", nullable: true),
-                    CommodityTypeIdLink = table.Column<int>(type: "int", nullable: true),
-                    CommodityVarietyIdLink = table.Column<long>(type: "bigint", nullable: true),
-                    ProducerIdLink = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Lots", x => x.LotId);
-                    table.ForeignKey(
-                        name: "FK_Lots_CommodityTypes_CommodityTypeIdLink",
-                        column: x => x.CommodityTypeIdLink,
-                        principalTable: "CommodityTypes",
-                        principalColumn: "CommodityTypeId");
-                    table.ForeignKey(
-                        name: "FK_Lots_CommodityVarieties_CommodityVarietyIdLink",
-                        column: x => x.CommodityVarietyIdLink,
-                        principalTable: "CommodityVarieties",
-                        principalColumn: "CommodityVarietyId");
-                    table.ForeignKey(
-                        name: "FK_Lots_Producers_ProducerIdLink",
-                        column: x => x.ProducerIdLink,
-                        principalTable: "Producers",
-                        principalColumn: "ProducerId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Bins",
                 columns: table => new
                 {
@@ -157,6 +134,48 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Lots",
+                columns: table => new
+                {
+                    LotId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StateId = table.Column<string>(type: "nvarchar(5)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: true),
+                    Landlord = table.Column<string>(type: "nvarchar(30)", nullable: true),
+                    FarmNumber = table.Column<string>(type: "nvarchar(30)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(200)", nullable: true),
+                    CommodityTypeIdLink = table.Column<int>(type: "int", nullable: true),
+                    CommodityVarietyIdLink = table.Column<long>(type: "bigint", nullable: true),
+                    ProducerIdLink = table.Column<int>(type: "int", nullable: true),
+                    WarehouseIdLink = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lots", x => x.LotId);
+                    table.ForeignKey(
+                        name: "FK_Lots_CommodityTypes_CommodityTypeIdLink",
+                        column: x => x.CommodityTypeIdLink,
+                        principalTable: "CommodityTypes",
+                        principalColumn: "CommodityTypeId");
+                    table.ForeignKey(
+                        name: "FK_Lots_CommodityVarieties_CommodityVarietyIdLink",
+                        column: x => x.CommodityVarietyIdLink,
+                        principalTable: "CommodityVarieties",
+                        principalColumn: "CommodityVarietyId");
+                    table.ForeignKey(
+                        name: "FK_Lots_Producers_ProducerIdLink",
+                        column: x => x.ProducerIdLink,
+                        principalTable: "Producers",
+                        principalColumn: "ProducerId");
+                    table.ForeignKey(
+                        name: "FK_Lots_Warehouses_WarehouseIdLink",
+                        column: x => x.WarehouseIdLink,
+                        principalTable: "Warehouses",
+                        principalColumn: "WarehouseId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Weightsheets",
                 columns: table => new
                 {
@@ -167,10 +186,11 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     Miles = table.Column<int>(type: "int", nullable: true),
                     BillOfLading = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(200)", nullable: true),
-                    DateOpened = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateClosed = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateOpened = table.Column<DateTime>(type: "date", nullable: true),
+                    DateClosed = table.Column<DateTime>(type: "date", nullable: true),
                     CommodityTypeIdLink = table.Column<int>(type: "int", nullable: true),
                     CommodityVarietyIdLink = table.Column<long>(type: "bigint", nullable: true),
+                    WarehouseIdLink = table.Column<int>(type: "int", nullable: true),
                     LotIdLink = table.Column<long>(type: "bigint", nullable: true),
                     SourceIdLink = table.Column<int>(type: "int", nullable: true)
                 },
@@ -193,8 +213,13 @@ namespace WIS_PrototypeAPI.Data.Migrations
                         principalTable: "Lots",
                         principalColumn: "LotId");
                     table.ForeignKey(
-                        name: "FK_Weightsheets_Warehouses_SourceIdLink",
+                        name: "FK_Weightsheets_Sources_SourceIdLink",
                         column: x => x.SourceIdLink,
+                        principalTable: "Sources",
+                        principalColumn: "SourceId");
+                    table.ForeignKey(
+                        name: "FK_Weightsheets_Warehouses_WarehouseIdLink",
+                        column: x => x.WarehouseIdLink,
                         principalTable: "Warehouses",
                         principalColumn: "WarehouseId");
                 });
@@ -216,11 +241,17 @@ namespace WIS_PrototypeAPI.Data.Migrations
                     TestWeight = table.Column<double>(type: "float", nullable: true),
                     ProtienLevel = table.Column<double>(type: "float", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(200)", nullable: true),
-                    WeightsheetIdLink = table.Column<long>(type: "bigint", nullable: true)
+                    WeightsheetIdLink = table.Column<long>(type: "bigint", nullable: true),
+                    BinIdLink = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Loads", x => x.LoadId);
+                    table.ForeignKey(
+                        name: "FK_Loads_Bins_BinIdLink",
+                        column: x => x.BinIdLink,
+                        principalTable: "Bins",
+                        principalColumn: "BinId");
                     table.ForeignKey(
                         name: "FK_Loads_Weightsheets_WeightsheetIdLink",
                         column: x => x.WeightsheetIdLink,
@@ -249,6 +280,11 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 column: "CommodityTypeIdLink");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Loads_BinIdLink",
+                table: "Loads",
+                column: "BinIdLink");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Loads_WeightsheetIdLink",
                 table: "Loads",
                 column: "WeightsheetIdLink");
@@ -267,6 +303,11 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 name: "IX_Lots_ProducerIdLink",
                 table: "Lots",
                 column: "ProducerIdLink");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lots_WarehouseIdLink",
+                table: "Lots",
+                column: "WarehouseIdLink");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Warehouses_DistrictIdLink",
@@ -292,16 +333,21 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 name: "IX_Weightsheets_SourceIdLink",
                 table: "Weightsheets",
                 column: "SourceIdLink");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Weightsheets_WarehouseIdLink",
+                table: "Weightsheets",
+                column: "WarehouseIdLink");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Bins");
+                name: "Loads");
 
             migrationBuilder.DropTable(
-                name: "Loads");
+                name: "Bins");
 
             migrationBuilder.DropTable(
                 name: "Weightsheets");
@@ -310,7 +356,7 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 name: "Lots");
 
             migrationBuilder.DropTable(
-                name: "Warehouses");
+                name: "Sources");
 
             migrationBuilder.DropTable(
                 name: "CommodityVarieties");
@@ -319,10 +365,13 @@ namespace WIS_PrototypeAPI.Data.Migrations
                 name: "Producers");
 
             migrationBuilder.DropTable(
-                name: "Districts");
+                name: "Warehouses");
 
             migrationBuilder.DropTable(
                 name: "CommodityTypes");
+
+            migrationBuilder.DropTable(
+                name: "Districts");
         }
     }
 }

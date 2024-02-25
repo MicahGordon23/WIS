@@ -94,6 +94,7 @@ export class NewWeightsheetComponent {
     w.hauler = this.form.controls['miles'].value;
     w.billOfLading = this.form.controls['billOfLading'].value;
     w.notes = this.form.controls['notes'].value;
+    w.lotIdLink = this.form.controls['lot'].value;
 
     // Variety Checking.
     if (this.form.controls['commodityVariety'].value != '') {
@@ -103,9 +104,13 @@ export class NewWeightsheetComponent {
       // Cast w to NewWeightsheet
       w = _ws;
     }
-
     w.dateOpened = new Date();
-
+    console.log(w.dateOpened);
+    // I need this in local time PST
+    // Documentation I found was incorrect.
+    // Stored in UTC, but will console.log in local time cause fuck you
+    w.dateOpened.setUTCHours(w.dateOpened.getUTCHours() - 8);
+    console.log(w.dateOpened);
     this.weightsheet = w;
 
     this.weightsheetService.post(this.weightsheet)
