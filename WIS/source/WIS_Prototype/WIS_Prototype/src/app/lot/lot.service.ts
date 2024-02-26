@@ -12,7 +12,7 @@ export class LotService {
   //*************************
   // Ctor
   constructor(private http: HttpClient) { }
-
+  url = 'api/Lots';
   //*************************
   // Get ALL
   getData(): Observable<Lot[]> {
@@ -21,10 +21,9 @@ export class LotService {
   }
 
   //**************************
-  // Get top id number
-  getTop(): Observable<Lot> {
-    var url = '/api/Lots/top';
-    return this.http.get<Lot>(url, {});
+  // Get lot by id
+  getLot(lotId: bigint): Observable<Lot> {
+    return this.http.get<Lot>(this.url + '/' + lotId, {})
   }
 
   //**************************
