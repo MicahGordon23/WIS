@@ -11,6 +11,7 @@ import { LoadComponent } from './load/load.component';
 import { EditLoadComponent } from './load/edit-load/edit-load.component';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { ReportComponent } from './report/report.component';
+import { EditLotComponent } from './lot/edit-lot/edit-lot.component';
 //import { WarehouseComponent } from './warehouse/warehouse.component';
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'load', component: LoadComponent },
   { path: 'weightsheet', component: WeightsheetComponent },
   { path: 'load/:id', component: EditLoadComponent },
-  { path: 'report', component: ReportComponent }
+  { path: 'lot/:id', component: EditLotComponent },
+  { path: 'report', component: ReportComponent },
 ];
 
 @NgModule({

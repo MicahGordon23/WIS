@@ -16,7 +16,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let lot of lots">
-      <td>{{lot.lotId}}</td>
+      <td>
+        <a [routerLink]="['/lot/', lot.lotId]"> {{lot.lotId}} </a>
+      </td>
       <td>{{lot.producerIdLink}}</td>
       <td>{{lot.commodityTypeIdLink}}</td>
       <td>{{lot.commodityVarietyIdLink}}</td>
