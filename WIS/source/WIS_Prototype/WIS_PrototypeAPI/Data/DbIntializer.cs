@@ -375,7 +375,7 @@ namespace WIS_PrototypeAPI.Data
 			// Start date of now
 			reportLot2.StartDate = System.DateTime.Now;
 			// End date of now + 3 hours
-			reportLot2.EndDate = System.DateTime.Now.AddHours(4.0);
+			//reportLot2.EndDate = System.DateTime.Now.AddHours(4.0);
 			reportLot2.CommodityType = greenPeas;
 			reportLot2.CommodityVariety = argonPeas;
 			reportLot2.Producer = ht;
