@@ -39,6 +39,6 @@ export class LotService {
   // PUT update/new lot
   put(item: Lot): Observable<Lot> {
     var url = '/api/Lots';
-    return this.http.put<Lot>(url, item);
+    return this.http.put<Lot>(url + "/" + item.lotId, item);
   }
 }
