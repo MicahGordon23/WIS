@@ -13,7 +13,6 @@
     <thead>
       <tr>
         <th>Weightsheet Id</th>
-
         <th>Producer Name</th>
         <th>Producer Id</th>
         <th>Lot Number</th>
@@ -26,7 +25,6 @@
         <th>Farm Number</th>
         <th>Net Weight (lbs)</th>
         <th>Net Bushels (bu)</th>
-
       </tr>
     </thead>
     <tbody>
@@ -48,4 +46,7 @@
     </tbody>
   </table>
   <h4>Net Intake Weight: {{netWarehouseIntakeLbs}}</h4>
+</div>
+<div class="print-hide">
+  <button mat-raised-button (click)="exportToExcel()">Export To Excel</button>
 </div>

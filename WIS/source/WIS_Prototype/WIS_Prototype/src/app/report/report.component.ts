@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+// npm i xlsx
+import * as XLSX from "xlsx";
 
 import { IntakeReport } from './intake-report';
 import { ReportService } from './report-service';
@@ -13,6 +15,7 @@ import { CommodityVariety } from '../commodity-variety/commodity-variety';
 import { CommodityVarietyService } from '../commodity-variety/commodity-variety.service';
 
 import { Observable } from 'rxjs';
+import { getLocaleDateFormat } from '@angular/common';
 
 
 @Component({
@@ -29,7 +32,9 @@ export class ReportComponent {
   // Work around because JS is BS. Changing object types losing Methodes and properties.
   public lotsClosed: string[];
   bushelConversion: number;
+  warehouseId: number;
   public netWarehouseIntakeLbs: number;
+  
   
   constructor(
     private reportService: ReportService,
@@ -41,6 +46,7 @@ export class ReportComponent {
     this.lotsClosed = new Array<string>();
     this.bushelConversion = 60;
     this.netWarehouseIntakeLbs = 0;
+    this.warehouseId = 1;
   }
 
   ngOnInit() {
@@ -61,7 +67,7 @@ export class ReportComponent {
       }, error => console.error(error));
   }
 
-  CheckClosed(r: IntakeReport): string {
+  checkClosed(r: IntakeReport): string {
     if (r.endDate == null) {
       return r.isClosedString = "Open";
     }
@@ -71,7 +77,7 @@ export class ReportComponent {
   }
 
   getIntakeReport(): void {
-    this.reportService.getIntakeReport(1)
+    this.reportService.getIntakeReport(this.warehouseId)
       .subscribe(result => {
        
         console.log(result);
@@ -81,7 +87,7 @@ export class ReportComponent {
         //  Raw JSON file cause fk you thats why.
         for (let i = 0; i < this.report.length; i++) {
           
-          this.lotsClosed.push(this.CheckClosed(this.report[i]));
+          this.lotsClosed.push(this.checkClosed(this.report[i]));
           if (this.report[i].netWeightLbs != 0) {
             // Set up for only Bushel conversion
             this.report[i].netUom = Math.trunc(this.report[i].netWeightLbs / this.bushelConversion);
@@ -117,8 +123,34 @@ export class ReportComponent {
           // Create netweight
           this.netWarehouseIntakeLbs += this.report[i].netWeightLbs; 
         }
-        
         console.log(this.report);
       }, error => console.error(error));
+  }
+
+  exportToExcel() {
+    //let obj = {};
+    //this.report.forEach(item => obj[item.Field] = time.Value);
+    const json = JSON.stringify(this.report);
+    const data = JSON.parse(json);
+    const columns = this.getColumns(data);
+    const worksheet = XLSX.utils.json_to_sheet(data, { header: columns });
+    const workbook = XLSX.utils.book_new();
+    const date = new Date();
+    const dateStr = date.toLocaleDateString().replaceAll('/','-');
+    //dateStr.replace('.', '/');
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Intake Report " + dateStr);
+    XLSX.writeFile(workbook, "IntakeReport" + dateStr + ".xlsx");
+  }
+
+  getColumns(data: any[]): string[] {
+    const columns: any = [];
+    data.forEach(row => {
+      Object.keys(row).forEach(col => {
+        if (!columns.includes(col)) {
+          columns.push(col);
+        }
+      });
+    });
+    return columns
   }
 }
