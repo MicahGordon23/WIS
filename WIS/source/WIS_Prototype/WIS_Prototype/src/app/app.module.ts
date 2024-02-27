@@ -15,11 +15,12 @@ import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { LoadComponent } from './load/load.component';
+import { EditLoadComponent } from './load/edit-load/edit-load.component';
 import { LotComponent } from './lot/lot.component';
+import { EditLotComponent } from './lot/edit-lot/edit-lot.component';
 import { NewLoadComponent } from './load/new-load.component';
 import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
 import { NewLotComponent } from './lot/new-lot.component';
-import { EditLoadComponent } from './load/edit-load/edit-load.component';
 import { ReportComponent } from './report/report.component';
 
 // Services
@@ -41,11 +42,12 @@ import { ReportService } from './report/report-service';
     NavMenuComponent,
     WeightsheetComponent,
     LoadComponent,
+    EditLoadComponent,
     LotComponent,
+    EditLotComponent,
     NewLoadComponent,
     NewWeightsheetComponent,
     NewLotComponent,
-    EditLoadComponent,
     ReportComponent
   ],
   imports: [
