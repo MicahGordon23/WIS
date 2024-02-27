@@ -38,6 +38,7 @@ export class EditLotComponent {
   lot!: Lot;
 
   producers!: Producer[];
+  producer!: string;
 
   commodityTypes!: CommodityType[];
 
@@ -60,29 +61,62 @@ export class EditLotComponent {
       notes: new FormControl('')
     })
 
-    // Populate Producers
-    this.producerService.getData()
-      .subscribe(result => { this.producers = result }, error => console.log(error));
-
-    // Populate Commodity Type
-    this.commodityTypeService.getData()
-      .subscribe(result => { this.commodityTypes = result }, error => console.log(error));
-
+    // Get the lot using id from the route.
     let idParam = this.activatedRoute.snapshot.paramMap.get('id');
     let id = idParam ? +idParam : 0;
-    // Get the lot using id from the route.
-    this.lotService.getLot(BigInt(id))
+
+    // Populate Producers
+    this.producerService.getData()
+
       .subscribe(result => {
-        this.lot = result;
-        // Update form with data from the GET
-        this.form.patchValue(this.lot);
-        this.form.controls['producer'].patchValue(this.lot.producerIdLink);
-        this.form.patchValue(this.commodityTypes);
-        this.form.patchValue(this.commodityVarieties);
-      }, error => console.log(error));
+        this.producers = result;
+        // Populate Commodity Type
+        this.commodityTypeService.getData()
 
-   
+          .subscribe(result => {
+            this.commodityTypes = result;
 
+            this.lotService.getLot(BigInt(id))
+              .subscribe(result => {
+                this.lot = result;
+                console.log(this.getProducerById(this.lot.producerIdLink));
+                console.log(this.form.controls['producer'].value);
+                //this.producer = this.getProducerNameById(this.lot.producerIdLink);
+                //this.form.controls['producer'].patchValue(this.getProducerById(this.lot.producerIdLink));
+                console.log(this.form.controls['producer'].value);
+                this.form.patchValue(this.lot);
+                //console.log(this.form.controls['producer'].value);
+              }, error => console.log(error));
+
+          }, error => console.log(error));
+
+          }, error => console.log(error));
+
+        
+  }
+  //**********************************************
+  // Purpose: Return the producer based off Id O(n)
+  // Returns: a producer if found null if not found.
+  getProducerById(producerId: number): Producer {
+    if (this.producers) {
+      for (let i = 0; i < this.producers.length; i++) {
+        if (this.producers[i].producerId == producerId) {
+          return this.producers[i];
+        }
+      }
+    }
+    return this.producers[0];
+  }
+
+  getProducerNameById(producerId: number): string {
+    if (this.producers) {
+      for (let i = 0; i < this.producers.length; i++) {
+        if (this.producers[i].producerId == producerId) {
+          return this.producers[i].producerName;
+        }
+      }
+    }
+    return "";
   }
 
   //**********************************************
