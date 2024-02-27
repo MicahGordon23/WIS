@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ILot, Lot } from '../../lot/lot';
+import { ILot, Lot, LotDto } from '../../lot/lot';
 import { LotService } from '../lot.service';
 
 import { Producer } from '../../producer/producer';
@@ -35,7 +35,7 @@ export class EditLotComponent {
 
   form!: FormGroup;
 
-  lot!: Lot;
+  lot!: LotDto;
 
   producers!: Producer[];
   producer!: string;
@@ -79,11 +79,6 @@ export class EditLotComponent {
             this.lotService.getLot(BigInt(id))
               .subscribe(result => {
                 this.lot = result;
-                console.log(this.getProducerById(this.lot.producerIdLink));
-                console.log(this.form.controls['producer'].value);
-                //this.producer = this.getProducerNameById(this.lot.producerIdLink);
-                //this.form.controls['producer'].patchValue(this.getProducerById(this.lot.producerIdLink));
-                console.log(this.form.controls['producer'].value);
                 this.form.patchValue(this.lot);
                 //console.log(this.form.controls['producer'].value);
               }, error => console.log(error));

@@ -17,7 +17,7 @@ export class LotService {
   // Get ALL
   getData(): Observable<Lot[]> {
     var url = '/api/Lots';
-    return this.http.get<Lot[]>(url, {});
+    return this.http.get<ILot[]>(url, {});
   }
 
   //**************************

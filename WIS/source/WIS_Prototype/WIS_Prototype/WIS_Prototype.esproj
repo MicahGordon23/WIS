@@ -13,6 +13,7 @@
     <Folder Include="src\app\commodity-type\" />
     <Folder Include="src\app\commodity-variety\" />
     <Folder Include="src\app\bin\" />
+    <Folder Include="src\app\states\" />
     <Folder Include="src\app\scale\" />
     <Folder Include="src\app\producer\" />
   </ItemGroup>

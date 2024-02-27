@@ -51,3 +51,16 @@ export class NewLotNoVariety extends ILot {
   
   
 }
+
+
+// Pupose: LotDto
+export class LotDto extends ILot {
+  constructor() {
+    super();
+    this.producerName = "";
+    this.commodityTypeName = "";
+  }
+  public producerName: string;
+  public commodityTypeName: string;
+  public commodityVarietyName?: string | null;
+}
