@@ -12,6 +12,21 @@ export class ProducerService {
   //Ctor
   constructor(private http: HttpClient) { }
 
+  url: string = '/api/Producers';
+  producers!: Producer[];
+
+  // Gets all producers if producers is not already populated. 
+  getProducers(): Producer[] {
+    if (this.producers == undefined || this.producers == null) {
+      this.getData().subscribe(result => {
+        console.log("Producers from backend");
+        this.producers = result;
+        return this.producers;
+      }, error => console.log(error));
+    }
+    console.log("Producer from service");
+    return this.producers;
+  }
   //*******************************
   // GET all
   getData(): Observable<Producer[]> {

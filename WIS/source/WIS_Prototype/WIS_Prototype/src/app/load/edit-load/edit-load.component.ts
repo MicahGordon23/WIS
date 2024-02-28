@@ -117,7 +117,25 @@ export class EditLoadComponent {
 
   // Done
   onSubmit() {
+    console.log(this.load);
+    let load = this.load as Load;
+    //if
+    load.grossWeight = this.form.controls['grossWeight'].value;
+    load.tareWeight = this.form.controls['tareWeight'].value;
+    load.truckId = this.form.controls['truckId'].value;
+    load.billOfLading = this.form.controls['bolNumber'].value;
+    load.binIdLink = this.form.controls['bin'].value;
+    load.notes = this.form.controls['notes'].value;
+    load.moistureLevel = this.form.controls['moistureLevel'].value;
+    load.testWeight = this.form.controls['testWeight'].value;
+    load.protienLevel = this.form.controls['protienLevel'].value;
 
+    this.loadService.put(load)
+      .subscribe(result => {
+        console.log("Load Update: " + result);
+      }, e => console.log(e));
+
+    this.route.navigate(['/load'])
   }
 
   // Cancel edit

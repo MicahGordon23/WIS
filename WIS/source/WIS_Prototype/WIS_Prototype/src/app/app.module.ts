@@ -14,6 +14,7 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
+import { EditWeightsheetComponent } from './weightsheet/edit-weightsheet/edit-weightsheet.component';
 import { LoadComponent } from './load/load.component';
 import { EditLoadComponent } from './load/edit-load/edit-load.component';
 import { LotComponent } from './lot/lot.component';
@@ -41,6 +42,7 @@ import { ReportService } from './report/report-service';
     HomeComponent,
     NavMenuComponent,
     WeightsheetComponent,
+    EditWeightsheetComponent,
     LoadComponent,
     EditLoadComponent,
     LotComponent,

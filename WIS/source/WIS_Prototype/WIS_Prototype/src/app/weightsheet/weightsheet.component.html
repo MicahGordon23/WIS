@@ -14,7 +14,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let weightsheet of weightsheets">
-      <td>{{weightsheet.weightSheetId}}</td>
+      <td>
+        <a [routerLink]="['/weightsheet/', weightsheet.weightSheetId]">{{weightsheet.weightSheetId}}</a>
+       </td>
       <td>{{weightsheet.commodityTypeIdLink}}</td>
       <td>{{weightsheet.commodityVarietyIdLink}}</td>
       <!--<td>{{weightsheet.producerIdLink}}</td>-->
