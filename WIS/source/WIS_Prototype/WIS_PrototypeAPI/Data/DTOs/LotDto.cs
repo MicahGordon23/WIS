@@ -27,14 +27,14 @@ namespace WIS_PrototypeAPI.Data.DTOs
 
 		public string? Notes { get; set; } = null;
 
-		public int CommodityTypeIdLink { get; set; }
+		public int CommodityTypeId { get; set; }
 		public string? CommodityTypeName { get; set; } = null;
 		
 
-		public long? CommodityVarietyIdLink { get; set; }
+		public long? CommodityVarietyId { get; set; }
 		public string? CommodityVarietyName { get; set; } = null;
 
-		public int ProducerIdLink { get; set; }
+		public int ProducerId { get; set; }
 		public string? ProducerName { get; set; } = null;	
 	}
 }

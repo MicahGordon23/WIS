@@ -7,8 +7,10 @@
       <th>Weightsheet Id</th>
       <th>Commodity Type</th>
       <th>Commodity Variety</th>
-      <th>Producer Id</th>
+      <th>Lot Id</th>
       <th>Source Id</th>
+      <th>Weigher</th>
+      <th>Miles</th>
       <th>Notes</th>
     </tr>
   </thead>
@@ -19,11 +21,10 @@
        </td>
       <td>{{weightsheet.commodityTypeIdLink}}</td>
       <td>{{weightsheet.commodityVarietyIdLink}}</td>
-      <!--<td>{{weightsheet.producerIdLink}}</td>-->
-      <!--<td>{{weightsheet.sourceIdLink}}</td>-->
+      <td>{{weightsheet.lotIdLink}}</td>
+      <td>{{weightsheet.sourceIdLink}}</td>
       <td>{{weightsheet.weigher}}</td>
       <td>{{weightsheet.miles}}</td>
-      <td>{{weightsheet.billOfLading}}</td>
       <td>{{weightsheet.notes}}</td>
     </tr>
   </tbody>

@@ -17,4 +17,10 @@
     <Folder Include="src\app\scale\" />
     <Folder Include="src\app\producer\" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\weightsheet\edit-weightseet\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\weightsheet\edit-weightseet\**" />
+  </ItemGroup>
 </Project>

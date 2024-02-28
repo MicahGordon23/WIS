@@ -12,11 +12,10 @@ export class IWeightsheet {
   dateOpened?: Date;            // Not safely nullable when sending POST
                                 // Date when the weightsheet was opened.
   lotIdLink?: number;
-  //producerIdLink?: number;
-  //sourceIdLink?: number; // need to create a solution to EF DB issue of warehouese
+  producerIdLink?: number;
+  sourceIdLink?: number; // need to create a solution to EF DB issue of warehouese
   hauler?: string;
   miles?: number;
-  billOfLading?: string;
   notes?: string;
 
   // Default Constructor

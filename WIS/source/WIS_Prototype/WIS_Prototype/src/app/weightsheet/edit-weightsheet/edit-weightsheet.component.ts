@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Weightsheet } from '../weightsheet';
+import { NewWeightsheet, Weightsheet } from '../weightsheet';
 import { WeightsheetService } from '../weightsheet.service';
 
 import { CommodityType } from '../../commodity-type/commodity-type';
@@ -39,7 +39,6 @@ export class EditWeightsheetComponent {
       commodityVarietyId: new FormControl(''),
       weigher: new FormControl(''),
       hauler: new FormControl(''),
-      billofLading: new FormControl(''),
       miles: new FormControl(''),
       notes: new FormControl('')
     })
@@ -54,10 +53,16 @@ export class EditWeightsheetComponent {
         console.log(this.weightsheet);
         this.form.patchValue(this.weightsheet);
       }, e => console.log(e));
+
+    this.commodityTypeService.getData()
+      .subscribe(commodities => {
+        this.commodityTypes = commodities;
+      }, e => console.log(e));
   }
 
   //**********************************************
-  // Purpose: When a Commodity Type is selected in the form, the variety field is populated.
+  // Purpose: When a Commodity Type is selected in the form, the variety select field is
+  //    populated with its varieties.
   onSelect(event: Event) {
     const typeId = Number((event.target as HTMLInputElement).value);
     this.commodityVarietyService.getByType(typeId)
@@ -65,6 +70,17 @@ export class EditWeightsheetComponent {
   }
 
   onSubmit() {
+    let sheet = new Weightsheet();
+    sheet = this.weightsheet as Weightsheet;
+
 
   }
+  /*
+     commodityTypeId: new FormControl('', Validators.required),
+     commodityVarietyId: new FormControl(''),
+     weigher: new FormControl(''),
+     hauler: new FormControl(''),
+     miles: new FormControl(''),
+     notes: new FormControl('')
+  */
 }

@@ -110,11 +110,11 @@ namespace WIS_PrototypeAPI.Controllers
                             Landlord = grouped.Key.Landlord,
                             FarmNumber = grouped.Key.FarmNumber,
                             Notes = grouped.Key.Notes,
-                            CommodityTypeIdLink = (int)grouped.Key.CommodityTypeIdLink,
+                            CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink,
                             CommodityTypeName = grouped.Key.CommodityTypeName,
-                            CommodityVarietyIdLink = (long)grouped.Key.CommodityVarietyIdLink,
+                            CommodityVarietyId = (long)grouped.Key.CommodityVarietyIdLink,
                             CommodityVarietyName = grouped.Key.CommodityVarietyName,
-                            ProducerIdLink = (int)grouped.Key.ProducerIdLink,
+                            ProducerId = (int)grouped.Key.ProducerIdLink,
                             ProducerName = grouped.Key.ProducerName
                         };
             var result = await query.FirstAsync();

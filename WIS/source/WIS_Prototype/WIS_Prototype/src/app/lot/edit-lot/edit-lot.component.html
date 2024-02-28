@@ -18,7 +18,7 @@
     <!--Commodity Type-->
     <mat-form-field>
       <mat-label>Commodity Type</mat-label>
-      <mat-select required  formControlName="commodityTypeId" (change)="onSelect($event)">
+      <mat-select required  formControlName="commodityTypeId" (change)="onTypeSelect($event)" (keyup)="onTypeSelect($event)" (input)="onTypeSelect($event)">
         <mat-option *ngFor="let comType of commodityTypes" value="{{comType.commodityTypeId}}">
           {{ comType.commodityTypeName }}
         </mat-option>
