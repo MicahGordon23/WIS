@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ILot, Lot } from '../../lot/lot';
+import { LotDto, Lot } from '../../lot/lot';
 import { LotService } from '../lot.service';
 
 import { Producer } from '../../producer/producer';
@@ -35,10 +35,9 @@ export class EditLotComponent {
 
   form!: FormGroup;
 
-  lot!: Lot;
+  lot!: LotDto;
 
   producers!: Producer[];
-  producer!: string;
 
   commodityTypes!: CommodityType[];
 
@@ -52,9 +51,9 @@ export class EditLotComponent {
 
   ngOnInit() {
     this.form = new FormGroup({
-      producer: new FormControl('', Validators.required),
-      commodityType: new FormControl('', Validators.required),
-      commodityVariety: new FormControl(''),
+      producerId : new FormControl('', Validators.required),
+      commodityTypeId: new FormControl('', Validators.required),
+      commodityVarietyId: new FormControl(''),
       stateId: new FormControl('', Validators.required),
       landlord: new FormControl(''),
       farmNumber: new FormControl(''),
@@ -65,71 +64,67 @@ export class EditLotComponent {
     let idParam = this.activatedRoute.snapshot.paramMap.get('id');
     let id = idParam ? +idParam : 0;
 
-    // Populate Producers
-    this.producerService.getData()
+    //this.producers = this.producerService.getProducers()
+    //console.log(this.producers);
 
+    this.lotService.getLotDto(BigInt(id))
       .subscribe(result => {
-        this.producers = result;
-        // Populate Commodity Type
-        this.commodityTypeService.getData()
+        this.lot = result as LotDto;
+        console.log("In Lot Subscribe.");
+        console.log(this.lot);
 
+        this.producerService.getData()
           .subscribe(result => {
-            this.commodityTypes = result;
+            console.log("In Producer Subscribe.");
+            this.producers = result;
+            console.log(this.producers);
+          }, e => console.log(e));
 
-            this.lotService.getLot(BigInt(id))
-              .subscribe(result => {
-                this.lot = result;
-                console.log(this.getProducerById(this.lot.producerIdLink));
-                console.log(this.form.controls['producer'].value);
-                //this.producer = this.getProducerNameById(this.lot.producerIdLink);
-                //this.form.controls['producer'].patchValue(this.getProducerById(this.lot.producerIdLink));
-                console.log(this.form.controls['producer'].value);
-                this.form.patchValue(this.lot);
-                //console.log(this.form.controls['producer'].value);
-              }, error => console.log(error));
+        this.form.patchValue(this.lot);
+        //console.log(this.form.controls['producer'].value);
+      }, error => console.log(error));
 
-          }, error => console.log(error));
-
-          }, error => console.log(error));
-
-        
-  }
-  //**********************************************
-  // Purpose: Return the producer based off Id O(n)
-  // Returns: a producer if found null if not found.
-  getProducerById(producerId: number): Producer {
-    if (this.producers) {
-      for (let i = 0; i < this.producers.length; i++) {
-        if (this.producers[i].producerId == producerId) {
-          return this.producers[i];
-        }
-      }
-    }
-    return this.producers[0];
-  }
-
-  getProducerNameById(producerId: number): string {
-    if (this.producers) {
-      for (let i = 0; i < this.producers.length; i++) {
-        if (this.producers[i].producerId == producerId) {
-          return this.producers[i].producerName;
-        }
-      }
-    }
-    return "";
+    this.commodityTypeService.getData()
+      .subscribe(result => {
+        this.commodityTypes = result;
+      }, e => console.log(e));
+    console.log(this.form.controls['producerId'].value);
   }
 
   //**********************************************
   // Purpose: When a Commodity Type is selected in the form, the variety field is populated.
-  onSelect(event: Event) {
+  onTypeSelect(event: Event) {
     const typeId = Number((event.target as HTMLInputElement).value);
     this.commodityVarietyService.getByType(typeId)
-      .subscribe(result => this.commodityVarieties = result);
+      .subscribe(result => {
+        this.commodityVarieties = result;
+      }, e => console.log(e));
   }
 
   //**********************************************
   // Purpose: Submit Form. Updates database.
   onSubmit() {
-
+    let lot = new Lot();
+    lot = this.lot;
+    console.log(lot);
+    if (this.form.controls['producerId'].value != '') {
+      lot.producerIdLink = this.form.controls['producerId'].value;
+    }
+    if (this.form.controls['commodityTypeId'].value != '') {
+      lot.commodityTypeIdLink = this.form.controls['commodityTypeId'].value;
+    }
+    // will cause bug if removing variety
+    if (this.form.controls['commodityVarietyId'].value != '') {
+      lot.commodityVarietyIdLink = this.form.controls['commodityVarietyId'].value;
+    }
+    lot.stateId = this.form.controls['stateId'].value;
+    lot.landlord = this.form.controls['landlord'].value;
+    lot.farmNumber = this.form.controls['farmNumber'].value;
+    lot.notes = this.form.controls['notes'].value;
+    console.log(lot);
+    this.lotService.put(lot).subscribe(result => {
+      console.log(result);
+    }, e => console.log(e));
+    this.route.navigate(['/lot']);
   }
 }

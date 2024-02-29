@@ -15,7 +15,7 @@
     </select>
 
     <mat-label>Commodity Type</mat-label>
-    <select required formControlName="commodityType" (change)="onSelect($event)  ">
+    <select required formControlName="commodityType" (change)="onSelect($event)">
       <option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
         {{ comType.commodityTypeName }}
       </option>

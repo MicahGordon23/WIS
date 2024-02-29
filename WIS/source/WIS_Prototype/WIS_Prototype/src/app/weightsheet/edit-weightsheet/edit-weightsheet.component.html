@@ -1,0 +1,61 @@
+<div>
+  <h1 *ngIf="weightsheet">Weight Sheet: {{weightsheet.weightSheetId}}</h1>
+  <h2 *ngIf="!weightsheet">
+    <em>Loading...</em>
+  </h2>
+  <div *ngIf="weightsheet" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!--Commodity Type-->
+    <mat-form-field>
+      <mat-label>Commodity Type</mat-label>
+      <mat-select required formControlName="commodityTypeId" (change)="onSelect($event)">
+        <mat-option *ngFor="let comType of commodityTypes" value="{{comType.commodityTypeId}}">
+          {{ comType.commodityTypeName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Commodity Variety-->
+    <mat-form-field>
+      <mat-label>Commodity Variety</mat-label>
+      <mat-select formControlName="commodityVarietyId">
+        <mat-option *ngFor="let comVariety of commodityVarieties" value="{{comVariety.commodityVarietyId}}">
+          {{ comVariety.commodityVarietyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Weigher-->
+    <mat-form-field>
+      <mat-label>Weigher</mat-label>
+      <input matInput formControlName="weigher" placeholder="Weigher" />
+    </mat-form-field>
+
+    <!--Hauler-->
+    <mat-form-field>
+      <mat-label>Hauler</mat-label>
+      <input matInput formControlName="hauler" placeholder="Hauler" />
+    </mat-form-field>
+
+    <!--Miles-->
+    <mat-form-field>
+      <mat-label>Miles</mat-label>
+      <input matInput formControlName="miles" placeholder="Miles" />
+    </mat-form-field>
+
+    <!--Notes-->
+    <mat-form-field>
+      <mat-label>Notes</mat-label>
+      <input matInput formcontrolName="notes" placeholder="Notes" />
+    </mat-form-field>
+
+    <!--Date Opened-->
+    <h3>Date Opened</h3>
+    <p *ngIf="weightsheet.dateOpened">{{weightsheet.dateOpened.toLocaleString()}}</p>
+
+    <!--Date Closed-->
+    <h3>Date Closed</h3>
+    <p *ngIf="weightsheet.dateClosed">{{weightsheet.dateClosed.toLocaleString()}}</p>
+    <p *ngIf="!weightsheet.dateClosed">Weight Sheet Open</p>
+  </div>
+
+</div>

@@ -11,8 +11,8 @@ export class ILoad {
   netWeight: number;
   truckId: string;
   timeIn?: Date;
-  bolNumber?: number;
-  destBin?: number;
+  billOfLading?: string;
+  binIdLink?: number;
   notes?: string;
 
   constructor() {

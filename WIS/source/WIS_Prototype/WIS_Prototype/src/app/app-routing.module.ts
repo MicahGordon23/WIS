@@ -12,6 +12,7 @@ import { EditLoadComponent } from './load/edit-load/edit-load.component';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { ReportComponent } from './report/report.component';
 import { EditLotComponent } from './lot/edit-lot/edit-lot.component';
+import { EditWeightsheetComponent } from './weightsheet/edit-weightsheet/edit-weightsheet.component';
 //import { WarehouseComponent } from './warehouse/warehouse.component';
 
 const routes: Routes = [
@@ -19,8 +20,9 @@ const routes: Routes = [
   { path: 'lot', component: LotComponent },
   { path: 'load', component: LoadComponent },
   { path: 'weightsheet', component: WeightsheetComponent },
-  { path: 'load/:id', component: EditLoadComponent },
   { path: 'lot/:id', component: EditLotComponent },
+  { path: 'load/:id', component: EditLoadComponent },
+  { path: 'weightsheet/:id', component: EditWeightsheetComponent },
   { path: 'report', component: ReportComponent },
 ];
 

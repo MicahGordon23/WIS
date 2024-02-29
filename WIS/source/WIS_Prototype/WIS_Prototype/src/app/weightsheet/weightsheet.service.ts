@@ -28,7 +28,7 @@ export class WeightsheetService{
   }
 
   // Gets a single Weightsheet by weightsheetId from the database.
-  get(id: bigint): Observable<Weightsheet> {
+  getWeightsheet(id: bigint): Observable<Weightsheet> {
     
     return this.http.get<Weightsheet>(this.url + '/' + id);
   }

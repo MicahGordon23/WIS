@@ -3,6 +3,7 @@
 
 // ILot interface
 // Purpose: Define a common interface for all other Lot interfaces. Has the bare miniumn properties
+import { Producer } from '../producer/producer';
 export class ILot {
   // these properties are nessary for a Lot
  
@@ -50,4 +51,30 @@ export class NewLot extends ILot{
 export class NewLotNoVariety extends ILot {
   
   
+}
+
+
+// Pupose: LotDto
+export class LotDto extends ILot {
+  constructor() {
+    super();
+    this.producerId = 0;
+    this.producerName = "";
+    this.stateId = "";
+    
+    this.commodityTypeId = 0;
+    this.commodityTypeName = "";
+  }
+  public lotId?: BigInt;
+
+  public producerName: string;
+  public producerId: number;
+ 
+  public commodityTypeId: number;
+  public commodityTypeName: string;
+
+  public warehouseId!: number;
+  public commodityVarietyId?: number;
+  public commodityVarietyName?: string | null;
+  public endDate?: Date;
 }

@@ -1,86 +1,84 @@
 <div>
-  <h1>Lot</h1>
-  <div [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div [formGroup]="form" (ngSubmit)="onSubmit()">
-      <p *ngIf="!producers">
-        <em>Loading...</em>
-      </p>
+  <h1 *ngIf="lot">Lot: {{lot.lotId}}</h1>
+  <h2 *ngIf="!lot">
+    <em>Loading...</em>
+  </h2>
+  <div *ngIf="lot" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!--Select ProducerID--> <!--Select Field-->
+    <mat-form-field>
+      <!--<mat-label>{{lot.producerName}}</mat-label>-->
+      <mat-label>Producer</mat-label>
+      <mat-select required formControlName="producerId">
+        <mat-option *ngFor="let prod of producers" value="{{prod.producerId}}">
+          {{ prod.producerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <!--Select ProducerID--> <!--Select Field-->
-      <mat-form-field>
-        <mat-label>Producer</mat-label>
-        <mat-select required formControlName="producer">
-          <mat-option *ngFor="let prod of producers" value="{{prod.producerId}}">
-            {{ prod.producerName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!--Commodity Type-->
+    <mat-form-field>
+      <mat-label>Commodity Type</mat-label>
+      <mat-select required  formControlName="commodityTypeId" (change)="onTypeSelect($event)" (keyup)="onTypeSelect($event)" (input)="onTypeSelect($event)">
+        <mat-option *ngFor="let comType of commodityTypes" value="{{comType.commodityTypeId}}">
+          {{ comType.commodityTypeName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <!--Commodity Type-->
-      <mat-form-field>
-        <mat-label>Commodity Type</mat-label>
-        <mat-select required formControlName="commodityType" (change)="onSelect($event)  ">
-          <mat-option *ngFor="let comType of commodityTypes" value="{{comType.commodityTypeId}}">
-            {{ comType.commodityTypeName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!--Commodity Variety-->
 
-      <!--Commodity Variety-->
-     
-      <mat-form-field>
-        <mat-label>Commodity Variety</mat-label>
-        <mat-select formControlName="commodityVariety">
-          <mat-option *ngFor="let comVariety of commodityVarieties" value="{{comVariety.commodityVarietyId}}">
-            {{ comVariety.commodityVarietyName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Commodity Variety</mat-label>
+      <mat-select formControlName="commodityVarietyId">
+        <mat-option *ngFor="let comVariety of commodityVarieties" value="{{comVariety.commodityVarietyId}}">
+          {{ comVariety.commodityVarietyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
-      <!--State Id-->
-     
-      <mat-form-field class="form-row">
-        <mat-label>State</mat-label>
-        <mat-select required formControlName="stateId">
-          <mat-option *ngFor="let s of states" [value]="s.value">
-            {{s.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!--State Id-->
+    <mat-form-field class="form-row">
+      <mat-label>State</mat-label>
+      <mat-select required formControlName="stateId">
+        <mat-option *ngFor="let s of states" [value]="s.value">
+          {{s.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <!--Landlord field-->
-    
-      <mat-form-field class="form-row">
-        <mat-label>Landlord</mat-label>
-        <input matInput formControlName="landlord" placeholder="Landlord" />
-      </mat-form-field>
+    <!--Landlord field-->
 
-      <!--Farm / FSA Number-->
-     
-      <mat-form-field class="form-row">
-        <mat-label>Farm Number (FSA)</mat-label>
-        <input matInput formControlName="farmNumber" placeholder="Farm Number (FSA)" />
-      </mat-form-field>
+    <mat-form-field class="form-row">
+      <mat-label>Landlord</mat-label>
+      <input matInput formControlName="landlord" placeholder="Landlord" />
+    </mat-form-field>
 
-      <!--Notes-->
-     
-      <mat-form-field class="form-row">
-        <mat-label>Notes</mat-label>
-        <input matInput formControlName="notes" placeholder="Notes" />
-      </mat-form-field>
+    <!--Farm / FSA Number-->
 
-      <!--Date Opened-->
-      <h3>Date Opened</h3>
-      <p *ngIf="lot.startDate">{{lot.startDate.toLocaleString()}}</p>
+    <mat-form-field class="form-row">
+      <mat-label>Farm Number (FSA)</mat-label>
+      <input matInput formControlName="farmNumber" placeholder="Farm Number (FSA)" />
+    </mat-form-field>
 
-      <!--Date Closed-->
-      <h3>Date Closed</h3>
-      <p *ngIf="lot.endDate">{{lot.endDate.toLocaleString()}}</p>
-      <p *ngIf="!lot.endDate">Lot Open</p>
+    <!--Notes-->
 
-      <mat-dialog-actions>
-        <button mat-raised-button (click)="onSubmit()">Done</button>
-      </mat-dialog-actions>
-    </div>
+    <mat-form-field class="form-row">
+      <mat-label>Notes</mat-label>
+      <input matInput formControlName="notes" placeholder="Notes" />
+    </mat-form-field>
+
+    <!--Date Opened-->
+    <h3>Date Opened</h3>
+    <p *ngIf="lot.startDate">{{lot.startDate.toLocaleString()}}</p>
+
+    <!--Date Closed-->
+    <h3>Date Closed</h3>
+    <p *ngIf="lot.endDate">{{lot.endDate.toLocaleString()}}</p>
+    <p *ngIf="!lot.endDate">Lot Open</p>
+
+    <mat-dialog-actions>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Done</button>
+    </mat-dialog-actions>
+
   </div>

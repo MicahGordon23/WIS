@@ -92,7 +92,6 @@ export class NewWeightsheetComponent {
     w.warehouseIdLink = 1;
     w.weigher = this.form.controls['weigher'].value;
     w.hauler = this.form.controls['miles'].value;
-    w.billOfLading = this.form.controls['billOfLading'].value;
     w.notes = this.form.controls['notes'].value;
     w.lotIdLink = this.form.controls['lot'].value;
 

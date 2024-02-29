@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WIS_PrototypeAPI.Data;
 using WIS_PrototypeAPI.Data.Models;
+using WIS_PrototypeAPI.Data.DTOs;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 
 namespace WIS_PrototypeAPI.Controllers
 {
@@ -48,6 +50,75 @@ namespace WIS_PrototypeAPI.Controllers
             }
 
             return lot;
+        }
+
+        // GET: api/Lots/Dto/5
+        [HttpGet("Dto/{lotId}")]
+        public async Task<ActionResult<LotDto>> GetLotDto(long lotId)
+        {
+            if (_context.Lots == null)
+            {
+                return NotFound();
+            }
+            //******************** RAW SQL QUERY *********************
+            // SELECT
+            // LotId, StateId, ProducerIdLink, ProducerName, CommodityTypeName,
+            // CommodityTypeId, CommodityVarietyName, CommodityVarietyId,
+            // Landlord, FarmNumber, Notes, StartDate, EndDate
+            // FROM Lots
+            // INNER JOIN CommodityTypes
+            // ON CommodityTypes.CommodityTypeId = Lots.CommodityTypeIdLink
+            // LEFT JOIN CommodityVarieties
+            // ON CommodityVarieties.CommodityVarietyId = Lots.CommodityVarietyIdLink
+            // INNER JOIN Producers
+            // ON Producers.ProducerId = Lots.ProducerIdLink
+            // WHERE Lots.LotId = 1
+
+            var query = from lot in _context.Lots
+                        // Inner Join                
+                        join commodity in _context.CommodityTypes on lot.CommodityTypeIdLink equals commodity.CommodityTypeId
+                        // Inner Join
+                        join producer in _context.Producers on lot.ProducerIdLink equals producer.ProducerId
+                        // Left Join
+                        join variety in _context.CommodityVarieties on lot.CommodityVarietyIdLink equals variety.CommodityVarietyId
+                        into sub
+                        from variety in sub.DefaultIfEmpty()
+                        where lot.LotId == lotId
+                        group new { lot, commodity, producer, variety }
+                        by new 
+                        { 
+                            lot.LotId,
+                            lot.StateId,
+                            lot.ProducerIdLink,
+                            producer.ProducerName,
+                            lot.CommodityTypeIdLink,
+                            commodity.CommodityTypeName,
+                            lot.CommodityVarietyIdLink,
+                            variety.CommodityVarietyName,
+                            lot.Landlord,
+                            lot.FarmNumber,
+                            lot.Notes,
+                            lot.StartDate,
+                            lot.EndDate,
+                        } into grouped
+                        select new LotDto
+                        {
+                            LotId = (long)grouped.Key.LotId,
+                            StateId = grouped.Key.StateId,
+                            StartDate = (DateTime)grouped.Key.StartDate,
+                            EndDate = (DateTime)grouped.Key.EndDate,
+                            Landlord = grouped.Key.Landlord,
+                            FarmNumber = grouped.Key.FarmNumber,
+                            Notes = grouped.Key.Notes,
+                            CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink,
+                            CommodityTypeName = grouped.Key.CommodityTypeName,
+                            CommodityVarietyId = (long)grouped.Key.CommodityVarietyIdLink,
+                            CommodityVarietyName = grouped.Key.CommodityVarietyName,
+                            ProducerId = (int)grouped.Key.ProducerIdLink,
+                            ProducerName = grouped.Key.ProducerName
+                        };
+            var result = await query.FirstAsync();
+            return Ok(result);
         }
 
         // PUT: api/Lots/5

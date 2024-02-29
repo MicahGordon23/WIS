@@ -20,6 +20,7 @@ export class LoadComponent implements OnInit {
     this.loadService.getData()
       .subscribe(result => {
         this.loads = result;
+        console.log(this.loads);
       }, error => console.error(error));
   }
 }
