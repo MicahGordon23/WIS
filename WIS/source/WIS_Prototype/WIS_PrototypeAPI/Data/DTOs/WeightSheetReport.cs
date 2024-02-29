@@ -14,9 +14,13 @@ namespace WIS_PrototypeAPI.Data.DTOs
 
 		public long WeightsheetId { get; set; }
 
-		public CommodityType CommodityType { get; set; }
+		public int CommodityTypeId {get; set;}
 
-		public CommodityVariety? CommodityVariety { get; set; } = null;
+		public string CommodityTypeName { get; set; }
+
+		public long? CommodityVarietyId { get; set; }
+
+		public string? CommodityVarietyName { get; set; } = null;
 
 		public int LoadsOnSheet { get; set; }
 

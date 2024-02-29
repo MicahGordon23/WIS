@@ -13,6 +13,8 @@ import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { ReportComponent } from './report/report.component';
 import { EditLotComponent } from './lot/edit-lot/edit-lot.component';
 import { EditWeightsheetComponent } from './weightsheet/edit-weightsheet/edit-weightsheet.component';
+import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
+
 //import { WarehouseComponent } from './warehouse/warehouse.component';
 
 const routes: Routes = [
@@ -24,6 +26,7 @@ const routes: Routes = [
   { path: 'load/:id', component: EditLoadComponent },
   { path: 'weightsheet/:id', component: EditWeightsheetComponent },
   { path: 'report', component: ReportComponent },
+  { path: 'daily-ws/:id', component: DailyWeightSheetReportComponent }
 ];
 
 @NgModule({

@@ -114,13 +114,16 @@ namespace WIS_PrototypeAPI.Controllers
 							weightsheets.CommodityTypeIdLink,
 							commodity.CommodityTypeName,
 							weightsheets.CommodityVarietyIdLink,
-							variety.CommodityVarietyName
+							comVarName = variety != null ? variety.CommodityVarietyName : null,
+
 						} into grouped
 						select new WeightSheetReport
 						{
 							WeightsheetId = (long)grouped.Key.WeightSheetId,
-							CommodityType = new CommodityType((int)grouped.Key.CommodityTypeIdLink, (string)grouped.Key.CommodityTypeName),
-							CommodityVariety = new CommodityVariety((long)grouped.Key.CommodityVarietyIdLink, (string)grouped.Key.CommodityVarietyName),
+							CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink, 
+							CommodityTypeName = (string)grouped.Key.CommodityTypeName,
+							CommodityVarietyId = (long)grouped.Key.CommodityVarietyIdLink,
+							CommodityVarietyName = grouped.Key.comVarName,
 							LoadsOnSheet = (int)grouped.Count(),
 							NetWeight = (int)grouped.Sum(l => l.load.NetWeight)
 						};
