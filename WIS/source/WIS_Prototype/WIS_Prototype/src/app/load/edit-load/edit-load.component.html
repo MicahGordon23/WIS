@@ -25,13 +25,13 @@
     <!--Gross Weight Field-->
     <mat-label>Gross Weight</mat-label>
     <mat-form-field class="form-row">
-      <input matInput formControlName="grossWeight" placeholder="Gross Weight" />
+      <input matInput formControlName="grossWeight" placeholder="Gross Weight" (change)="calcNetWeight()"/>
     </mat-form-field>
 
     <!--Tare Weight Field-->
     <mat-label>Tare Weight</mat-label>
     <mat-form-field>
-      <input matInput formControlName="tareWeight" placeholder="Tare Weight" />
+      <input matInput formControlName="tareWeight" placeholder="Tare Weight" (change)="calcNetWeight()"/>
     </mat-form-field>
 
     <!--Net Weight Field-->

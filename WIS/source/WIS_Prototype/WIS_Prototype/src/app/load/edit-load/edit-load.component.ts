@@ -115,6 +115,14 @@ export class EditLoadComponent {
     this.route.navigate(['/load'])
   }
 
+  // Recaculates Net weight if Gross or Tare weight are changed
+  calcNetWeight() {
+    this.load.grossWeight = this.form.controls['grossWeight'].value;
+    this.load.tareWeight = this.form.controls['tareWeight'].value;
+    this.load.netWeight = this.load.grossWeight - this.load.tareWeight;
+    this.form.patchValue(this.load);
+  }
+
   // Done
   onSubmit() {
     console.log(this.load);
