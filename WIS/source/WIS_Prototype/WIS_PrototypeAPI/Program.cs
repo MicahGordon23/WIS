@@ -1,6 +1,6 @@
 using WIS_PrototypeAPI.Data;
-
 using Microsoft.EntityFrameworkCore;
+using System; // Command Line Arguments
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,10 +31,17 @@ if (app.Environment.IsDevelopment())
 
 	var initializer = services.GetRequiredService<DbIntializer>();
 
-    // and reinitializes it.
-	//initializer.Run();
- }
-
+	// Get command line args
+	string[] arguments = Environment.GetCommandLineArgs();
+	if (arguments.Length > 1)
+	{
+		if (arguments[1] == "init")
+		{
+			// reinitializes it.
+			initializer.Run();
+		}
+	}
+}
 
 app.UseHttpsRedirection();
 
