@@ -5,6 +5,13 @@
     <mat-dialog-actions>
       <button mat-raised-button (click)="getIntakeReport()">Intake Report</button>
     </mat-dialog-actions>
+
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="genWeightSheetReport()">
+        Daily Weight Sheet Reports
+      </button>
+    </mat-dialog-actions>
+
   </div>
 </div>
 <div class="print-only" *ngIf="report">
@@ -12,7 +19,7 @@
   <table class=" ='table table-striped' aria-labelledby='tableLabel'"  [hidden]="!report">
     <thead>
       <tr>
-        <th>Weightsheet Id</th>
+        <th>Weight Sheet Id</th>
         <th>Producer Name</th>
         <th>Producer Id</th>
         <th>Lot Number</th>

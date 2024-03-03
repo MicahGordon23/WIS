@@ -24,7 +24,7 @@ namespace WIS_PrototypeAPI.Controllers
 			_context = context;
 		}
 
-		// GET: api/Reports/Intake
+		// GET: api/Reports/Intake/5
 		[HttpGet("Intake/{warehouseId}")]
 		public async Task<ActionResult<IntakeReport>> GetIntakeReport(int warehouseId)
 		{
@@ -90,6 +90,42 @@ namespace WIS_PrototypeAPI.Controllers
 							Landlord = grouped.Key.Landlord,
 							FarmNumber = grouped.Key.FarmNumber,
 							NetWeightLbs = (long)grouped.Sum(x => x.load.NetWeight)
+						};
+			var result = await query.ToListAsync();
+			return Ok(result);
+		}
+
+		// GET api/Reports/DailyWeightSheet/5
+		[HttpGet("Daily/Weightsheet/{warehouseId}")]
+		public async Task<ActionResult<WeightSheetReport>> GetDailyWeightSheetReport(int warehouseId)
+		{
+			var today = DateTime.Now.Date;
+			var query = from weightsheets in _context.Weightsheets
+						join commodity in _context.CommodityTypes on weightsheets.CommodityTypeIdLink equals commodity.CommodityTypeId
+						join variety in _context.CommodityVarieties on weightsheets.CommodityVarietyIdLink equals variety.CommodityVarietyId
+						into commodityPair
+						from variety in commodityPair.DefaultIfEmpty()
+						join load in _context.Loads on weightsheets.WeightSheetId equals load.WeightsheetIdLink
+						where weightsheets.WarehouseIdLink == warehouseId && weightsheets.DateOpened == today
+						group new { weightsheets, commodity, variety, load }
+						by new
+						{
+							weightsheets.WeightSheetId,
+							weightsheets.CommodityTypeIdLink,
+							commodity.CommodityTypeName,
+							weightsheets.CommodityVarietyIdLink,
+							comVarName = variety != null ? variety.CommodityVarietyName : null,
+
+						} into grouped
+						select new WeightSheetReport
+						{
+							WeightsheetId = (long)grouped.Key.WeightSheetId,
+							CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink, 
+							CommodityTypeName = (string)grouped.Key.CommodityTypeName,
+							CommodityVarietyId = (long)grouped.Key.CommodityVarietyIdLink,
+							CommodityVarietyName = grouped.Key.comVarName,
+							LoadsOnSheet = (int)grouped.Count(),
+							NetWeight = (int)grouped.Sum(l => l.load.NetWeight)
 						};
 			var result = await query.ToListAsync();
 			return Ok(result);

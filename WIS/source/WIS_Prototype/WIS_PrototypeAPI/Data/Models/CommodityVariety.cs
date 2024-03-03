@@ -5,6 +5,13 @@ namespace WIS_PrototypeAPI.Data.Models
 {
 	public class CommodityVariety
 	{
+		public CommodityVariety() { }
+		public CommodityVariety(long commodityVarietyId, string commodityVarietyName)
+		{
+			CommodityVarietyId = commodityVarietyId;
+			CommodityVarietyName = commodityVarietyName;
+		}
+
 		// Primary Key numeric identifier for Commodity Veriety.
 		[Key]
 		[Required]

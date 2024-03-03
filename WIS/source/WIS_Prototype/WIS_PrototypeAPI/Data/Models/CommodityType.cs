@@ -5,6 +5,12 @@ namespace WIS_PrototypeAPI.Data.Models
 {
 	public class CommodityType
 	{
+		public CommodityType() { }
+		public CommodityType(int id, string name) 
+		{
+			CommodityTypeId = id;
+			CommodityTypeName = name;
+		}
 		/**********************************************
 		* PROPERTIES
 		**********************************************/
