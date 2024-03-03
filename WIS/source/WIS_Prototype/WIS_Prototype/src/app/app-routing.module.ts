@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'load/:id', component: EditLoadComponent },
   { path: 'weightsheet/:id', component: EditWeightsheetComponent },
   { path: 'report', component: ReportComponent },
-  { path: 'daily-ws/:id', component: DailyWeightSheetReportComponent }
+  { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent }
 ];
 
 @NgModule({

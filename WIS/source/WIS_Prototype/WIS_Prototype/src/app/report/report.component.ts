@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 // npm i xlsx
 import * as XLSX from "xlsx";
+
+
 
 import { IntakeReport } from './intake-report';
 import { ReportService } from './report-service';
@@ -40,7 +44,8 @@ export class ReportComponent {
     private reportService: ReportService,
     private producerService: ProducerService,
     private commodityTypeService: CommodityTypeService,
-    private commodityVarietyService: CommodityVarietyService
+    private commodityVarietyService: CommodityVarietyService,
+    private route: Router
   )
   {
     this.lotsClosed = new Array<string>();
@@ -74,6 +79,10 @@ export class ReportComponent {
     else {
       return r.isClosedString = "Closed";
     }
+  }
+
+  genWeightSheetReport(): void {
+    this.route.navigate(['/report/daily-ws/1']);
   }
 
   getIntakeReport(): void {
