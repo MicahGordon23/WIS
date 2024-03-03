@@ -1,4 +1,34 @@
-<h1>Overview Component</h1>
-<mat-dialog-actions>
+<h1>Overview Warehouse: </h1>
+<!--<mat-dialog-actions>
   <button mat-raised-button (click)="openNewLoadDialog()"> New Load</button>
-</mat-dialog-actions>
+</mat-dialog-actions>-->
+
+<table class=" ='table table-striped' aria-labelledby='tableLabel'">
+  <thead>
+    <tr>
+      <th>Weight Sheet Id</th>
+      <th>Loads</th>
+      <th>In Yard</th>
+      <th>Producer/Source</th>
+      <th>Commodity Name</th>
+      <th>Variety Name</th>
+      <th>Lot Id</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let w of weightsheets">
+      <td>
+        <a [routerLink]="['/NewLoad', w.weightsheetId]">{{w.weightsheetId}}</a>
+      </td>
+      <td>{{w.sumNumLoads}}</td>
+      <td>{{w.inYard}}</td>
+      <td *ngIf="w.producerName">{{w.producerName}}</td>
+      <td *ngIf="w.sourceName">{{w.sourceName}}</td>
+      <td>{{w.commodityTypeName}}</td>
+      <td>{{w.commodityVarietyName}}</td>
+      <td>{{w.lotId}}</td>
+      <td>{{w.notes}}</td>
+    </tr>
+  </tbody>
+</table>

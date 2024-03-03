@@ -3,6 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { NewLoadComponent } from '../load/new-load.component';
 
+import { WeightsheetOverview } from '../weightsheet/weightsheet';
+import { WeightsheetService } from '../weightsheet/weightsheet.service';
+
 
 @Component({
   selector: 'app-home',
@@ -11,16 +14,28 @@ import { NewLoadComponent } from '../load/new-load.component';
 })
 
 export class HomeComponent {
-  constructor(public loadDialog: MatDialog) { }
 
-  openNewLoadDialog(): void
-  {
-    // Used to configure dialog options like height, width, ect.
-    const dialogConfig = new DialogConfig();
+  weightsheets!: WeightsheetOverview[];
+  constructor(
+    private weightsheetService: WeightsheetService,
+    public loadDialog: MatDialog
+  ) { }
 
-    let dialogRef = this.loadDialog.open(NewLoadComponent, {
-     
-    });
+  ngOnInit() {
+    this.weightsheetService.getOverview(1)
+      .subscribe(result => {
+        this.weightsheets = result;
+      }, e => console.log(e));
   }
+
+  //openNewLoadDialog(): void
+  //{
+  //  // Used to configure dialog options like height, width, ect.
+  //  const dialogConfig = new DialogConfig();
+
+  //  let dialogRef = this.loadDialog.open(NewLoadComponent, {
+     
+  //  });
+  //}
 
 }

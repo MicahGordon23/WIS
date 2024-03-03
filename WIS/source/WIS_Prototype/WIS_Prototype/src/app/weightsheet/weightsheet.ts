@@ -48,3 +48,22 @@ export class NewWeightsheet extends IWeightsheet {
 export class NewWeightsheetNoVariety extends IWeightsheet {
   
 }
+
+export class WeightsheetOverview {
+  weightsheetId: bigint;
+  sumNumLoads: number;
+  inYard: number;
+  producerName?: string;
+  sourceName?: string;
+  commodityTypeName: string
+  commodityVarietyName?: string
+  lotId?: number;
+  notes?: string;
+
+  constructor() {
+    this.weightsheetId = BigInt(0);
+    this.sumNumLoads = 0;
+    this.inYard = 0;
+    this.commodityTypeName = '';
+  }
+}
