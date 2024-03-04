@@ -35,4 +35,8 @@ export class HomeComponent {
   newWeightSheet() {
     this.router.navigate(['/new-weightsheet/' + this.warehouseId]);
   }
+
+  newLot() {
+    this.router.navigate(['/new-lot/'+ this.warehouseId])
+  }
 }

@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { DialogConfig } from '@angular/cdk/dialog';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 
 import { ILot, Lot, NewLot, NewLotNoVariety } from './lot';
 import { LotService } from './lot.service';
@@ -25,12 +23,11 @@ import { CommodityVarietyService } from '../commodity-variety/commodity-variety.
 
 export class NewLotComponent {
   constructor(
-    private dialogRef: MatDialogRef<NewLotComponent>,
-    private http: HttpClient,
     private lotService: LotService,
     private producerService: ProducerService,
     private commodityTypeService: CommodityTypeService,
-    private commodityVarietyService: CommodityVarietyService
+    private commodityVarietyService: CommodityVarietyService,
+    private router: Router,
   ) { }
 
   // The form for model
@@ -73,7 +70,7 @@ export class NewLotComponent {
   //**********************************************
   // Purpose: When a Commodity Type is selected in 
   onSelect(event: Event) {
-    const typeId = Number((event.target as HTMLInputElement).value);
+    const typeId = Number(event);
     this.commodityVarietyService.getByType(typeId)
       .subscribe(result => this.varieties = result);
   }
@@ -112,6 +109,11 @@ export class NewLotComponent {
       .subscribe(result => {
         console.log("Lot Added")
       }, error => console.error(error));
+    this.router.navigate(['']);
+  }
+  onCancel() {
+    // naviagte home
+    this.router.navigate(['']);
   }
 
 }

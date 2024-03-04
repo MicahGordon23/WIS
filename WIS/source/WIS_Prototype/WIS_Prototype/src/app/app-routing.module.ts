@@ -16,6 +16,7 @@ import { EditWeightsheetComponent } from './weightsheet/edit-weightsheet/edit-we
 import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
 import { NewLoadComponent } from './load/new-load.component';
 import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
+import { NewLotComponent } from './lot/new-lot.component';
 
 //import { WarehouseComponent } from './warehouse/warehouse.component';
 // Could add warehouse ID to all of these tbh.
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'report', component: ReportComponent },
   { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent }, // Warehoues Id number
   { path: 'new-load/:id', component: NewLoadComponent },    // Weight Sheet Id number
-  { path: 'new-weightsheet/:id', component: NewWeightsheetComponent } // Warehouse Id number
+  { path: 'new-weightsheet/:id', component: NewWeightsheetComponent }, // Warehouse Id number
+  { path: 'new-lot/:id', component: NewLotComponent } // Warehouse Id number
 ];
 
 @NgModule({

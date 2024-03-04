@@ -3,29 +3,24 @@
 
   <div [formGroup]="form" (ngSubmit)="onSubmit()">
     <!--Weigher Field-->
-    <div class="form-row">
-      <mat-label>Weigher</mat-label>
       <mat-form-field>
+        <mat-label>Weigher</mat-label>
         <input matInput formControlName="weigher" required placeholder="Weigher" />
         <mat-error *ngIf="this.form.controls['weigher'].errors?.['required']">
           Weigher Name is required.
         </mat-error>
       </mat-form-field>
-    </div>
 
-    <!--Lot Field-->
-    <div class="form-row">
-      <mat-label>Lot</mat-label>
       <mat-form-field>
+        <mat-label>Lot</mat-label>
         <mat-select required formControlName="lot">
           <mat-option *ngFor="let l of lots" value="{{l.lotId}}">
             {{ l.lotId }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <mat-form-field >
+    <mat-form-field>
       <mat-label>Commodity Type</mat-label>
       <mat-select required formControlName="commodityType" (selectionChange)="onSelect($event.value)">
         <mat-option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
@@ -33,6 +28,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
     <mat-form-field>
       <mat-label>Commodity Variety</mat-label>
       <mat-select formControlName="commodityVariety">
@@ -43,28 +39,23 @@
     </mat-form-field>
 
    
-    <!--Hauler Field-->
-    <div class="form-row">
-      <mat-label>Hauler</mat-label>
+    <!--Hauler Field-->    
       <mat-form-field>
+        <mat-label>Hauler</mat-label>
         <input matInput formControlName="hauler" placeholder="Hauler" />
       </mat-form-field>
-    </div>
 
     <!--Miles One Way Field-->
-
-    <mat-label>Miles One Way</mat-label>
     <mat-form-field>
+      <mat-label>Miles One Way</mat-label>
       <input matInput formControlName="miles" placeholder="Miles One Way" />
     </mat-form-field>
 
     <!--Notes Field-->
-    <div class="form-row">
-      <mat-label>Notes</mat-label>
       <mat-form-field>
+        <mat-label>Notes</mat-label>
         <input matInput formControlName="notes" placeholder="Notes" />
       </mat-form-field>
-    </div>
 
     <mat-dialog-actions>
       <button mat-raised-button (click)="onCancel()">Cancel</button>

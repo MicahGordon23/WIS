@@ -6,32 +6,40 @@
       <em>Loading...</em>
     </p>
 
-    <!--Select ProducerID--> <!--Select Field-->
-    <mat-label>Producer</mat-label>
-    <select required formControlName="producer">
-      <option *ngFor="let prod of producers" value="{{prod.producerId}}">
-        {{ prod.producerName }}
-      </option>
-    </select>
+    <!--Select ProducerID-->
+    <mat-form-field>
+      <mat-label>Producer</mat-label>
+      <mat-select required formControlName="producer">
+        <mat-option *ngFor="let prod of producers" value="{{prod.producerId}}">
+          {{ prod.producerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <mat-label>Commodity Type</mat-label>
-    <select required formControlName="commodityType" (change)="onSelect($event)">
-      <option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
-        {{ comType.commodityTypeName }}
-      </option>
-    </select>
+    <!--Commodity Type-->
+    <mat-form-field>
+      <mat-label>Commodity Type</mat-label>
+      <mat-select required formControlName="commodityType" (selectionChange)="onSelect($event.value)">
+        <mat-option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
+          {{ comType.commodityTypeName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <mat-label>Commodity Variety</mat-label>
-    <select formControlName="commodityVariety">
-      <option *ngFor="let comVariety of varieties" value="{{comVariety.commodityVarietyId}}">
-        {{ comVariety.commodityVarietyName }}
-      </option>
-    </select>
+    <mat-form-field>
+      <mat-label>Commodity Variety</mat-label>
+      <mat-select formControlName="commodityVariety">
+        <mat-option *ngFor="let comVariety of varieties" value="{{comVariety.commodityVarietyId}}">
+          {{ comVariety.commodityVarietyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
     <!--State Id-->
-    <mat-label>State</mat-label>
+    
     <mat-form-field class="form-row">
+      <mat-label>State</mat-label>
       <mat-select required formControlName="stateId">
         <mat-option *ngFor="let s of states" [value]="s.value">
           {{s.viewValue}}
@@ -59,6 +67,7 @@
 
     <mat-dialog-actions>
       <button mat-raised-button (click)="onSubmit()">Done</button>
+      <button mat-raised-button (click)="onCancel()">Cancel</button>
     </mat-dialog-actions>
 
   </div>
