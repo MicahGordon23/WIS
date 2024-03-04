@@ -15,20 +15,23 @@ import { EditLotComponent } from './lot/edit-lot/edit-lot.component';
 import { EditWeightsheetComponent } from './weightsheet/edit-weightsheet/edit-weightsheet.component';
 import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
 import { NewLoadComponent } from './load/new-load.component';
+import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
 
 //import { WarehouseComponent } from './warehouse/warehouse.component';
+// Could add warehouse ID to all of these tbh.
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'lot', component: LotComponent },
   { path: 'load', component: LoadComponent },
   { path: 'weightsheet', component: WeightsheetComponent },
-  { path: 'lot/:id', component: EditLotComponent },
-  { path: 'load/:id', component: EditLoadComponent },
-  { path: 'weightsheet/:id', component: EditWeightsheetComponent },
+  { path: 'lot/:id', component: EditLotComponent },   // Lot Id number
+  { path: 'load/:id', component: EditLoadComponent }, // Load Id number
+  { path: 'weightsheet/:id', component: EditWeightsheetComponent },   // Weight Sheet Id number
   { path: 'report', component: ReportComponent },
-  { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent },
-  { path: 'NewLoad/:id', component: NewLoadComponent }
+  { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent }, // Warehoues Id number
+  { path: 'new-load/:id', component: NewLoadComponent },    // Weight Sheet Id number
+  { path: 'new-weightsheet/:id', component: NewWeightsheetComponent } // Warehouse Id number
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { DialogConfig } from '@angular/cdk/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+//import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+//import { DialogConfig } from '@angular/cdk/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { NewLotComponent } from '../lot/new-lot.component'
@@ -24,12 +25,14 @@ import { LotService } from '../lot/lot.service';
 })
 export class NewWeightsheetComponent {
   constructor(
-    private lotDialog: MatDialog,
-    private dialogRef: MatDialogRef<NewWeightsheetComponent>,
+    //private lotDialog: MatDialog,
+    //private dialogRef: MatDialogRef<NewWeightsheetComponent>,
     private weightsheetService: WeightsheetService,
     private commodityTypeService: CommodityTypeService,
     private commodityVarietyService: CommodityVarietyService,
     private lotService: LotService,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   form!: FormGroup;
@@ -66,12 +69,12 @@ export class NewWeightsheetComponent {
     this.commodityTypeService.getData().subscribe(result => this.commodities = result);
   }
 
-  //**********************************************
-  // Purpose: Opens a new Dialog window containting New Lot form.
-  openNewLotDialog(): void {
-    const dialogConfig = new DialogConfig();
-    let dialogRef = this.lotDialog.open(NewLotComponent, {});
-  }
+  ////**********************************************
+  //// Purpose: Opens a new Dialog window containting New Lot form.
+  //openNewLotDialog(): void {
+  //  const dialogConfig = new DialogConfig();
+  //  let dialogRef = this.lotDialog.open(NewLotComponent, {});
+  //}
 
   //**********************************************
   // Purpose: When a Commodity Type is selected in the form, the variety select field is
@@ -107,7 +110,7 @@ export class NewWeightsheetComponent {
     console.log(w.dateOpened);
     // I need this in local time PST
     // Documentation I found was incorrect.
-    // Stored in UTC, but will console.log in local time cause fuck you
+    // Stored in UTC, but will console.log in local time
     w.dateOpened.setUTCHours(w.dateOpened.getUTCHours() - 8);
     console.log(w.dateOpened);
     this.weightsheet = w;
@@ -116,12 +119,14 @@ export class NewWeightsheetComponent {
       .subscribe(result => {
         console.log("Weightsheet Added")
       }, error => console.log(error));
-    this.dialogRef.close();
+    //this.dialogRef.close();
+    this.router.navigate(['']);
   }
 
   //**********************************************
   // Closes the New Weightsheet dialog window
   onCancel(): void {
-    this.dialogRef.close();
+    //this.dialogRef.close();
+    this.router.navigate(['']);
   }
 }

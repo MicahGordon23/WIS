@@ -58,7 +58,7 @@ export class NewLoadComponent {
   // Bin options for select
   bins!: Bin[];
 
-  weightSheetId!: bigint;
+  weightSheetId!: number;
 
   ngOnInit() {
 
@@ -79,7 +79,7 @@ export class NewLoadComponent {
 
     // retrieve the ID from the 'id' parameter
     var idParam = this.activatedRoute.snapshot.paramMap.get('id');
-    this.weightSheetId = BigInt(idParam ? +idParam : 0);
+    this.weightSheetId = idParam ? +idParam : 0;
   }
 
   onSubmit() {
@@ -148,7 +148,7 @@ export class NewLoadComponent {
     this.loadService.post(this.load)
       .subscribe(error => console.log(error));
     console.log(this.load);
-    //this.dialogRef.close();
+    this.route.navigate(['']);
   }
 
   //openNewWeightsheetDialog(): void {
@@ -160,6 +160,7 @@ export class NewLoadComponent {
 
   onCancel(): void {
    // this.dialogRef.close();
+    this.route.navigate(['']);
   }
 
 }
