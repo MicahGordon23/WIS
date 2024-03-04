@@ -1,77 +1,91 @@
 <div class="edit-load">
   <div [formGroup]="form" (ngSubmit)="onSubmit()">
     <!--Truck Id Field-->
-    <mat-label>Truck Id</mat-label>
+   
     <mat-form-field class="form-row">
+      <mat-label>Truck Id</mat-label>
       <input matInput formControlName="truckId" required placeholder="Truck Id" />
     </mat-form-field>
 
     <!--Select from list of Bins-->
-    <mat-label>Select a Bin</mat-label>
-    <mat-select formControlName="bin" placeholder="Select a Bin">
-      <mat-option *ngFor="let bin of bins" value="{{bin.binId}}">
-        {{ bin.binName }}
-      </mat-option>
-    </mat-select>
-
+    <mat-form-field>
+      <mat-label>Select a Bin</mat-label>
+      <mat-select formControlName="bin" placeholder="Select a Bin">
+        <mat-option *ngFor="let bin of bins" value="{{bin.binId}}">
+          {{ bin.binName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <!--Select from list of Weightsheets-->
-    <mat-label>Select a Weight Sheet</mat-label>
-    <mat-select formControlName="weightsheet" placeholder="Select a Weight Sheet">
-      <mat-option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
-        {{ sheet.weightSheetId }}
-      </mat-option>
-    </mat-select>
+    <mat-form-field>
+      <mat-label>Select a Weight Sheet</mat-label>
+      <mat-select formControlName="weightsheet" placeholder="Select a Weight Sheet">
+
+        <mat-option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
+          {{ sheet.weightSheetId }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <!--Gross Weight Field-->
-    <mat-label>Gross Weight</mat-label>
+    
     <mat-form-field class="form-row">
-      <input matInput formControlName="grossWeight" placeholder="Gross Weight" (change)="calcNetWeight()"/>
+      <mat-label>Gross Weight</mat-label>
+      <input matInput formControlName="grossWeight" placeholder="Gross Weight" (change)="calcNetWeight()" />
     </mat-form-field>
 
     <!--Tare Weight Field-->
-    <mat-label>Tare Weight</mat-label>
+    
     <mat-form-field>
-      <input matInput formControlName="tareWeight" placeholder="Tare Weight" (change)="calcNetWeight()"/>
+      <mat-label>Tare Weight</mat-label>
+      <input matInput formControlName="tareWeight" placeholder="Tare Weight" (change)="calcNetWeight()" />
     </mat-form-field>
 
     <!--Net Weight Field-->
-    <mat-label>Net Weight</mat-label>
+    
     <mat-form-field>
-      <input matInput formControlName="netWeight" placeholder="Net Weight" />
+      <mat-label>Net Weight</mat-label>
+      <input matInput formControlName="netWeight" placeholder="Net Weight" (change)="calcNetWeight()" />
     </mat-form-field>
 
     <!--Moisture Level Field-->
-    <mat-label>Moisture</mat-label>
+    
     <mat-form-field class="form-row">
+      <mat-label>Moisture</mat-label>
       <input matInput formControlName="moistureLevel" placeholder="Moisture" />
     </mat-form-field>
 
     <!--Test Weight Field-->
-    <mat-label>Test Weight</mat-label>
+   
     <mat-form-field class="form-row">
+      <mat-label>Test Weight</mat-label>
       <input matInput formControlName="testWeight" placeholder="Test Weight" />
     </mat-form-field>
 
     <!--Protien Level Field-->
-    <mat-label>Protien</mat-label>
+    
     <mat-form-field class="form-row">
+      <mat-label>Protien</mat-label>
       <input matInput formControlName="protienLevel" placeholder="Protein Level" />
     </mat-form-field>
 
     <!--Bill of Lading Number Field-->
-    <mat-label>Bill of Lading</mat-label>
+   
     <mat-form-field class="form-row">
+      <mat-label>Bill of Lading</mat-label>
       <input matInput formControlName="bolNumber" placeholder="Bill of Lading Number" />
     </mat-form-field>
 
     <!--Notes / Comments Field-->
-    <mat-label>Notes</mat-label>
+  
     <mat-form-field class="form-row">
+      <mat-label>Notes</mat-label>
       <input matInput formControlName="notes" placeholder="Notes/Comments" />
     </mat-form-field>
-
-    <button mat-raised-button type="submit" (click)="weighOut()">Weigh Out</button>
-    <button mat-raised-button type="submit" (click)="onSubmit()">Done</button>
-    <button mat-raised-button (click)="onCancel()">Cancel</button>
+    <div>
+      <button mat-raised-button type="submit" (click)="weighOut()">Weigh Out</button>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Done</button>
+      <button mat-raised-button (click)="onCancel()">Cancel</button>
+    </div>
   </div>
 </div>

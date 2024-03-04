@@ -94,7 +94,7 @@ export class EditLotComponent {
   //**********************************************
   // Purpose: When a Commodity Type is selected in the form, the variety field is populated.
   onTypeSelect(event: Event) {
-    const typeId = Number((event.target as HTMLInputElement).value);
+    const typeId = Number(event);
     this.commodityVarietyService.getByType(typeId)
       .subscribe(result => {
         this.commodityVarieties = result;
@@ -125,6 +125,10 @@ export class EditLotComponent {
     this.lotService.put(lot).subscribe(result => {
       console.log(result);
     }, e => console.log(e));
+    this.route.navigate(['/lot']);
+  }
+
+  onCancel() {
     this.route.navigate(['/lot']);
   }
 }
