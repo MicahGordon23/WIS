@@ -14,15 +14,15 @@
 
 		public string? ProducerName { get; set; } = null;
 
-		public string? SourceName { get; set; } = null;
+		//public string? SourceName { get; set; } = null;
 
 		public string CommodityTypeName { get; set; }
 
-		public int CommodityTypeId { get; set; }
+		//public int CommodityTypeId { get; set; }
 
 		public string? CommodityVarietyName { get; set; } = null;
 
-		public long? CommodityVarietyId { get; set; }
+		//public long? CommodityVarietyId { get; set; }
 
 		public long? LotId { get; set; }
 

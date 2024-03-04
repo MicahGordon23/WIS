@@ -34,54 +34,67 @@ namespace WIS_PrototypeAPI.Controllers
             return await _context.Weightsheets.ToListAsync();
         }
 
-        // GET: api/Weightsheet
-        [HttpGet("Overview/{warehouseId}")]
+		/****************** RAW QUERY ****************
+        SELECT 
+        WeightSheetId, CommodityTypes.CommodityTypeName, CommodityVarieties.CommodityVarietyName,
+        Producers.ProducerName, Weightsheets.Notes, Lots.LotId
+        ,Count(Loads.LoadId) AS SumLoads,COUNT(CASE WHEN Loads.TimeIn IS NOT Null AND Loads.TimeOut IS NULL Then 1 END) As InLot
+        FROM Weightsheets
+        INNER JOIN CommodityTypes
+        ON CommodityTypeId = Weightsheets.CommodityTypeIdLink
+        LEFT JOIN CommodityVarieties
+        ON CommodityVarietyId = Weightsheets.CommodityVarietyIdLink
+        LEFT JOIN Loads
+        ON Loads.WeightsheetIdLink = WeightSheetId
+        LEFT JOIN Lots
+        ON LotId = Weightsheets.LotIdLink
+        LEFT JOIN Producers
+        ON ProducerId = Lots.ProducerIdLink
+        WHERE Weightsheets.WarehouseIdLink = 1 AND Weightsheets.DateClosed IS NULL AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
+        GROUP BY
+        WeightSheetId, CommodityTypes.CommodityTypeName, CommodityVarieties.CommodityVarietyName,
+        Producers.ProducerName, Weightsheets.Notes, Lots.LotId
+        */
+		// GET: api/Weightsheet
+		[HttpGet("Overview/{warehouseId}")]
         public async Task<ActionResult<WeightSheetDto>> GetAllOpenWeightSheets(int warehouseId)
         {
-			var today = DateTime.Now.Date;
-            var query = from weightsheets in _context.Weightsheets
-                        // Left Join 
-                        //join source in _context.Sources.DefaultIfEmpty() on weightsheets.SourceIdLink equals source.SourceId
-                        // Left Join
-                        join lot in _context.Lots.DefaultIfEmpty() on weightsheets.LotIdLink equals lot.LotId
-                        // Left Join
-                        join producer in _context.Producers.DefaultIfEmpty() on lot.ProducerIdLink equals producer.ProducerId
-                        join commodity in _context.CommodityTypes on weightsheets.CommodityTypeIdLink equals commodity.CommodityTypeId
-                        // Left Join
-                        join variety in _context.CommodityVarieties on weightsheets.CommodityVarietyIdLink equals variety.CommodityVarietyId
-                        into commodityPair
-                        from variety in commodityPair.DefaultIfEmpty()
-                        join load in _context.Loads on weightsheets.WeightSheetId equals load.WeightsheetIdLink
-                        where weightsheets.DateOpened == today && weightsheets.DateClosed == null && weightsheets.WarehouseIdLink == warehouseId
-                        group new { weightsheets, commodity, variety, load, producer /*, source */}
-                        by new
-                        {
-                            weightsheets.WeightSheetId,
-                            weightsheets.CommodityTypeIdLink,
-                            commodity.CommodityTypeName,
-                            weightsheets.CommodityVarietyIdLink,
-                            comVarName = variety != null ? variety.CommodityVarietyName : null,
-                            lotId = weightsheets.LotIdLink != null ? weightsheets.LotIdLink : null,
-							producerName = producer.ProducerName != null ? producer.ProducerName: null,
-                            //sourceName = source.SourceName != null ? source.SourceName : null,
+			//var today = DateTime.Now.Date;
+			var result = from weightSheet in _context.Weightsheets
+						 join commodityType in _context.CommodityTypes on weightSheet.CommodityTypeIdLink equals commodityType.CommodityTypeId
+						 join commodityVariety in _context.CommodityVarieties on weightSheet.CommodityVarietyIdLink equals commodityVariety.CommodityVarietyId into cvGroup
+						 from cv in cvGroup.DefaultIfEmpty()
+						 join load in _context.Loads on weightSheet.WeightSheetId equals load.WeightsheetIdLink into loadGroup
+						 join lot in _context.Lots on weightSheet.LotIdLink equals lot.LotId into lotGroup
+						 from l in lotGroup.DefaultIfEmpty()
+						 join producer in _context.Producers on l.ProducerIdLink equals producer.ProducerId into producerGroup
+						 from p in producerGroup.DefaultIfEmpty()
+						 where weightSheet.WarehouseIdLink == 1 && weightSheet.DateClosed == null && weightSheet.DateOpened == DateTime.Today
+						 group new { weightSheet, cv, loadGroup, l, p } by new
+						 {
+							 weightSheet.WeightSheetId,
+							 commodityType.CommodityTypeName,
+							 CommodityVarietyName = cv.CommodityVarietyName,
+							 ProducerName = p.ProducerName,
+							 weightSheet.Notes,
+							 LotId = l.LotId
+						 } into grouped
+						 select new WeightSheetDto
+						 {
+							 WeightsheetId = grouped.Key.WeightSheetId,
+							 CommodityTypeName = grouped.Key.CommodityTypeName,
+							 CommodityVarietyName = grouped.Key.CommodityVarietyName,
+							 ProducerName = grouped.Key.ProducerName,
+							 Notes = grouped.Key.Notes,
+							 LotId = grouped.Key.LotId,
+							 SumNumLoads = grouped.SelectMany(w => w.loadGroup).Count(),
+							 InYard = grouped.SelectMany(w => w.loadGroup).Count(l => l.TimeIn != null && l.TimeOut == null)
+						 };
 
-						} into grouped
-						select new WeightSheetDto
-						{
-						    WeightsheetId = (long)grouped.Key.WeightSheetId,
-							CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink,
-							CommodityTypeName = (string)grouped.Key.CommodityTypeName,
-							CommodityVarietyId = (long)grouped.Key.CommodityVarietyIdLink,
-							CommodityVarietyName = grouped.Key.comVarName,
-							SumNumLoads = (int)grouped.Count(),
-                            InYard = grouped.Count(item => item.load.TimeOut == null),
-                            ProducerName = grouped.Key.producerName,
-                            LotId = grouped.Key.lotId,
-                            //SourceName = grouped.Key.sourceName
+			var finalResult = await result.ToListAsync();
 
-						};
-			var result = await query.ToListAsync();
-			return Ok(result);
+
+			return Ok(finalResult);
 		}
 
         // GET: api/Weightsheets/5
