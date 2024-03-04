@@ -35,25 +35,27 @@ namespace WIS_PrototypeAPI.Controllers
         }
 
 		/****************** RAW QUERY ****************
-        SELECT 
-        WeightSheetId, CommodityTypes.CommodityTypeName, CommodityVarieties.CommodityVarietyName,
-        Producers.ProducerName, Weightsheets.Notes, Lots.LotId
-        ,Count(Loads.LoadId) AS SumLoads,COUNT(CASE WHEN Loads.TimeIn IS NOT Null AND Loads.TimeOut IS NULL Then 1 END) As InLot
-        FROM Weightsheets
-        INNER JOIN CommodityTypes
-        ON CommodityTypeId = Weightsheets.CommodityTypeIdLink
-        LEFT JOIN CommodityVarieties
-        ON CommodityVarietyId = Weightsheets.CommodityVarietyIdLink
-        LEFT JOIN Loads
-        ON Loads.WeightsheetIdLink = WeightSheetId
-        LEFT JOIN Lots
-        ON LotId = Weightsheets.LotIdLink
-        LEFT JOIN Producers
-        ON ProducerId = Lots.ProducerIdLink
-        WHERE Weightsheets.WarehouseIdLink = 1 AND Weightsheets.DateClosed IS NULL AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
-        GROUP BY
-        WeightSheetId, CommodityTypes.CommodityTypeName, CommodityVarieties.CommodityVarietyName,
-        Producers.ProducerName, Weightsheets.Notes, Lots.LotId
+            SELECT 
+            WeightSheetId, CommodityTypes.CommodityTypeName, CommodityVarieties.CommodityVarietyName,
+            Producers.ProducerName, Sources.SourceName, Weightsheets.Notes, Lots.LotId
+            ,Count(Loads.LoadId) AS SumLoads,COUNT(CASE WHEN Loads.TimeIn IS NOT Null AND Loads.TimeOut IS NULL Then 1 END) As InLot
+            FROM Weightsheets
+            INNER JOIN CommodityTypes
+            ON CommodityTypeId = Weightsheets.CommodityTypeIdLink
+            LEFT JOIN CommodityVarieties
+            ON CommodityVarietyId = Weightsheets.CommodityVarietyIdLink
+            LEFT JOIN Loads
+            ON Loads.WeightsheetIdLink = WeightSheetId
+            LEFT JOIN Lots
+            ON LotId = Weightsheets.LotIdLink
+            LEFT JOIN Producers
+            ON ProducerId = Lots.ProducerIdLink
+            LEFT JOIN Sources
+            ON SourceId = Weightsheets.SourceIdLink
+            WHERE Weightsheets.WarehouseIdLink = 1 AND Weightsheets.DateClosed IS NULL AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
+            GROUP BY
+            WeightSheetId, CommodityTypes.CommodityTypeName, CommodityVarieties.CommodityVarietyName,
+            Producers.ProducerName, Sources.SourceName, Weightsheets.Notes, Lots.LotId
         */
 		// GET: api/Weightsheet
 		[HttpGet("Overview/{warehouseId}")]
