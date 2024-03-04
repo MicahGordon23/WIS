@@ -69,18 +69,11 @@ export class NewWeightsheetComponent {
     this.commodityTypeService.getData().subscribe(result => this.commodities = result);
   }
 
-  ////**********************************************
-  //// Purpose: Opens a new Dialog window containting New Lot form.
-  //openNewLotDialog(): void {
-  //  const dialogConfig = new DialogConfig();
-  //  let dialogRef = this.lotDialog.open(NewLotComponent, {});
-  //}
-
   //**********************************************
   // Purpose: When a Commodity Type is selected in the form, the variety select field is
   //    populated with its varieties.
   onSelect(event: Event) {
-    const typeId = Number((event.target as HTMLInputElement).value);
+    const typeId = Number(event);
     this.commodityVarietyService.getByType(typeId)
       .subscribe(result => this.varieties = result);
   }
