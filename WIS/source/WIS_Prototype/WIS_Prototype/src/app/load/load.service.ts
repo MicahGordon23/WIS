@@ -24,6 +24,11 @@ export class LoadService {
     return this.http.get<Load>(this.url + '/' + id);
   }
 
+  getLoadsByWeightSheetId(weightsheetId: number): Observable<Load[]> {
+    let url = this.url + "/OnWS/" + weightsheetId;
+    return this.http.get<Load[]>(url);
+  }
+
   put(item: ILoad): Observable<Load> {
     return this.http.put<Load>(this.url + '/' + item.loadId, item);
   }

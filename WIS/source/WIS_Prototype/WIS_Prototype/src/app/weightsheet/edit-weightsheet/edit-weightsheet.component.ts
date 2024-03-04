@@ -11,6 +11,9 @@ import { CommodityTypeService } from '../../commodity-type/commodity-type.servic
 import { CommodityVariety } from '../../commodity-variety/commodity-variety';
 import { CommodityVarietyService } from '../../commodity-variety/commodity-variety.service';
 
+import { Load } from '../../load/load';
+import { LoadService } from '../../load/load.service';
+
 @Component({
   selector: 'app-edit-weightsheet',
   templateUrl: './edit-weightsheet.component.html',
@@ -21,8 +24,9 @@ export class EditWeightsheetComponent {
     private weightsheetService: WeightsheetService,
     private commodityTypeService: CommodityTypeService,
     private commodityVarietyService: CommodityVarietyService,
+    private loadService: LoadService,
     private activatedRoute: ActivatedRoute,
-    private route: Router
+    private router: Router
   ) { }
 
   form!: FormGroup;
@@ -32,6 +36,8 @@ export class EditWeightsheetComponent {
   commodityTypes!: CommodityType[];
 
   commodityVarieties!: CommodityVariety[];
+
+  loads!: Load[];
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -58,6 +64,11 @@ export class EditWeightsheetComponent {
       .subscribe(commodities => {
         this.commodityTypes = commodities;
       }, e => console.log(e));
+
+    this.loadService.getLoadsByWeightSheetId(id)
+      .subscribe(result => {
+        this.loads = result
+      }, error => console.log(error));
   }
 
   //**********************************************
@@ -70,17 +81,19 @@ export class EditWeightsheetComponent {
   }
 
   onSubmit() {
-    let sheet = new Weightsheet();
-    sheet = this.weightsheet as Weightsheet;
-
-
+    this.weightsheet.commodityTypeIdLink = this.form.controls['commodityTypeId'].value;
+    this.weightsheet.commodityVarietyIdLink = this.form.controls['commodityVarietyId'].value;
+    this.weightsheet.weigher = this.form.controls['weigher'].value;
+    this.weightsheet.miles = this.form.controls['miles'].value;
+    this.weightsheet.notes = this.form.controls['notes'].value;
+    this.weightsheetService.put(this.weightsheet)
+      .subscribe(result => {
+        console.log("Updated weight sheet" + result)
+      }, e => console.log(e));
+    this.router.navigate(['/weightsheet']);
   }
-  /*
-     commodityTypeId: new FormControl('', Validators.required),
-     commodityVarietyId: new FormControl(''),
-     weigher: new FormControl(''),
-     hauler: new FormControl(''),
-     miles: new FormControl(''),
-     notes: new FormControl('')
-  */
+
+  cancel() {
+    this.router.navigate(['/weightsheet']);
+  }
 }
