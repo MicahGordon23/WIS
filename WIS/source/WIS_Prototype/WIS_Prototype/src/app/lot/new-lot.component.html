@@ -37,7 +37,6 @@
 
 
     <!--State Id-->
-    
     <mat-form-field class="form-row">
       <mat-label>State</mat-label>
       <mat-select required formControlName="stateId">
@@ -65,10 +64,10 @@
       <input matInput formControlName="notes" placeholder="Notes" />
     </mat-form-field>
 
-    <mat-dialog-actions>
+    <div>
       <button mat-raised-button (click)="onSubmit()">Done</button>
       <button mat-raised-button (click)="onCancel()">Cancel</button>
-    </mat-dialog-actions>
+    </div>
 
   </div>
 </div>
