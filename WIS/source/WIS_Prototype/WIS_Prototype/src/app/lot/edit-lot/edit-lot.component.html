@@ -18,7 +18,7 @@
     <!--Commodity Type-->
     <mat-form-field>
       <mat-label>Commodity Type</mat-label>
-      <mat-select required  formControlName="commodityTypeId" (change)="onTypeSelect($event)" (keyup)="onTypeSelect($event)" (input)="onTypeSelect($event)">
+      <mat-select required formControlName="commodityTypeId" (selectionChange)="onTypeSelect($event.value)">
         <mat-option *ngFor="let comType of commodityTypes" value="{{comType.commodityTypeId}}">
           {{ comType.commodityTypeName }}
         </mat-option>
@@ -78,7 +78,9 @@
     <p *ngIf="!lot.endDate">Lot Open</p>
 
     <mat-dialog-actions>
-      <button mat-raised-button type="submit" (click)="onSubmit()">Done</button>
+      <button mat-raised-button type="submit" (click)="onSubmit()">Save Changes</button>
     </mat-dialog-actions>
-
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="onCancel()">Cancel</button>
+    </mat-dialog-actions>
   </div>

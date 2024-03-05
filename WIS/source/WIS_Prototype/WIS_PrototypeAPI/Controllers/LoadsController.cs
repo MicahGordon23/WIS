@@ -50,6 +50,21 @@ namespace WIS_PrototypeAPI.Controllers
             return load;
         }
 
+        // GET: api/Loads/ONWS/5
+        [HttpGet("OnWS/{weightsheetId}")]
+        public async Task<ActionResult<Load[]>> GetLoadsOnWeightSheetById(long weightsheetId)
+        {
+            if (_context.Loads == null)
+            {
+                return NotFound();
+            }
+
+            var loads = await _context.Loads
+                .Where( load => load.WeightsheetIdLink == weightsheetId)
+                .ToListAsync();
+            return Ok(loads);
+        }
+
         // PUT: api/Loads/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+//import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.component';
+import { ActivatedRoute, Router } from '@angular/router';
+
+//import { NewWeightsheetComponent } from '../weightsheet/new-weightsheet.component';
 
 import {
   ILoad,
@@ -37,12 +39,14 @@ import { catchError } from 'rxjs';
 })
 export class NewLoadComponent {
   constructor(
-    private weightsheetDialog: MatDialog,
-    private dialogRef: MatDialogRef<NewLoadComponent>,
+    //private weightsheetDialog: MatDialog,
+    //private dialogRef: MatDialogRef<NewLoadComponent>,
     private loadService: LoadService,
     private binService: BinService,
     private weightsheetService: WeightsheetService,
-    private truckScaleService: TruckScaleService
+    private truckScaleService: TruckScaleService,
+    private activatedRoute: ActivatedRoute,
+    private route: Router
   ) { }
 
   // The form model
@@ -54,15 +58,14 @@ export class NewLoadComponent {
   // Bin options for select
   bins!: Bin[];
 
-  // Weightsheet options for select
-  weightsheets!: Weightsheet[];
+  weightSheetId!: number;
 
   ngOnInit() {
 
     this.form = new FormGroup({
       truckId: new FormControl('', Validators.required),      // Syncronous Validator
       bin: new FormControl('', Validators.required),          // Syncronous Validator
-      weightsheet: new FormControl('', Validators.required),  // Syncronous Validator
+      
       moistureLevel: new FormControl(''),
       testWeight: new FormControl(''),
       protienLevel: new FormControl(''),
@@ -74,10 +77,9 @@ export class NewLoadComponent {
     this.binService.getWarehouseBins(1)
       .subscribe(result => this.bins = result);
 
-    // Gets open Weightsheets
-    // Harded code for warehouse 1
-    this.weightsheetService.getWarehouseOpenWeigthsheets(1)
-      .subscribe(result => this.weightsheets = result);
+    // retrieve the ID from the 'id' parameter
+    var idParam = this.activatedRoute.snapshot.paramMap.get('id');
+    this.weightSheetId = idParam ? +idParam : 0;
   }
 
   onSubmit() {
@@ -138,26 +140,27 @@ export class NewLoadComponent {
     load.billOfLading = this.form.controls['bolNumber'].value;
     load.notes = this.form.controls['notes'].value;
     load.binIdLink = this.form.controls['bin'].value;
-    load.weightsheetIdLink = this.form.controls['weightsheet'].value;
+    //load.weightsheetIdLink = this.form.controls['weightsheet'].value;
     this.load = load
-
+    this.load.weightsheetIdLink = this.weightSheetId;
     this.load.grossWeight = this.truckScaleService.getWeight();
     // Post load
     this.loadService.post(this.load)
       .subscribe(error => console.log(error));
     console.log(this.load);
-    this.dialogRef.close();
+    this.route.navigate(['']);
   }
 
-  openNewWeightsheetDialog(): void {
-    const dialogConfig = new DialogConfig();
-    let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {});
-  }
+  //openNewWeightsheetDialog(): void {
+  //  const dialogConfig = new DialogConfig();
+  //  let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {});
+  //}
 
 
 
   onCancel(): void {
-    this.dialogRef.close();
+   // this.dialogRef.close();
+    this.route.navigate(['']);
   }
 
 }

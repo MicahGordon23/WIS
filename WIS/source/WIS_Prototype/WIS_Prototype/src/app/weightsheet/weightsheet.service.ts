@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseService, ApiResult } from '../base.service';
 import { Observable } from 'rxjs';
-import { IWeightsheet, Weightsheet } from './weightsheet';
+import { IWeightsheet, Weightsheet, WeightsheetOverview } from './weightsheet';
 
 // The decortate passing root makes this a singleton.
 @Injectable({
@@ -19,6 +19,11 @@ export class WeightsheetService{
   getData(): Observable<Weightsheet[]> {
 
     return this.http.get<Weightsheet[]>(this.url, {});
+  }
+
+  getOverview(warehouseId: number): Observable<WeightsheetOverview[]> {
+    let url = this.url + "/Overview/" + warehouseId;
+    return this.http.get<WeightsheetOverview[]>(url);
   }
 
   // Gets all Open Weightsheets for warehouseId From the database. An open weightsheet has no close

@@ -34,21 +34,6 @@
       </mat-form-field>
     </div>
 
-    <!--Select from list of Weightsheets-->
-    <div class="form-row">
-      <mat-label>Weightsheet</mat-label>
-      <mat-form-field>
-        <mat-select formControlName="weightsheet">
-          <mat-option *ngFor="let sheet of weightsheets" value="{{sheet.weightSheetId}}">
-            {{ sheet.weightSheetId }}
-          </mat-option>
-          <mat-error *ngIf="this.form.controls['weightsheet'].errors?.['required']">
-            Weight Sheet is Required.
-          </mat-error>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
     <!--Moisture Level Field-->
     <mat-label>Moisture</mat-label>
     <mat-form-field>
@@ -80,11 +65,11 @@
     </mat-form-field>
   </div>
 
-  <mat-dialog-actions>
+  <!--<mat-dialog-actions>
     <button mat-raised-button (click)="openNewWeightsheetDialog()">
       New Weightsheet
     </button>
-  </mat-dialog-actions>
+  </mat-dialog-actions>-->
 
   <button mat-raised-button type="submit" [disabled]="!form.valid"  (click)="onSubmit()">Weigh In</button>
 </div>

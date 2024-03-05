@@ -3,74 +3,59 @@
 
   <div [formGroup]="form" (ngSubmit)="onSubmit()">
     <!--Weigher Field-->
-    <div class="form-row">
-      <mat-label>Weigher</mat-label>
       <mat-form-field>
+        <mat-label>Weigher</mat-label>
         <input matInput formControlName="weigher" required placeholder="Weigher" />
         <mat-error *ngIf="this.form.controls['weigher'].errors?.['required']">
           Weigher Name is required.
         </mat-error>
       </mat-form-field>
-    </div>
 
-    <!--Lot Field-->
-    <div class="form-row">
-      <mat-label>Lot</mat-label>
       <mat-form-field>
+        <mat-label>Lot</mat-label>
         <mat-select required formControlName="lot">
           <mat-option *ngFor="let l of lots" value="{{l.lotId}}">
             {{ l.lotId }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <!--Commodity Type-->
-    <div class="form-row">
+    <mat-form-field>
       <mat-label>Commodity Type</mat-label>
-      <mat-form-field>
-        <mat-select required formControlName="commodityType" (change)="onSelect($event)  ">
-          <mat-option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
-            {{ comType.commodityTypeName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+      <mat-select required formControlName="commodityType" (selectionChange)="onSelect($event.value)">
+        <mat-option *ngFor="let comType of commodities" value="{{comType.commodityTypeId}}">
+          {{ comType.commodityTypeName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <!--Commodity Variety-->
-    <div class="form-row">
+    <mat-form-field>
       <mat-label>Commodity Variety</mat-label>
-      <mat-form-field>
-        <mat-select formControlName="commodityVariety">
-          <mat-option *ngFor="let comVariety of varieties" value="{{comVariety.commodityVarietyId}}">
-            {{ comVariety.commodityVarietyName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+      <mat-select formControlName="commodityVariety">
+        <mat-option *ngFor="let comVariety of varieties" value="{{comVariety.commodityVarietyId}}">
+          {{ comVariety.commodityVarietyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <!--Hauler Field-->
-    <div class="form-row">
-      <mat-label>Hauler</mat-label>
+   
+    <!--Hauler Field-->    
       <mat-form-field>
+        <mat-label>Hauler</mat-label>
         <input matInput formControlName="hauler" placeholder="Hauler" />
       </mat-form-field>
-    </div>
 
     <!--Miles One Way Field-->
-
+    <mat-form-field>
       <mat-label>Miles One Way</mat-label>
-      <mat-form-field>
-        <input matInput formControlName="miles" placeholder="Miles One Way" />
-      </mat-form-field>
+      <input matInput formControlName="miles" placeholder="Miles One Way" />
+    </mat-form-field>
 
     <!--Notes Field-->
-    <div class="form-row">
-      <mat-label>Notes</mat-label>
       <mat-form-field>
+        <mat-label>Notes</mat-label>
         <input matInput formControlName="notes" placeholder="Notes" />
       </mat-form-field>
-    </div>
 
     <mat-dialog-actions>
       <button mat-raised-button (click)="onCancel()">Cancel</button>
@@ -80,12 +65,12 @@
       <button mat-raised-button
               (click)="onSubmit()"
               [disabled]="!form.valid">
-      Done
+        Done
       </button>
     </mat-dialog-actions>
 
-    <mat-dialog-actions>
-      <button mat-raised-button (click)="openNewLotDialog()"> New Lot </button>
-    </mat-dialog-actions>
+    <!--<mat-dialog-actions>
+    <button mat-raised-button (click)="openNewLotDialog()"> New Lot </button>
+  </mat-dialog-actions>-->
   </div>
 </div>

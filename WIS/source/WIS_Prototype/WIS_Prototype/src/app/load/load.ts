@@ -4,8 +4,8 @@
 // ILoad parent class
 // Purpose: Define a common interface for other Load classes to inhert from. 
 export class ILoad {
-  loadId?: bigint;
-  weightsheetIdLink?: bigint;
+  loadId?: number;
+  weightsheetIdLink?: number;
   grossWeight: number;
   tareWeight: number;
   netWeight: number;
