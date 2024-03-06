@@ -1,0 +1,31 @@
+<h1>Open Lots</h1>
+<table class=" ='table table-striped' aria-labelledby='tableLabel'" [hidden]="!lots">
+  <thead>
+    <tr>
+      <th>Lot Id</th>
+      <th>Producer</th>
+      <th>Commodity Type</th>
+      <th>Variety</th>
+      <th>Opened Date</th>
+      <th>Closed Date</th>
+      <th>Landlord</th>
+      <th>Farm Number (FSA)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lot of lots">
+      <td>
+        <a mat-dialog-close [routerLink]="['/new-inbound-weightsheet/', lot.lotId]"> {{lot.lotId}} </a>
+      </td>
+      <td>{{lot.producerName}}</td>
+      <td>{{lot.commodityTypeName}}</td>
+      <td>{{lot.commodityVarietyName}}</td>
+      <td>{{lot.startDate}}</td>
+      <td>{{lot.endDate}}</td>
+      <td>{{lot.landlord}}</td>
+      <td>{{lot.farmNumber}}</td>
+      <td>{{lot.notes}}</td>
+    </tr>
+  </tbody>
+</table>

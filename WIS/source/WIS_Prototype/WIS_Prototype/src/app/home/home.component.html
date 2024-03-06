@@ -1,6 +1,6 @@
 <h1>Overview Warehouse: </h1>
 <mat-dialog-actions>
-  <button mat-raised-button (click)="newWeightSheet()">New Weight Sheet</button>
+  <button mat-raised-button (click)="openNewWeightSheetDialog()">New Weight Sheet</button>
   <button mat-raised-button (click)="newLot()">New Lot</button>
 </mat-dialog-actions>
 
@@ -20,7 +20,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let w of weightsheets">
-      <td>{{w.weightsheetId}}</td>
+      <td>
+        <a [routerLink]="['/weightsheet/', w.weightsheetId]">{{w.weightsheetId}}</a>
+      </td>
       <td *ngIf="w.producerName">
         <a [routerLink]="['/new-load', w.weightsheetId]">Inbound</a>
       </td>

@@ -3,9 +3,9 @@
   <h1>New Load</h1>
   <div [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <mat-dialog-actions>
+    <!--<mat-dialog-actions>
       <button mat-raised-button (click)="onCancel()">Cancel</button>
-    </mat-dialog-actions>
+    </mat-dialog-actions>-->
 
 
     <!--Truck Id Field-->
@@ -71,5 +71,6 @@
     </button>
   </mat-dialog-actions>-->
 
-  <button mat-raised-button type="submit" [disabled]="!form.valid"  (click)="onSubmit()">Weigh In</button>
+  <button mat-raised-button type="submit" [disabled]="!form.valid" (click)="onSubmit()">Weigh In</button>
+  <button mat-raised-button (click)="onCancel()">Cancel</button>
 </div>

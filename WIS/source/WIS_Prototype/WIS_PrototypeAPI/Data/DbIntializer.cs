@@ -24,9 +24,18 @@ namespace WIS_PrototypeAPI.Data
 			// Warehouse
 			Warehouse spofford = new Warehouse();
 			spofford.WarehouseName = "Spofford";
+			
 
 			south.Warehouses = new List<Warehouse>();
 			south.Warehouses.Add(spofford);
+
+			Source wallulla = new Source();
+			wallulla.SourceName = "Wallulla";
+			Source reser = new Source();
+			reser.SourceName = "Reser";
+			Source wwSeedPlant = new Source();
+			wwSeedPlant.SourceName = "Walla Walla Seed Plant";
+
 
 			// Commodity Types
 			CommodityType softWhiteWheat = new CommodityType();

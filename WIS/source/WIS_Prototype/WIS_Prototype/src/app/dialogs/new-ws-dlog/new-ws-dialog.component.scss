@@ -1,0 +1,18 @@
+.page{
+   align-items: center;
+   align-content: center;
+   text-align: center;
+   flex: 1;
+   min-height: 100px;
+   min-width: 250px;
+}
+
+.inbound{
+   background-color: cornflowerblue;
+   float: left;
+}
+
+.transfer{
+   background-color: aquamarine;
+   float: right;
+}
