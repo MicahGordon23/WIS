@@ -499,6 +499,12 @@ namespace WIS_PrototypeAPI.Data
 			_context.Loads.Add(loadWsRL6);
 			_context.Loads.Add(loadWsRL7);
 
+			_context.Sources.Add(wallulla);
+			_context.Sources.Add(reser);
+			_context.Sources.Add(wwSeedPlant);
+
+			wwSeedPlant.SourceName = "Walla Walla Seed Plant";
+
 			_context.SaveChanges();
 		}
 	}

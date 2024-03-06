@@ -130,5 +130,51 @@ namespace WIS_PrototypeAPI.Controllers
 			var result = await query.ToListAsync();
 			return Ok(result);
 		}
+
+		// GET api/Reports/DailyCommodity/5
+		[HttpGet("DailyCommodity/{warehouseId}")]
+		public async Task<ActionResult<CommodityReport>> GetDailyCommodityReport(int warehouseId)
+		{
+
+			// ***************** RAW SQL QUERY *******************************
+			// SELECT CommodityTypeName, CommodityVarietyName, Count(Loads.LoadId) As NumLoads
+			// FROM Weightsheets
+			// INNER JOIN CommodityTypes
+			// on CommodityTypes.CommodityTypeId = Weightsheets.CommodityTypeIdLink
+			// LEFT JOIN CommodityVarieties
+			// on CommodityVarieties.CommodityVarietyId = Weightsheets.CommodityVarietyIdLink
+			// LEFT JOIN Loads
+			// on Loads.WeightsheetIdLink = WeightSheetId
+			// WHERE Weightsheets.WarehouseIdLink = 1 AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
+			// GROUP BY CommodityTypeName, CommodityVarietyName
+			var today = DateTime.Now.Date;
+			Console.WriteLine(today);
+
+			var query = from weightSheet in _context.Weightsheets
+						join commodityType in _context.CommodityTypes on weightSheet.CommodityTypeIdLink equals commodityType.CommodityTypeId
+						join commodityVariety in _context.CommodityVarieties on weightSheet.CommodityVarietyIdLink equals commodityVariety.CommodityVarietyId into varietyGroup
+						from variety in varietyGroup.DefaultIfEmpty()
+						join load in _context.Loads on weightSheet.WeightSheetId equals load.WeightsheetIdLink into loadGroup
+						where weightSheet.WarehouseIdLink == 1 && weightSheet.DateOpened == today
+						group new { weightSheet, variety, loadGroup } by new
+						{
+							commodityType.CommodityTypeName,
+							commodityType.CommodityTypeId,
+							CommodityVarietyName = variety != null ? variety.CommodityVarietyName : null,
+							CommodityVarietyId = variety != null ? (long?)variety.CommodityVarietyId : null
+						} into grouped
+						select new CommodityReport
+						{
+							CommodityTypeName = grouped.Key.CommodityTypeName,
+							CommodityTypeId = grouped.Key.CommodityTypeId,
+							CommodityVarietyName = grouped.Key.CommodityVarietyName,
+							CommodityVarietyId = grouped.Key.CommodityVarietyId,
+							NumLoads = grouped.SelectMany(g => g.loadGroup).Count()
+						};
+
+			var result = await query.ToListAsync();
+
+			return Ok(result);
+		}
 	}
 }
