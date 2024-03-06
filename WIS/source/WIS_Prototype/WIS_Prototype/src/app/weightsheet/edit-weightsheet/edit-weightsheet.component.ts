@@ -96,4 +96,15 @@ export class EditWeightsheetComponent {
   cancel() {
     this.router.navigate(['/weightsheet']);
   }
+
+  onWeightSheetClose() {
+    this.weightsheet.dateOpened = new Date();
+    console.log(this.weightsheet.dateOpened);
+    // I need this in local time PST
+    // Documentation I found was incorrect.
+    // Stored in UTC, but will console.log in local time
+    this.weightsheet.dateOpened.setUTCHours(this.weightsheet.dateOpened.getUTCHours() - 8);
+    this.weightsheetService.put(this.weightsheet).subscribe()
+    this.router.navigate(['/weightsheet']);
+  }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
-import { NewLoadComponent } from '../load/new-load.component';
+import { NewWsDialogComponent } from '../dialogs/new-ws-dlog/new-ws-dialog.component';
 
 import { WeightsheetOverview } from '../weightsheet/weightsheet';
 import { WeightsheetService } from '../weightsheet/weightsheet.service';
@@ -20,7 +20,7 @@ export class HomeComponent {
   constructor(
     private weightsheetService: WeightsheetService,
     private router: Router,
-    public loadDialog: MatDialog
+    public newWeightSheet: MatDialog
   ) {
     this.warehouseId = 1;
   }
@@ -32,11 +32,19 @@ export class HomeComponent {
       }, e => console.log(e));
   }
 
-  newWeightSheet() {
-    this.router.navigate(['/new-weightsheet/' + this.warehouseId]);
-  }
+  //newWeightSheet() {
+  //  this.router.navigate(['/new-weightsheet/' + this.warehouseId]);
+  //}
 
   newLot() {
     this.router.navigate(['/new-lot/'+ this.warehouseId])
+  }
+
+  openNewWeightSheetDialog(): void {
+    const dialogConfig = new DialogConfig();
+
+    let dialogRef = this.newWeightSheet.open(NewWsDialogComponent, {
+
+    });
   }
 }

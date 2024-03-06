@@ -24,6 +24,9 @@ import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component
 import { NewLotComponent } from './lot/new-lot.component';
 import { ReportComponent } from './report/report.component';
 import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
+import { NewWsDialogComponent } from './dialogs/new-ws-dlog/new-ws-dialog.component';
+import { OpenLotsDialogComponent } from './dialogs/open-lot-dlog/open-lots-dialog.component';
+import { NewInboundWsComponent } from './weightsheet/new-inbound/new-inbound-ws.component';
 
 // Services
 import { LoadService } from './load/load.service';
@@ -50,9 +53,12 @@ import { ReportService } from './report/report-service';
     EditLotComponent,
     NewLoadComponent,
     NewWeightsheetComponent,
+    NewWsDialogComponent,
     NewLotComponent,
     ReportComponent,
-    DailyWeightSheetReportComponent
+    DailyWeightSheetReportComponent,
+    OpenLotsDialogComponent,
+    NewInboundWsComponent,
   ],
   imports: [
     BrowserModule,

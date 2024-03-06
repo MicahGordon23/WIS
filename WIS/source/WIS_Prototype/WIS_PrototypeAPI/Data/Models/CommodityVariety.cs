@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace WIS_PrototypeAPI.Data.Models
 {
@@ -25,6 +26,7 @@ namespace WIS_PrototypeAPI.Data.Models
 		[ForeignKey(nameof(CommodityType))]
 		public int? CommodityTypeIdLink { get; set; }
 
+		[JsonIgnore]
 		// many to one (child)
 		public CommodityType? CommodityType { get; set; } = null;
 	}

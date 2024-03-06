@@ -131,4 +131,15 @@ export class EditLotComponent {
   onCancel() {
     this.route.navigate(['/lot']);
   }
+
+  onLotClose() {
+    this.lot.endDate = new Date();
+    console.log(this.lot.endDate);
+    // I need this in local time PST
+    // Documentation I found was incorrect.
+    // Stored in UTC, but will console.log in local time
+    this.lot.endDate.setUTCHours(this.lot.endDate.getUTCHours() - 8);
+    this.lotService.put(this.lot).subscribe();
+    this.route.navigate(['/lot']);
+  }
 }

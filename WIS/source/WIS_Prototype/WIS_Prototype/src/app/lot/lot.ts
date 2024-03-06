@@ -32,7 +32,7 @@ export class ILot {
 export class Lot extends ILot {
 
   // extra properties
-  public lotId?: BigInt;
+  public lotId?: bigint;
   public commodityVarietyIdLink?: number;  // Can cause an Error 400 if null in POST
   public endDate?: Date;   // can cause an Error 400 if null in POST
 
@@ -65,7 +65,7 @@ export class LotDto extends ILot {
     this.commodityTypeId = 0;
     this.commodityTypeName = "";
   }
-  public lotId?: BigInt;
+  public lotId?: bigint;
 
   public producerName: string;
   public producerId: number;
