@@ -151,13 +151,6 @@ export class NewLoadComponent {
     this.route.navigate(['']);
   }
 
-  //openNewWeightsheetDialog(): void {
-  //  const dialogConfig = new DialogConfig();
-  //  let dialogRef = this.weightsheetDialog.open(NewWeightsheetComponent, {});
-  //}
-
-
-
   onCancel(): void {
    // this.dialogRef.close();
     this.route.navigate(['']);

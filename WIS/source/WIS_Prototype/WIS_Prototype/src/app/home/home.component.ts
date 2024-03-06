@@ -29,6 +29,7 @@ export class HomeComponent {
     this.weightsheetService.getOverview(this.warehouseId)
       .subscribe(result => {
         this.weightsheets = result;
+        console.log(this.weightsheets);
       }, e => console.log(e));
   }
 

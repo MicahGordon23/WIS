@@ -20,7 +20,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let w of weightsheets">
-      <td>{{w.weightsheetId}}</td>
+      <td>
+        <a [routerLink]="['/weightsheet/', w.weightsheetId]">{{w.weightsheetId}}</a>
+      </td>
       <td *ngIf="w.producerName">
         <a [routerLink]="['/new-load', w.weightsheetId]">Inbound</a>
       </td>
