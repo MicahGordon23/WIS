@@ -14,6 +14,7 @@ import { ReportComponent } from './report/report.component';
 import { EditLotComponent } from './lot/edit-lot/edit-lot.component';
 import { EditWeightsheetComponent } from './weightsheet/edit-weightsheet/edit-weightsheet.component';
 import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
+import { DailyCommodityReportComponent } from './report/daily-commodity/daily-commodity-report.component';
 import { NewLoadComponent } from './load/new-load.component';
 import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
 import { NewLotComponent } from './lot/new-lot.component';
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'load/:id', component: EditLoadComponent }, // Load Id number
   { path: 'weightsheet/:id', component: EditWeightsheetComponent },   // Weight Sheet Id number
   { path: 'report', component: ReportComponent },
-  { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent }, // Warehoues Id number
+  { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent }, // Warehouse Id number
+  { path: 'report/daily-commodity/:id', component: DailyCommodityReportComponent }, // Warehouse Id
   { path: 'new-load/:id', component: NewLoadComponent },    // Weight Sheet Id number
   { path: 'new-weightsheet/:id', component: NewWeightsheetComponent }, // Warehouse Id number
   { path: 'new-lot/:id', component: NewLotComponent }, // Warehouse Id number

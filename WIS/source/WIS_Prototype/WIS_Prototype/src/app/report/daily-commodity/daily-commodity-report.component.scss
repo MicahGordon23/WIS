@@ -1,0 +1,10 @@
+@media print {
+  .print-only {
+    visibility: visible;
+  }
+
+  .print-hide {
+    visibility: hidden;
+    height: 0;
+  }
+}

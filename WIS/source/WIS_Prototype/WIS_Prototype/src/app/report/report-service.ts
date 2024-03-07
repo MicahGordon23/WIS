@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IntakeReport } from './intake-report';
 import { WeightSheetReport } from './weight-sheet-report';
+import { CommodityReport } from './daily-commodity-report';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +23,10 @@ export class ReportService {
   getDailyWeightSheetReport(warehouesId: number): Observable<WeightSheetReport[]> {
     const url = 'Daily/Weightsheet/' + warehouesId;
     return this.http.get<WeightSheetReport[]>(this.url + url);
+  }
+
+  getDailyCommodityReport(warehouseId: number) {
+    const url = 'DailyCommodity/' + warehouseId;
+    return this.http.get<CommodityReport[]>(this.url + url);
   }
 }
