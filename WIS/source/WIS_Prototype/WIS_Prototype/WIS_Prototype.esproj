@@ -16,6 +16,7 @@
     <Folder Include="src\app\dialogs\new-ws-dlog\" />
     <Folder Include="src\app\dialogs\open-lot-dlog\" />
     <Folder Include="src\app\report\daily-ws\" />
+    <Folder Include="src\app\report\daily-commodity\" />
     <Folder Include="src\app\states\" />
     <Folder Include="src\app\scale\" />
     <Folder Include="src\app\producer\" />

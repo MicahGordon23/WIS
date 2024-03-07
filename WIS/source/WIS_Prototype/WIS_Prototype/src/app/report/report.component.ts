@@ -85,6 +85,10 @@ export class ReportComponent {
     this.route.navigate(['/report/daily-ws/1']);
   }
 
+  genCommodityReport(): void {
+    this.route.navigate(['report/daily-commodity/1']);
+  }
+
   getIntakeReport(): void {
     this.reportService.getIntakeReport(this.warehouseId)
       .subscribe(result => {
