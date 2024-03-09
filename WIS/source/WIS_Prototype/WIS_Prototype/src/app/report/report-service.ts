@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IntakeReport } from './intake-report';
 import { WeightSheetReport } from './weight-sheet-report';
 import { CommodityReport } from './daily-commodity-report';
+import { ProducerReport } from './producer-report';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,10 @@ export class ReportService {
   getDailyCommodityReport(warehouseId: number) {
     const url = 'DailyCommodity/' + warehouseId;
     return this.http.get<CommodityReport[]>(this.url + url);
+  }
+
+  getDailyProducerCommodityReport(warehouseId: number) {
+    const url = 'DailyProducerReport/' + warehouseId;
+    return this.http.get<ProducerReport[]>(this.url + url + warehouseId);
   }
 }

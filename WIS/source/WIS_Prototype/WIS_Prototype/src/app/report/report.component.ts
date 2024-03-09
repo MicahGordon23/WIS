@@ -39,7 +39,6 @@ export class ReportComponent {
   warehouseId: number;
   public netWarehouseIntakeLbs: number;
   
-  
   constructor(
     private reportService: ReportService,
     private producerService: ProducerService,
@@ -82,11 +81,15 @@ export class ReportComponent {
   }
 
   genWeightSheetReport(): void {
-    this.route.navigate(['/report/daily-ws/1']);
+    this.route.navigate(['/report/daily-ws/' + this.warehouseId]);
   }
 
   genCommodityReport(): void {
-    this.route.navigate(['report/daily-commodity/1']);
+    this.route.navigate(['report/daily-commodity/' + this.warehouseId]);
+  }
+
+  genProducerReport(): void {
+    this.route.navigate(['report/producer-commodity/' + this.warehouseId]);
   }
 
   getIntakeReport(): void {

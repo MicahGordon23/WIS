@@ -1,0 +1,37 @@
+<div>
+  <h1 class="print-hide">Producer Commodity Report</h1>
+
+  <div class="print-only">
+    <h2>Producer Commodity Report</h2>
+    <table class=" ='table table-striped' aria-labelledby='tableLabel'" [hidden]="!report">
+      <thead>
+        <tr>
+          <th> Producer Name </th>
+          <th> District Name </th>
+          <th> Warehouse Name</th>
+          <th> Commodity </th>
+          <th> Variety </th>
+          <th> Number of Loads </th>
+          <th> Net Weight </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of report">
+          <td>{{ r.producerName}}</td>
+          <td>{{ r.districtName }}</td>
+          <td>{{ r.warehouseName }}</td>
+          <td>{{ r.commodityTypeName }}</td>
+          <td>{{ r.commodityVarietyName }}</td>
+          <td>{{ r.netWeightLbs }}</td>
+          <td>{{ r.sumLoads }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Net Weight: {{netWeight}}</h4>
+    <h4>Number of Loads: {{netLoads}}</h4>
+  </div>
+</div>
+
+<div class="print-hide">
+  <button mat-raised-button (click)="exportToExcel()">Export To Excel</button>
+</div>

@@ -27,9 +27,13 @@ export class TruckScaleService {
     let weight = this.grossWeight;
     if (!this.weighIn) {
       weight = this.tareWeight;
-      
+      this.weighIn = true;
     }
-    this.weighIn = false;
+    else {
+      weight = this.grossWeight;
+      this.weighIn = false;
+    }
+    
     return weight;
   }
 }

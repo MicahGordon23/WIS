@@ -19,6 +19,7 @@ import { NewLoadComponent } from './load/new-load.component';
 import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
 import { NewLotComponent } from './lot/new-lot.component';
 import { NewInboundWsComponent } from './weightsheet/new-inbound/new-inbound-ws.component';
+import { ProducerCommodityReportComponent } from './report/producer-commodity/producer-commodity-report.component';
 
 //import { WarehouseComponent } from './warehouse/warehouse.component';
 // Could add warehouse ID to all of these tbh.
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'report', component: ReportComponent },
   { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent }, // Warehouse Id number
   { path: 'report/daily-commodity/:id', component: DailyCommodityReportComponent }, // Warehouse Id
+  { path: 'report/producer-commodity/:id', component: ProducerCommodityReportComponent }, // Warehouse Id
   { path: 'new-load/:id', component: NewLoadComponent },    // Weight Sheet Id number
   { path: 'new-weightsheet/:id', component: NewWeightsheetComponent }, // Warehouse Id number
   { path: 'new-lot/:id', component: NewLotComponent }, // Warehouse Id number
