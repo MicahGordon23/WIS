@@ -176,5 +176,56 @@ namespace WIS_PrototypeAPI.Controllers
 
 			return Ok(result);
 		}
+		// GET api/Reports/DailyProducerReport/5
+		[HttpGet("DailyProducerReport/{warehouseId}")]
+		public async Task<ActionResult<ProducerReport>> GetDailyProducerReportByWarehouse(int warehouseId)
+		{
+			//************************* Raw SQL *********************************
+			// SELECT  DistrictName, WarehouseName, ProducerName, CommodityTypeName, CommodityVarietyName, Count(Loads.LoadId) AS NumLoads, SUM(Loads.NetWeight) AS NetWeight
+			// FROM Weightsheets
+			// INNER JOIN Warehouses
+			// ON WarehouseId = Weightsheets.WarehouseIdLink
+			// INNER JOIN Districts
+			// ON DistrictId = DistrictIdLink
+			// INNER JOIN Lots
+			// ON LotId = Weightsheets.LotIdLink
+			// INNER JOIN Producers
+			// ON ProducerId = Lots.ProducerIdLink
+			// INNER JOIN CommodityTypes
+			// ON CommodityTypes.CommodityTypeId = Weightsheets.CommodityTypeIdLink
+			// LEFT JOIN CommodityVarieties
+			// ON CommodityVarieties.CommodityVarietyId = Weightsheets.CommodityVarietyIdLink
+			// INNER JOIN Loads
+			// ON WeightsheetIdLink = WeightSheetId
+			// WHERE Weightsheets.WarehouseIdLink = 1 
+			// AND Weightsheets.DateOpened = CONVERT(DATE, GETDATE())
+			// GROUP BY ProducerId, DistrictName, WarehouseName, ProducerName, CommodityTypeName, CommodityVarietyName
+
+			var today = DateTime.Today;
+
+			var query = from weightsheet in _context.Weightsheets
+						join warehouse in _context.Warehouses on weightsheet.WarehouseIdLink equals warehouse.WarehouseId
+						join district in _context.Districts on warehouse.DistrictIdLink equals district.DistrictId
+						join lot in _context.Lots on weightsheet.LotIdLink equals lot.LotId
+						join producer in _context.Producers on lot.ProducerIdLink equals producer.ProducerId
+						join commodityType in _context.CommodityTypes on weightsheet.CommodityTypeIdLink equals commodityType.CommodityTypeId
+						join commodityVariety in _context.CommodityVarieties on weightsheet.CommodityVarietyIdLink equals commodityVariety.CommodityVarietyId into varietyGroup
+						from variety in varietyGroup.DefaultIfEmpty()
+						join load in _context.Loads on weightsheet.WeightSheetId equals load.WeightsheetIdLink
+						where weightsheet.WarehouseIdLink == 1 && weightsheet.DateOpened == today
+						group load by new { district.DistrictName, warehouse.WarehouseName, producer.ProducerName, commodityType.CommodityTypeName, variety.CommodityVarietyName } into grouped
+						select new ProducerReport
+						{
+							ProducerName = grouped.Key.ProducerName,
+							DistrictName = grouped.Key.DistrictName,
+							WarehouseName = grouped.Key.WarehouseName,
+							CommodityTypeName = grouped.Key.CommodityTypeName,
+							CommodityVarietyName = grouped.Key.CommodityVarietyName,
+							NetWeightLbs = (int)grouped.Sum(l => l.NetWeight),
+							SumLoads = grouped.Count()
+						};
+			var result = await query.ToListAsync();
+			return Ok(result);
+		}
 	}
 }

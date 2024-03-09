@@ -14,13 +14,15 @@
     <h2>Daily Weight Sheet Report</h2>
     <table class=" ='table table-striped' aria-labelledby='tableLabel'"  [hidden]="!report">
       <thead>
-        <th>Weight Sheet Id</th>
-        <th> Commodity Name </th>
-        <th> Number </th>
-        <th> Commodity Variety </th>
-        <th> Number </th>
-        <th> Number of Loads </th>
-        <th> Net Weight </th>
+        <tr>
+          <th>Weight Sheet Id</th>
+          <th> Commodity Name </th>
+          <th> Number </th>
+          <th> Commodity Variety </th>
+          <th> Number </th>
+          <th> Number of Loads </th>
+          <th> Net Weight </th>
+        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let r of report">
