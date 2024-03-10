@@ -7,6 +7,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace WIS_PrototypeAPI.Data.Models
 {
@@ -23,6 +24,7 @@ namespace WIS_PrototypeAPI.Data.Models
 
 		// one to many
 		// (Weightsheets where the source is the source in transfer weightsheet)
+		[JsonIgnore]
 		public ICollection<Weightsheet>? SourceWeightsheets { get; set; } = null;
 	}
 }

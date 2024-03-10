@@ -71,13 +71,16 @@ namespace WIS_PrototypeAPI.Controllers
 						 from l in lotGroup.DefaultIfEmpty()
 						 join producer in _context.Producers on l.ProducerIdLink equals producer.ProducerId into producerGroup
 						 from p in producerGroup.DefaultIfEmpty()
+                         join source in _context.Sources on weightSheet.SourceIdLink equals source.SourceId into sourceGroup
+                         from s in sourceGroup.DefaultIfEmpty()
 						 where weightSheet.WarehouseIdLink == 1 && weightSheet.DateClosed == null && weightSheet.DateOpened == DateTime.Today
-						 group new { weightSheet, cv, loadGroup, l, p } by new
+						 group new { weightSheet, cv, loadGroup, l, p, s } by new
 						 {
 							 weightSheet.WeightSheetId,
 							 commodityType.CommodityTypeName,
 							 CommodityVarietyName = cv.CommodityVarietyName,
 							 ProducerName = p.ProducerName,
+                             SourceName = s.SourceName,
 							 weightSheet.Notes,
 							 LotId = l.LotId
 						 } into grouped
@@ -87,6 +90,7 @@ namespace WIS_PrototypeAPI.Controllers
 							 CommodityTypeName = grouped.Key.CommodityTypeName,
 							 CommodityVarietyName = grouped.Key.CommodityVarietyName,
 							 ProducerName = grouped.Key.ProducerName,
+                             SourceName = grouped.Key.SourceName,
 							 Notes = grouped.Key.Notes,
 							 LotId = grouped.Key.LotId,
 							 SumNumLoads = grouped.SelectMany(w => w.loadGroup).Count(),

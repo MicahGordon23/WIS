@@ -22,7 +22,7 @@ export class NewWsDialogComponent {
   }
 
   selectTransferWeightSheet() {
-    this.router.navigate(['']);
+    this.router.navigate(['new-transfer-weightsheet/' + this.warehouseId]);
     this.dialogRef.close();
   }
 

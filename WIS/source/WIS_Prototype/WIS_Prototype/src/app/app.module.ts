@@ -29,6 +29,7 @@ import { ProducerCommodityReportComponent } from './report/producer-commodity/pr
 import { NewWsDialogComponent } from './dialogs/new-ws-dlog/new-ws-dialog.component';
 import { OpenLotsDialogComponent } from './dialogs/open-lot-dlog/open-lots-dialog.component';
 import { NewInboundWsComponent } from './weightsheet/new-inbound/new-inbound-ws.component';
+import { NewTransferWsComponent } from './weightsheet/new-transfer/new-transfer-ws.component';
 
 // Services
 import { LoadService } from './load/load.service';
@@ -40,6 +41,7 @@ import { CommodityVarietyService } from './commodity-variety/commodity-variety.s
 import { BinService } from './bin/bin.service';
 import { TruckScaleService } from './scale/truck-scale.service';
 import { ReportService } from './report/report-service';
+import { SourceService } from './source/source.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { ReportService } from './report/report-service';
     ProducerCommodityReportComponent,
     OpenLotsDialogComponent,
     NewInboundWsComponent,
+    NewTransferWsComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,8 @@ import { ReportService } from './report/report-service';
     CommodityVarietyService,
     BinService,
     TruckScaleService,
-    ReportService
+    ReportService,
+    SourceService
   ],
 
   bootstrap: [AppComponent]
