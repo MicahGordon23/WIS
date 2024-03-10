@@ -227,5 +227,39 @@ namespace WIS_PrototypeAPI.Controllers
 			var result = await query.ToListAsync();
 			return Ok(result);
 		}
+
+		// GET api/Reports/TransferReport/5
+		[HttpGet("TransferReport/{warehouseId}")]
+		public async Task<ActionResult<TransferReport>> GetTransferReport(int warehouseId)
+		{
+
+			var today = DateTime.Now.Date;
+
+			var transferReport =  from ws in _context.Weightsheets
+								  join ct in _context.CommodityTypes on ws.CommodityTypeIdLink equals ct.CommodityTypeId
+								  join cv in _context.CommodityVarieties on ws.CommodityVarietyIdLink equals cv.CommodityVarietyId into cvGroup
+								  from cv in cvGroup.DefaultIfEmpty()
+								  join l in _context.Loads on ws.WeightSheetId equals l.WeightsheetIdLink
+								  join s in _context.Sources on ws.SourceIdLink equals s.SourceId
+								  where ws.WarehouseIdLink == 1 && ws.DateOpened == today && ws.LotIdLink == null
+								  group l by new
+								  {
+									  ws.WeightSheetId,
+									  ct.CommodityTypeName,
+									  cv.CommodityVarietyName,
+									  s.SourceName
+								  } into g
+								  select new TransferReport
+								  {
+									  WeightsheetId = g.Key.WeightSheetId,
+									  CommodityTypeName = g.Key.CommodityTypeName,
+									  CommodityVarietyName = g.Key.CommodityVarietyName,
+									  SourceName = g.Key.SourceName,
+									  NetWeight = (int)g.Sum(load => load.NetWeight),
+									  NumbLoads = g.Count()
+								  };
+			var result = await transferReport.ToListAsync();
+			return Ok(result);
+		}
 	}
 }
