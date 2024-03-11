@@ -256,7 +256,7 @@ namespace WIS_PrototypeAPI.Controllers
 									  CommodityVarietyName = g.Key.CommodityVarietyName,
 									  SourceName = g.Key.SourceName,
 									  NetWeight = (int)g.Sum(load => load.NetWeight),
-									  NumbLoads = g.Count()
+									  NumLoads = g.Count()
 								  };
 			var result = await transferReport.ToListAsync();
 			return Ok(result);

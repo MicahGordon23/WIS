@@ -5,6 +5,7 @@ import { IntakeReport } from './intake-report';
 import { WeightSheetReport } from './weight-sheet-report';
 import { CommodityReport } from './daily-commodity-report';
 import { ProducerReport } from './producer-report';
+import { TransferReport } from './transfer-report';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,11 @@ export class ReportService {
 
   getDailyProducerCommodityReport(warehouseId: number) {
     const url = 'DailyProducerReport/' + warehouseId;
-    return this.http.get<ProducerReport[]>(this.url + url + warehouseId);
+    return this.http.get<ProducerReport[]>(this.url + url + warehouseId); // changed made double check
+  }
+
+  getTransferReport(warehouseId: number): Observable<TransferReport[]> {
+    const url = 'TransferReport/' + warehouseId;
+    return this.http.get<TransferReport[]>(this.url + url);
   }
 }

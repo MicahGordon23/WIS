@@ -7,6 +7,6 @@
 		public string CommodityTypeName { get; set; }
 		public string CommodityVarietyName { get; set; }
 		public int NetWeight { get; set; }
-		public int NumbLoads { get; set; }
+		public int NumLoads { get; set; }
 	}
 }

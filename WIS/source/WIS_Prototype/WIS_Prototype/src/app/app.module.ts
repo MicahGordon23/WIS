@@ -26,6 +26,7 @@ import { ReportComponent } from './report/report.component';
 import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
 import { DailyCommodityReportComponent } from './report/daily-commodity/daily-commodity-report.component';
 import { ProducerCommodityReportComponent } from './report/producer-commodity/producer-commodity-report.component';
+import { TransferReportComponent } from './report/transfer/transfer-report.component';
 import { NewWsDialogComponent } from './dialogs/new-ws-dlog/new-ws-dialog.component';
 import { OpenLotsDialogComponent } from './dialogs/open-lot-dlog/open-lots-dialog.component';
 import { NewInboundWsComponent } from './weightsheet/new-inbound/new-inbound-ws.component';
@@ -63,6 +64,7 @@ import { SourceService } from './source/source.service';
     DailyWeightSheetReportComponent,
     DailyCommodityReportComponent,
     ProducerCommodityReportComponent,
+    TransferReportComponent,
     OpenLotsDialogComponent,
     NewInboundWsComponent,
     NewTransferWsComponent
