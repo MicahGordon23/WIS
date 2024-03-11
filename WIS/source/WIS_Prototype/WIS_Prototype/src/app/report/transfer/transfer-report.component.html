@@ -1,0 +1,37 @@
+<div>
+  <h1 class="print-hide">Daily Commodity Variety Report</h1>
+
+  <div class="print-only">
+    <h2>Daily Commodity Variety Report</h2>
+    <table class=" ='table table-striped' aria-labelledby='tableLabel'" [hidden]="!report">
+      <thead>
+        <tr>
+          <th> Weight Sheet Id </th>
+          <th> Source </th>
+          <th> Commodity </th>
+          <th> Variety </th>
+          <th> Number of Loads </th>
+          <th> Net Weight (Lbs) </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of report">
+          <td>{{ r.weightsheetId }}</td>
+          <td>{{ r.sourceName }}</td>
+          <td>{{ r.commodityTypeName }}</td>
+          <td>{{ r.commodityVarietyName }}</td>
+          <td>{{ r.numLoads }}</td>
+          <td>{{r.netWeight}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Number of Loads: {{sumLoads}}</h4>
+    <h4>Transfer Net Weight (Lbs): {{netWeight}}</h4>
+  </div>
+</div>
+
+<div class="print-hide">
+  <button mat-raised-button (click)="exportToExcel()">Export To Excel</button>
+</div>
+
+

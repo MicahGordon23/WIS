@@ -92,6 +92,10 @@ export class ReportComponent {
     this.route.navigate(['report/producer-commodity/' + this.warehouseId]);
   }
 
+  genTransferReport(): void {
+    this.route.navigate(['report/transfer/' + this.warehouseId]);
+  }
+
   getIntakeReport(): void {
     this.reportService.getIntakeReport(this.warehouseId)
       .subscribe(result => {

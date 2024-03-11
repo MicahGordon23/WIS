@@ -27,7 +27,7 @@
         <a [routerLink]="['/new-load', w.weightsheetId]">Inbound</a>
       </td>
       <td *ngIf="w.sourceName">
-        <a>Outbound</a>
+        <a [routerLink]="['/new-load', w.weightsheetId]">Transfer</a>
       </td>
       <td>{{w.sumNumLoads}}</td>
       <td>{{w.inYard}}</td>

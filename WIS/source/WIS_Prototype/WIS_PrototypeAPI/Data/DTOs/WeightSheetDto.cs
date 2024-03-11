@@ -14,7 +14,7 @@
 
 		public string? ProducerName { get; set; } = null;
 
-		//public string? SourceName { get; set; } = null;
+		public string? SourceName { get; set; } = null;
 
 		public string CommodityTypeName { get; set; }
 
