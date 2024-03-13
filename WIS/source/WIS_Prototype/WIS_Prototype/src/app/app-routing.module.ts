@@ -12,6 +12,7 @@ import { EditLoadComponent } from './load/edit-load/edit-load.component';
 import { WeightsheetComponent } from './weightsheet/weightsheet.component';
 import { ReportComponent } from './report/report.component';
 import { EditLotComponent } from './lot/edit-lot/edit-lot.component';
+import { IntakeReportComponent } from './report/intake/intake-report.component';
 import { EditWeightsheetComponent } from './weightsheet/edit-weightsheet/edit-weightsheet.component';
 import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
 import { DailyCommodityReportComponent } from './report/daily-commodity/daily-commodity-report.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'load/:id', component: EditLoadComponent }, // Load Id number
   { path: 'weightsheet/:id', component: EditWeightsheetComponent },   // Weight Sheet Id number
   { path: 'report', component: ReportComponent },
+  { path: 'report/intake/:id', component: IntakeReportComponent },
   { path: 'report/daily-ws/:id', component: DailyWeightSheetReportComponent }, // Warehouse Id number
   { path: 'report/daily-commodity/:id', component: DailyCommodityReportComponent }, // Warehouse Id
   { path: 'report/producer-commodity/:id', component: ProducerCommodityReportComponent }, // Warehouse Id

@@ -53,24 +53,69 @@ namespace WIS_PrototypeAPI.Controllers
             return lot;
         }
 
-        // GET: api/Lots/Open/Dto/5
-        [HttpGet("Open/Dto/{warehouseId}")]
+        // GET: api/Lots/Dto
+        [HttpGet("Dto/Warehouse/{warehouseId}")]
+		public async Task<ActionResult<LotDto[]>> GetLotsByWarehouse(int warehouseId)
+		{
+			if (_context.Lots == null)
+			{
+				return NotFound();
+			}
+			var query = from lot in _context.Lots
+						// Inner Join                
+						join commodity in _context.CommodityTypes on lot.CommodityTypeIdLink equals commodity.CommodityTypeId
+						// Inner Join
+						join producer in _context.Producers on lot.ProducerIdLink equals producer.ProducerId
+						// Left Join
+						join variety in _context.CommodityVarieties on lot.CommodityVarietyIdLink equals variety.CommodityVarietyId
+						into sub
+						from variety in sub.DefaultIfEmpty()
+						where lot.WarehouseIdLink == warehouseId
+						group new { lot, commodity, producer, variety }
+						by new
+						{
+							lot.LotId,
+							lot.StateId,
+							lot.ProducerIdLink,
+							producer.ProducerName,
+							lot.CommodityTypeIdLink,
+							commodity.CommodityTypeName,
+							lot.CommodityVarietyIdLink,
+							variety.CommodityVarietyName,
+							lot.Landlord,
+							lot.FarmNumber,
+							lot.Notes,
+							lot.StartDate,
+							lot.EndDate,
+						} into grouped
+						select new LotDto
+						{
+							LotId = (long)grouped.Key.LotId,
+							StateId = grouped.Key.StateId,
+							StartDate = (DateTime)grouped.Key.StartDate,
+							EndDate = (DateTime)grouped.Key.EndDate,
+							Landlord = grouped.Key.Landlord,
+							FarmNumber = grouped.Key.FarmNumber,
+							Notes = grouped.Key.Notes,
+							CommodityTypeId = (int)grouped.Key.CommodityTypeIdLink,
+							CommodityTypeName = grouped.Key.CommodityTypeName,
+							CommodityVarietyId = (long)grouped.Key.CommodityVarietyIdLink,
+							CommodityVarietyName = grouped.Key.CommodityVarietyName,
+							ProducerId = (int)grouped.Key.ProducerIdLink,
+							ProducerName = grouped.Key.ProducerName
+						};
+			var result = await query.ToListAsync();
+			return Ok(result);
+		}
+
+		// GET: api/Lots/Open/Dto/5
+		[HttpGet("Open/Dto/{warehouseId}")]
         public async Task<ActionResult<LotDto[]>> GetOpenLotsByWarehouse(int warehouseId)
         {
             if (_context.Lots == null)
             {
                 return NotFound();
             }
-
-			//var lots = await _context.Lots
-			//            .Where(lot => lot.WarehouseIdLink == warehouseId && lot.EndDate == null)
-			//            .Include(lot => lot.Producer)
-			//            .Include(lot => lot.CommodityType)
-			//            .Include( type => type.CommodityVariety) // Was causeing loop back on
-			//                                                           // CommodityType in the
-			//                                                           // CommodityVariety used JSON Ignore to fix
-			//            .ToListAsync();
-			//return Ok(lots);
 			var query = from lot in _context.Lots
 							// Inner Join                
 						join commodity in _context.CommodityTypes on lot.CommodityTypeIdLink equals commodity.CommodityTypeId

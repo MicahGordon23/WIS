@@ -23,6 +23,7 @@ import { NewLoadComponent } from './load/new-load.component';
 import { NewWeightsheetComponent } from './weightsheet/new-weightsheet.component';
 import { NewLotComponent } from './lot/new-lot.component';
 import { ReportComponent } from './report/report.component';
+import { IntakeReportComponent } from './report/intake/intake-report.component';
 import { DailyWeightSheetReportComponent } from './report/daily-ws/daily-weight-sheet-report.component';
 import { DailyCommodityReportComponent } from './report/daily-commodity/daily-commodity-report.component';
 import { ProducerCommodityReportComponent } from './report/producer-commodity/producer-commodity-report.component';
@@ -61,6 +62,7 @@ import { SourceService } from './source/source.service';
     NewWsDialogComponent,
     NewLotComponent,
     ReportComponent,
+    IntakeReportComponent,
     DailyWeightSheetReportComponent,
     DailyCommodityReportComponent,
     ProducerCommodityReportComponent,

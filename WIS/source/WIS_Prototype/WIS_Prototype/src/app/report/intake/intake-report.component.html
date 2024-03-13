@@ -1,0 +1,46 @@
+<div class="print-hide">
+  <h1>Intake Report</h1>
+</div>
+<div class="print-only" *ngIf="report">
+  <h2 *ngIf="report">Intake Report</h2>
+  <table class=" ='table table-striped' aria-labelledby='tableLabel'"  [hidden]="!report">
+    <thead>
+      <tr>
+        <th>Weight Sheet Id</th>
+        <th>Producer Name</th>
+        <th>Producer Id</th>
+        <th>Lot Number</th>
+        <th>Lot Open</th>
+        <th>Commodity</th>
+        <th>Number</th>
+        <th>Variety</th>
+        <th>Number</th>
+        <th>Landlord</th>
+        <th>Farm Number</th>
+        <th>Net Weight (lbs)</th>
+        <th>Net Bushels (bu)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of report">
+        <td>{{r.weightsheetId}}</td>
+        <td>{{r.producerName}}</td>
+        <td>{{r.producerIdLink}}</td>
+        <td>{{r.lotIdLink}}</td>
+        <td>{{r.isClosedString}}</td>
+        <td>{{r.commodityTypeName}}</td>
+        <td>{{r.commodityTypeIdLink}}</td>
+        <td>{{r.commodityVarietyName}}</td>
+        <td>{{r.commodityVarietyIdLink}}</td>
+        <td>{{r.landlord}}</td>
+        <td>{{r.farmNumber}}</td>
+        <td>{{r.netWeightLbs}}</td>
+        <td>{{r.netUom}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>Net Intake Weight: {{netWarehouseIntakeLbs}}</h4>
+</div>
+<div class="print-hide">
+  <button mat-raised-button (click)="exportToExcel()">Export To Excel</button>
+</div>

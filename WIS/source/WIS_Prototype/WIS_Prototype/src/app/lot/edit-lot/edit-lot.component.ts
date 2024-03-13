@@ -121,6 +121,8 @@ export class EditLotComponent {
     lot.landlord = this.form.controls['landlord'].value;
     lot.farmNumber = this.form.controls['farmNumber'].value;
     lot.notes = this.form.controls['notes'].value;
+    lot.endDate = undefined;
+    lot.warehouseIdLink = 1;
     console.log(lot);
     this.lotService.put(lot).subscribe(result => {
       console.log(result);
@@ -139,6 +141,12 @@ export class EditLotComponent {
     // Documentation I found was incorrect.
     // Stored in UTC, but will console.log in local time
     this.lot.endDate.setUTCHours(this.lot.endDate.getUTCHours() - 8);
+    this.lotService.put(this.lot).subscribe();
+    this.route.navigate(['/lot']);
+  }
+
+  onReOpen() {
+    this.lot.endDate = undefined;
     this.lotService.put(this.lot).subscribe();
     this.route.navigate(['/lot']);
   }

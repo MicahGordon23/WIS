@@ -41,9 +41,10 @@ export class EditWeightsheetComponent {
 
   ngOnInit() {
     this.form = new FormGroup({
-      commodityTypeId: new FormControl('', Validators.required),
-      commodityVarietyId: new FormControl(''),
+      commodityTypeIdLink: new FormControl('', Validators.required),
+      commodityVarietyIdLink: new FormControl(''),
       weigher: new FormControl(''),
+      states: new FormControl(''),
       hauler: new FormControl(''),
       miles: new FormControl(''),
       notes: new FormControl('')
@@ -52,30 +53,38 @@ export class EditWeightsheetComponent {
     // Get the lot using id from the route.
     let idParam = this.activatedRoute.snapshot.paramMap.get('id');
     let id = idParam ? +idParam : 0;
-
     this.weightsheetService.getWeightsheet(BigInt(id))
       .subscribe(sheet => {
         this.weightsheet = sheet;
         console.log(this.weightsheet);
+        console.log('In Get Weight Sheet');
         this.form.patchValue(this.weightsheet);
+        console.log('patched');
       }, e => console.log(e));
 
     this.commodityTypeService.getData()
       .subscribe(commodities => {
         this.commodityTypes = commodities;
+        console.log('In Get Commodity Types');
       }, e => console.log(e));
 
     this.loadService.getLoadsByWeightSheetId(id)
-      .subscribe(result => {
-        this.loads = result
-      }, error => console.log(error));
+    .subscribe(result => {
+      this.loads = result;
+    }, error => console.log(error));
   }
+
+  //this.commodityVarietyService.getByType(this.weightsheet.commodityTypeIdLink)
+  //.subscribe(result => {
+  //  this.commodityVarieties = result;
+  //  console.log('In get Variety by Type');
+  //}, error => console.log(error));
 
   //**********************************************
   // Purpose: When a Commodity Type is selected in the form, the variety select field is
   //    populated with its varieties.
   onSelect(event: Event) {
-    const typeId = Number((event.target as HTMLInputElement).value);
+    const typeId = Number(event);
     this.commodityVarietyService.getByType(typeId)
       .subscribe(result => this.commodityVarieties = result);
   }

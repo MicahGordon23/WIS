@@ -7,7 +7,7 @@
     <!--Commodity Type-->
     <mat-form-field>
       <mat-label>Commodity Type</mat-label>
-      <mat-select required formControlName="commodityTypeId" (change)="onSelect($event)">
+      <mat-select required formControlName="commodityTypeIdLink" (selectionChange)="onSelect($event.value)">
         <mat-option *ngFor="let comType of commodityTypes" value="{{comType.commodityTypeId}}">
           {{ comType.commodityTypeName }}
         </mat-option>
@@ -17,7 +17,7 @@
     <!--Commodity Variety-->
     <mat-form-field>
       <mat-label>Commodity Variety</mat-label>
-      <mat-select formControlName="commodityVarietyId">
+      <mat-select formControlName="commodityVarietyIdLink">
         <mat-option *ngFor="let comVariety of commodityVarieties" value="{{comVariety.commodityVarietyId}}">
           {{ comVariety.commodityVarietyName }}
         </mat-option>

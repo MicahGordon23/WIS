@@ -5,9 +5,12 @@
   <thead>
     <tr>
       <th>Lot Id</th>
-      <th>Producer Id</th>
-      <th>Commodity Type</th>
-      <th>Commodity Variety</th>
+      <th>Proudcer Name</th>
+      <th>Id</th>
+      <th>Commodity Name</th>
+      <th>Id</th>
+      <th>Variety Name</th>
+      <th>Id</th>
       <th>Opened Date</th>
       <th>Closed Date</th>
       <th>Landlord</th>
@@ -20,9 +23,12 @@
       <td>
         <a [routerLink]="['/lot/', lot.lotId]"> {{lot.lotId}} </a>
       </td>
-      <td>{{lot.producerIdLink}}</td>
-      <td>{{lot.commodityTypeIdLink}}</td>
-      <td>{{lot.commodityVarietyIdLink}}</td>
+      <td>{{lot.producerName}}</td>
+      <td>{{lot.producerId}}</td>
+      <td>{{lot.commodityTypeName}}</td>
+      <td>{{lot.commodityTypeId}}</td>
+      <td>{{lot.commodityVarietyName}}</td>
+      <td>{{lot.commodityVarietyId}}</td>
       <td>{{lot.startDate}}</td>
       <td>{{lot.endDate}}</td>
       <td>{{lot.landlord}}</td>

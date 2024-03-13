@@ -26,6 +26,10 @@ export class LotService {
     return this.http.get<LotDto>(this.url + '/Dto/' + lotId, {})
   }
 
+  getAllLotDto(warehouseId: bigint): Observable<LotDto[]> {
+    return this.http.get<LotDto[]>(this.url + '/Dto/Warehouse/' + warehouseId, {});
+  }
+
   //**************************
   // Get all open lots for a warehouse
   getOpenLotsByWarehouse(warehouseId: number): Observable<LotDto[]> {
