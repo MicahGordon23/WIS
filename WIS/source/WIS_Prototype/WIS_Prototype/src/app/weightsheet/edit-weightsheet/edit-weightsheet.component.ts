@@ -74,12 +74,6 @@ export class EditWeightsheetComponent {
     }, error => console.log(error));
   }
 
-  //this.commodityVarietyService.getByType(this.weightsheet.commodityTypeIdLink)
-  //.subscribe(result => {
-  //  this.commodityVarieties = result;
-  //  console.log('In get Variety by Type');
-  //}, error => console.log(error));
-
   //**********************************************
   // Purpose: When a Commodity Type is selected in the form, the variety select field is
   //    populated with its varieties.
@@ -107,12 +101,21 @@ export class EditWeightsheetComponent {
   }
 
   onWeightSheetClose() {
+
     this.weightsheet.dateClosed = new Date();
     // I need this in local time PST
     // Documentation I found was incorrect.
     // Stored in UTC, but will console.log in local time
     this.weightsheet.dateClosed.setUTCHours(this.weightsheet.dateClosed.getUTCHours() - 8);
     console.log(this.weightsheet);
+    this.weightsheetService.put(this.weightsheet).subscribe()
+    this.router.navigate(['/weightsheet']);
+  }
+
+  onReOpen() {
+    this.weightsheet.warehouseIdLink = 1;
+    console.log(this.weightsheet);
+    this.weightsheet.dateClosed = undefined;
     this.weightsheetService.put(this.weightsheet).subscribe()
     this.router.navigate(['/weightsheet']);
   }

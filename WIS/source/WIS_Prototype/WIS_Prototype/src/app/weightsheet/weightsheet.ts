@@ -67,3 +67,22 @@ export class WeightsheetOverview {
     this.commodityTypeName = '';
   }
 }
+
+export class WeightSheetDtoLite {
+  weightsheetId: bigint;
+  producerName?: string;
+  sourceName?: string;
+  commodityTypeName: string
+  commodityVarietyName?: string
+  lotId?: number;
+  notes?: string;
+  sumLoads: number;
+  netWeight: number;
+
+  constructor() {
+    this.weightsheetId = BigInt(0);
+    this.sumLoads = 0;
+    this.netWeight = 0;
+    this.commodityTypeName = '';
+  }
+}

@@ -7,25 +7,25 @@
       <th>Weightsheet Id</th>
       <th>Commodity Type</th>
       <th>Commodity Variety</th>
+      <th>Source Name</th>
       <th>Lot Id</th>
-      <th>Source Id</th>
-      <th>Weigher</th>
-      <th>Miles</th>
       <th>Notes</th>
+      <th>Number of Loads</th>
+      <th>Net Weight</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let weightsheet of weightsheets">
       <td>
-        <a [routerLink]="['/weightsheet/', weightsheet.weightSheetId]">{{weightsheet.weightSheetId}}</a>
-       </td>
-      <td>{{weightsheet.commodityTypeIdLink}}</td>
-      <td>{{weightsheet.commodityVarietyIdLink}}</td>
-      <td>{{weightsheet.lotIdLink}}</td>
-      <td>{{weightsheet.sourceIdLink}}</td>
-      <td>{{weightsheet.weigher}}</td>
-      <td>{{weightsheet.miles}}</td>
+        <a [routerLink]="['/weightsheet/', weightsheet.weightsheetId]">{{weightsheet.weightsheetId}}</a>
+      </td>
+      <td>{{weightsheet.commodityTypeName}}</td>
+      <td>{{weightsheet.commodityVarietyName}}</td>
+      <td>{{weightsheet.sourceName}}</td>
+      <td>{{weightsheet.lotId}}</td>
       <td>{{weightsheet.notes}}</td>
+      <td>{{weightsheet.sumLoads}}</td>
+      <td>{{weightsheet.netWeight}}</td>
     </tr>
   </tbody>
 </table>

@@ -57,6 +57,54 @@ namespace WIS_PrototypeAPI.Controllers
             WeightSheetId, CommodityTypes.CommodityTypeName, CommodityVarieties.CommodityVarietyName,
             Producers.ProducerName, Sources.SourceName, Weightsheets.Notes, Lots.LotId
         */
+
+        // GET: api/Weightsheet/Dto/5
+        [HttpGet("Dto/{warehouseId}")]
+		public async Task<ActionResult<IEnumerable<WeightSheetDtoLite>>> GetAllOpenWeightSheetsLite(int warehouseId)
+		{
+            //var today = DateTime.Now.Date;
+            var result = from weightSheet in _context.Weightsheets
+                         join commodityType in _context.CommodityTypes on weightSheet.CommodityTypeIdLink equals commodityType.CommodityTypeId
+                         join commodityVariety in _context.CommodityVarieties on weightSheet.CommodityVarietyIdLink equals commodityVariety.CommodityVarietyId into cvGroup
+                         from cv in cvGroup.DefaultIfEmpty()
+                         join load in _context.Loads on weightSheet.WeightSheetId equals load.WeightsheetIdLink into loadGroup
+                         join lot in _context.Lots on weightSheet.LotIdLink equals lot.LotId into lotGroup
+                         from l in lotGroup.DefaultIfEmpty()
+                         join producer in _context.Producers on l.ProducerIdLink equals producer.ProducerId into producerGroup
+                         from p in producerGroup.DefaultIfEmpty()
+                         join source in _context.Sources on weightSheet.SourceIdLink equals source.SourceId into sourceGroup
+                         from s in sourceGroup.DefaultIfEmpty()
+                         where weightSheet.WarehouseIdLink == warehouseId
+                         group new { weightSheet, cv, loadGroup, l, p, s } by new
+                         {
+                             weightSheet.WeightSheetId,
+                             commodityType.CommodityTypeName,
+                             CommodityVarietyName = cv.CommodityVarietyName,
+                             ProducerName = p.ProducerName,
+                             SourceName = s.SourceName,
+                             weightSheet.Notes,
+                             LotId = l.LotId
+                         } into grouped
+                         select new WeightSheetDtoLite
+                         {
+                             WeightsheetId = grouped.Key.WeightSheetId,
+                             CommodityTypeName = grouped.Key.CommodityTypeName,
+                             CommodityVarietyName = grouped.Key.CommodityVarietyName,
+                             ProducerName = grouped.Key.ProducerName,
+                             SourceName = grouped.Key.SourceName,
+                             Notes = grouped.Key.Notes,
+                             LotId = grouped.Key.LotId,
+                             SumLoads = grouped.SelectMany(w => w.loadGroup).Count(),
+							 //NetWeight = (long)grouped.SelectMany().Sum(x => x.loadGroup.NetWeight)
+							 NetWeight = (long)grouped.SelectMany(g => g.loadGroup).Sum(l => l.NetWeight)
+						 };
+
+			var finalResult = await result.ToListAsync();
+
+
+			return Ok(finalResult);
+		}
+
 		// GET: api/Weightsheet
 		[HttpGet("Overview/{warehouseId}")]
         public async Task<ActionResult<WeightSheetDto>> GetAllOpenWeightSheets(int warehouseId)
@@ -73,7 +121,7 @@ namespace WIS_PrototypeAPI.Controllers
 						 from p in producerGroup.DefaultIfEmpty()
                          join source in _context.Sources on weightSheet.SourceIdLink equals source.SourceId into sourceGroup
                          from s in sourceGroup.DefaultIfEmpty()
-						 where weightSheet.WarehouseIdLink == 1 && weightSheet.DateClosed == null && weightSheet.DateOpened == DateTime.Today
+						 where weightSheet.WarehouseIdLink == warehouseId && weightSheet.DateClosed == null && weightSheet.DateOpened == DateTime.Today
 						 group new { weightSheet, cv, loadGroup, l, p, s } by new
 						 {
 							 weightSheet.WeightSheetId,

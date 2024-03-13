@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th>Load Id</th>
+      <th>Truck Id</th>
       <th>Grose Weight</th>
       <th>Tare Weight</th>
       <th>Net Weight</th>
@@ -23,6 +24,7 @@
       <td>
         <a [routerLink]="['/load/', load.loadId]"> {{load.loadId}} </a>
       </td>
+      <td>{{load.truckId}}</td>
       <td>{{load.grossWeight}}</td>
       <td>{{load.tareWeight}}</td>
       <td>{{load.netWeight}}</td>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IWeightsheet, Weightsheet, WeightsheetOverview } from './weightsheet';
+import { IWeightsheet, Weightsheet, WeightsheetOverview, WeightSheetDtoLite } from './weightsheet';
 
 // The decortate passing root makes this a singleton.
 @Injectable({
@@ -35,6 +35,10 @@ export class WeightsheetService{
   getWeightsheet(id: bigint): Observable<Weightsheet> {
     
     return this.http.get<Weightsheet>(this.url + '/' + id);
+  }
+
+  getWeightsheetDto(id: number): Observable<WeightSheetDtoLite[]> {
+    return this.http.get<WeightSheetDtoLite[]>(this.url + '/Dto/' + id);
   }
 
   // Edit a single weightsheet. Updated it in the databse
