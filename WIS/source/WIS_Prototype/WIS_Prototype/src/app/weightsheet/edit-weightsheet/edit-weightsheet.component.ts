@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NewWeightsheet, Weightsheet } from '../weightsheet';
@@ -58,9 +58,10 @@ export class EditWeightsheetComponent {
         this.weightsheet = sheet;
         console.log(this.weightsheet);
         console.log('In Get Weight Sheet');
-        this.form.patchValue(this.weightsheet);
-        console.log('patched');
+        this.form.patchValue(sheet);
       }, e => console.log(e));
+
+    
 
     this.commodityTypeService.getData()
       .subscribe(commodities => {
@@ -79,13 +80,13 @@ export class EditWeightsheetComponent {
   //    populated with its varieties.
   onSelect(event: Event) {
     const typeId = Number(event);
-    this.commodityVarietyService.getByType(typeId)
+    this.commodityVarietyService.getByType({ typeId })
       .subscribe(result => this.commodityVarieties = result);
   }
 
   onSubmit() {
-    this.weightsheet.commodityTypeIdLink = this.form.controls['commodityTypeId'].value;
-    this.weightsheet.commodityVarietyIdLink = this.form.controls['commodityVarietyId'].value;
+    this.weightsheet.commodityTypeIdLink = this.form.controls['commodityTypeIdLink'].value;
+    this.weightsheet.commodityVarietyIdLink = this.form.controls['commodityVarietyIdLink'].value;
     this.weightsheet.weigher = this.form.controls['weigher'].value;
     this.weightsheet.miles = this.form.controls['miles'].value;
     this.weightsheet.notes = this.form.controls['notes'].value;

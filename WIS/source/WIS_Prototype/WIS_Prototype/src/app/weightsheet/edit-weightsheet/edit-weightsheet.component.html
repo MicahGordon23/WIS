@@ -39,15 +39,15 @@
     <!--Miles-->
     <mat-form-field>
       <mat-label>Miles</mat-label>
-      <input matInput formControlName="miles" placeholder="Miles" />
+      <input matInput formControlName="miles" placeholder="Miles"/>
     </mat-form-field>
-
-    <!--Notes-->
-    <mat-form-field>
-      <mat-label>Notes</mat-label>
-      <input matInput formcontrolName="notes" placeholder="Notes" />
-    </mat-form-field>
-
+    <div>
+      <!--Notes-->
+      <mat-form-field>
+        <mat-label>Notes</mat-label>
+        <textarea matInput formControlName="notes" placeholder="Notes">{{weightsheet.notes}}</textarea>
+      </mat-form-field>
+    </div>
     <div class="dates">
       <!--Date Opened-->
       <h3>Date Opened</h3>

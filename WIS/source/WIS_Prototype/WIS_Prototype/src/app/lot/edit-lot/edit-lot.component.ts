@@ -80,6 +80,11 @@ export class EditLotComponent {
             console.log(this.producers);
           }, e => console.log(e));
 
+        this.commodityVarietyService.getByType({ typeId: result.commodityVarietyId })
+          .subscribe(result => {
+            this.commodityVarieties = result;
+          }, error => console.log(error));
+
         this.form.patchValue(this.lot);
         //console.log(this.form.controls['producer'].value);
       }, error => console.log(error));
@@ -95,7 +100,7 @@ export class EditLotComponent {
   // Purpose: When a Commodity Type is selected in the form, the variety field is populated.
   onTypeSelect(event: Event) {
     const typeId = Number(event);
-    this.commodityVarietyService.getByType(typeId)
+    this.commodityVarietyService.getByType({ typeId })
       .subscribe(result => {
         this.commodityVarieties = result;
       }, e => console.log(e));

@@ -24,7 +24,7 @@ export class CommodityVarietyService {
     return this.http.get<CommodityVariety[]>(this.url, {});
   }
 
-  getByType(typeId: number): Observable<CommodityVariety[]> {
+  getByType({ typeId }: { typeId: number | undefined; }): Observable<CommodityVariety[]> {
     return this.http.get<CommodityVariety[]>(this.url + '/Type/' + typeId, {})
   }
 }

@@ -9,7 +9,7 @@
       <!--<mat-label>{{lot.producerName}}</mat-label>-->
       <mat-label>Producer</mat-label>
       <mat-select required formControlName="producerId">
-        <mat-option *ngFor="let prod of producers" value="{{prod.producerId}}">
+        <mat-option *ngFor="let prod of producers" [value]="prod.producerId">
           {{ prod.producerName }}
         </mat-option>
       </mat-select>
@@ -19,7 +19,7 @@
     <mat-form-field>
       <mat-label>Commodity Type</mat-label>
       <mat-select required formControlName="commodityTypeId" (selectionChange)="onTypeSelect($event.value)">
-        <mat-option *ngFor="let comType of commodityTypes" value="{{comType.commodityTypeId}}">
+        <mat-option *ngFor="let comType of commodityTypes" [value]="comType.commodityTypeId">
           {{ comType.commodityTypeName }}
         </mat-option>
       </mat-select>
@@ -30,7 +30,7 @@
     <mat-form-field>
       <mat-label>Commodity Variety</mat-label>
       <mat-select formControlName="commodityVarietyId">
-        <mat-option *ngFor="let comVariety of commodityVarieties" value="{{comVariety.commodityVarietyId}}">
+        <mat-option *ngFor="let comVariety of commodityVarieties" [value]="comVariety.commodityVarietyId">
           {{ comVariety.commodityVarietyName }}
         </mat-option>
       </mat-select>
@@ -65,7 +65,7 @@
 
     <mat-form-field class="form-row">
       <mat-label>Notes</mat-label>
-      <input matInput formControlName="notes" placeholder="Notes" />
+      <textarea matInput formControlName="notes" placeholder="Notes">{{lot.notes}}</textarea>
     </mat-form-field>
 
     <!--Date Opened-->

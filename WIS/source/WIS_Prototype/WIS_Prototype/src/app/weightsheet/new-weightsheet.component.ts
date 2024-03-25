@@ -74,7 +74,7 @@ export class NewWeightsheetComponent {
   //    populated with its varieties.
   onSelect(event: Event) {
     const typeId = Number(event);
-    this.commodityVarietyService.getByType(typeId)
+    this.commodityVarietyService.getByType({ typeId })
       .subscribe(result => this.varieties = result);
   }
 

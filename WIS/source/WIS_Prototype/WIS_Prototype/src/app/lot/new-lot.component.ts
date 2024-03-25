@@ -71,7 +71,7 @@ export class NewLotComponent {
   // Purpose: When a Commodity Type is selected in 
   onSelect(event: Event) {
     const typeId = Number(event);
-    this.commodityVarietyService.getByType(typeId)
+    this.commodityVarietyService.getByType({ typeId })
       .subscribe(result => this.varieties = result);
   }
 
