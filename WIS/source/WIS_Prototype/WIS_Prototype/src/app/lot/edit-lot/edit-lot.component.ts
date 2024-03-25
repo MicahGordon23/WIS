@@ -68,32 +68,32 @@ export class EditLotComponent {
     //console.log(this.producers);
 
     this.lotService.getLotDto(BigInt(id))
-      .subscribe(result => {
-        this.lot = result as LotDto;
-        console.log("In Lot Subscribe.");
-        console.log(this.lot);
-
-        this.producerService.getData()
+      .subscribe(lot => {
+        this.lot = lot as LotDto;
+        this.commodityVarietyService.getByType({ typeId: lot.commodityTypeId })
           .subscribe(result => {
-            console.log("In Producer Subscribe.");
-            this.producers = result;
-            console.log(this.producers);
-          }, e => console.log(e));
-
-        this.commodityVarietyService.getByType({ typeId: result.commodityVarietyId })
-          .subscribe(result => {
+            console.log(result);
             this.commodityVarieties = result;
           }, error => console.log(error));
 
+        console.log("In Lot Subscribe.");
+        console.log(this.lot);
         this.form.patchValue(this.lot);
-        //console.log(this.form.controls['producer'].value);
       }, error => console.log(error));
+
+    this.producerService.getData()
+      .subscribe(result => {
+        console.log("In Producer Subscribe.");
+        this.producers = result;
+        console.log(this.producers);
+      }, e => console.log(e));
 
     this.commodityTypeService.getData()
       .subscribe(result => {
         this.commodityTypes = result;
       }, e => console.log(e));
-    console.log(this.form.controls['producerId'].value);
+
+   
   }
 
   //**********************************************
